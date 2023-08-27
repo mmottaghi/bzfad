@@ -1,0 +1,2614 @@
+#@ # 
+#@ # Running pp_shell Version V-2004.06-SP1 for linux -- Aug 23, 2004
+#@ # Date:   Thu Jul 26 14:17:53 2007
+#@ # Run by: mottaghi@shafagh
+#@ 
+
+source /home/cad/synopsys/PP-2004.06-SP1/admin/setup/.synopsys_pp.setup
+#@ #
+#@ # .synopsys_pp.setup: Initialization File for PrimePower
+#@ #
+#@ 
+#@ puts "Welcome to PrimePower!" 
+#@ 
+#@ set search_path [list . ${synopsys_root}/libraries/syn ${synopsys_root}/dw/sim_ver]
+#@ set link_library  { * your_library.db }
+#@ 
+#@ proc list_libs { {opt _xxx_} } {
+#@ 
+#@     if { $opt == "_xxx_" } {
+#@ 	return [list_libraries]
+#@     } 
+#@ 
+#@     return [list_libraries $opt]
+#@ }
+#@ define_proc_attributes list_libs -info "Alias to list_libraries" -define_args {{-only_used "Indicates only the list libraries in use." opt string optional}}
+#@ 
+#@ 
+#@ proc get_clock_tree_cells args {
+#@   parse_proc_arguments -args $args res_array
+#@ 
+#@   if { [array size res_array] == 0 } {
+#@     return [get_clock_tree_objects -type cell]
+#@   } else {
+#@     return [get_clock_tree_objects -type cell -clocks $res_array(-clocks)]
+#@   }
+#@ } 
+#@ 
+#@ proc report_clock_tree_power args {
+#@   parse_proc_arguments -args $args res_array
+#@ 
+#@   if { [array size res_array] == 0 } {
+#@     set clocks [get_clocks *]
+#@   } else {
+#@     set clocks [get_clocks $res_array(-clocks)]
+#@   }
+#@   if { $clocks == "" } { return 0}
+#@ 
+#@   set clock_tree_cells [get_clock_tree_cells -clocks $clocks]
+#@ 
+#@   if { $clock_tree_cells == "" } {
+#@     echo "Error: cannot find any clock tree cells.\n"
+#@     return 0
+#@   } else {
+#@     set t_total       0.0
+#@     set t_dynamic     0.0
+#@     set t_leakage     0.0
+#@     set t_switching   0.0
+#@     set t_internal    0.0
+#@ 
+#@ 
+#@ #   print the header
+#@     echo "************************************************"
+#@     echo "*          Clock Tree Power Report             *"
+#@     echo "************************************************\n"
+#@     
+#@     echo [format "%10s %10s %10s %10s %10s  %s"          "Total" "Dynamic" "Leakage" "Switching" "Internal" "Clock_Tree_Cell"]
+#@     echo "------------------------------------------------------------------------------------------------"
+#@ 
+#@ #   print the body
+#@     foreach_in_collection clk_cell $clock_tree_cells {
+#@       set name      [get_attribute $clk_cell full_name -quiet]
+#@       set total     [get_attribute $clk_cell pp_total_power -quiet]
+#@       set dynamic   [get_attribute $clk_cell pp_dynamic_power -quiet]
+#@       set leakage   [get_attribute $clk_cell pp_leakage_power -quiet]
+#@       set switching [get_attribute $clk_cell pp_switching_power -quiet]
+#@       set internal  [get_attribute $clk_cell pp_internal_power -quiet]
+#@ 
+#@       if { $total == "" } {
+#@ 	  set total     0.
+#@ 	  set dynamic   0.
+#@ 	  set leakage   0.
+#@ 	  set switching 0.
+#@ 	  set internal  0.
+#@       }	  
+#@ 
+#@       echo [format "%10.3e %10.3e %10.3e %10.3e %10.3e  %s"             $total $dynamic $leakage $switching $internal $name]
+#@ 
+#@       set t_total     [expr $t_total + $total]
+#@       set t_dynamic   [expr $t_dynamic + $dynamic]
+#@       set t_leakage   [expr $t_leakage + $leakage]
+#@       set t_switching [expr $t_switching + $switching]
+#@       set t_internal  [expr $t_internal + $internal]
+#@     }
+#@ 
+#@ #   print the total
+#@     echo "------------------------------------------------------------------------------------------------"
+#@     echo [format "%10.3e %10.3e %10.3e %10.3e %10.3e  Total_Clock_Tree" 	      $t_total $t_dynamic $t_leakage $t_switching $t_internal]
+#@     
+#@     echo "\nTotal Number of Clock Tree Cells : [sizeof_collection $clock_tree_cells]\n"
+#@ 
+#@     return 1
+#@   }
+#@ }
+#@ 
+#@ proc get_registers args {
+#@   parse_proc_arguments -args $args res_array
+#@ 
+#@   if { [array size res_array] == 0 } {
+#@     return [get_clock_tree_objects -type register]
+#@   } else {
+#@     return [get_clock_tree_objects -type register -clocks $res_array(-clocks)]
+#@   }
+#@ }
+#@ 
+#@ 
+#@ proc report_register_power args {
+#@   parse_proc_arguments -args $args res_array
+#@ 
+#@   if { [array size res_array] == 0 } {
+#@       set clocks [get_clocks *]
+#@   } else {
+#@       set clocks [get_clocks $res_array(-clocks)]
+#@   }
+#@   if { $clocks == "" } { return 0 }
+#@ 
+#@   set registers [get_registers -clocks $clocks]
+#@ 
+#@   if { [sizeof_collection $registers] == 0 } {
+#@     echo "Error: cannot find any registers.\n"
+#@     return 0
+#@   } else {
+#@     set t_total       0.0
+#@     set t_dynamic     0.0
+#@     set t_leakage     0.0
+#@     set t_switching   0.0
+#@     set t_internal    0.0
+#@ 
+#@ 
+#@ #   print the header
+#@     echo "************************************************"
+#@     echo "*          Register Power Report               *"
+#@     echo "************************************************\n"
+#@     
+#@     echo [format "%10s %10s %10s %10s %10s %s"          "Total" "Dynamic" "Leakage" "Switching" "Internal" "Register Cell"]
+#@     echo "------------------------------------------------------------------------------------------------"
+#@ 
+#@ #   print the body
+#@     foreach_in_collection cell $registers {
+#@       set name [get_attribute $cell full_name -quiet]
+#@       set total   [get_attribute $cell pp_total_power -quiet]
+#@       set dynamic [get_attribute $cell pp_dynamic_power -quiet]
+#@       set leakage [get_attribute $cell pp_leakage_power -quiet]
+#@       set switching [get_attribute $cell pp_switching_power -quiet]
+#@       set internal [get_attribute $cell pp_internal_power -quiet]
+#@ 
+#@       if { $total == "" } {
+#@ 	  set total     0.
+#@ 	  set dynamic   0.
+#@ 	  set leakage   0.
+#@ 	  set switching 0.
+#@ 	  set internal  0.
+#@       }	  
+#@ 
+#@       echo [format "%10.3e %10.3e %10.3e %10.3e %10.3e %s"             $total $dynamic $leakage $switching $internal $name]
+#@ 
+#@       set t_total     [expr $t_total + $total]
+#@       set t_dynamic   [expr $t_dynamic + $dynamic]
+#@       set t_leakage   [expr $t_leakage + $leakage]
+#@       set t_switching [expr $t_switching + $switching]
+#@       set t_internal  [expr $t_internal + $internal]
+#@     }
+#@ 
+#@ #   print the total
+#@     echo "------------------------------------------------------------------------------------------------"
+#@     echo [format "%10.3e %10.3e %10.3e %10.3e %10.3e TOTAL"          $t_total $t_dynamic $t_leakage $t_switching $t_internal]
+#@ 
+#@     echo "\nTotal Number of Registers : [sizeof_collection $registers]\n"
+#@ 
+#@     return 1
+#@   }
+#@ }
+#@ 
+#@ define_proc_attributes get_clock_tree_cells -info "Get cells that belong to the clock networks" -define_args {{-clocks "list or collection of clocks" clocks string optional}}
+#@ 
+#@ define_proc_attributes get_registers -info "Get registers driven by the given clocks" -define_args {{-clocks "list or collection of clocks" clocks string optional}}
+#@ 
+#@ define_proc_attributes report_clock_tree_power -info "Report power for clock network" -define_args {{-clocks "list or collection of clocks" clocks string optional}}
+#@ 
+#@ define_proc_attributes report_register_power -info "Report power for all registers"  -define_args {{-clocks "list or collection of clocks" clocks string optional}}
+#@ 
+#@ 
+#@ proc get_scan_chain_cells { scan_enable_pins } {
+#@   append_to_collection sources [get_ports $scan_enable_pins -quiet]
+#@   append_to_collection sources [get_pins $scan_enable_pins -quiet]
+#@   if { $sources == ""} {
+#@       echo "Error: scan enable pins $scan_enable_pins cannot be found.\n"
+#@       return
+#@   }
+#@ 
+#@   redirect /dev/null {set curinst [current_instance .]; current_instance}
+#@ 
+#@   while { $sources != "" } {
+#@     set nets [get_nets -of_objects $sources -quiet]
+#@     set pins [get_pins -leaf -of_objects $nets -quiet                                                -filter "direction == in"]
+#@     set cells [get_cells -quiet -of_objects $pins                                 -filter "undefined(__is_scan_chain_cell__)"]
+#@     set_user_attribute -quiet $cells __is_scan_chain_cell__ true
+#@     set cells [filter_collection $cells "is_combinational == true"]
+#@     set sources [get_pins -quiet -of_objects $cells -filter "direction == out"]
+#@   }
+#@ 
+#@   set scan_chain_cells [get_cells * -hierarchical -quiet 			     -filter "__is_scan_chain_cell__ == true"]
+#@   remove_user_attribute -quiet $scan_chain_cells __is_scan_chain_cell__ 
+#@ 
+#@   redirect /dev/null {current_instance $curinst} 
+#@ 
+#@   return $scan_chain_cells
+#@ }
+#@ 
+#@ 
+#@ proc report_scan_chain_power { scan_enable_pins } {
+#@   append_to_collection sources [get_ports $scan_enable_pins -quiet]
+#@   append_to_collection sources [get_pins $scan_enable_pins -quiet]
+#@   if { $sources == ""} {
+#@       echo "Error: scan enable pins $scan_enable_pins cannot be found.\n"
+#@       return 0
+#@   }
+#@ 
+#@   set scan_chain_cells [get_scan_chain_cells $sources]
+#@ 
+#@ # now print out
+#@   if { $scan_chain_cells == "" } {
+#@     echo "Error: cannot find any scan chain cells.\n"
+#@     return 0
+#@   } else {
+#@     set t_total       0.0
+#@     set t_dynamic     0.0
+#@     set t_leakage     0.0
+#@     set t_switching   0.0
+#@     set t_internal    0.0
+#@ 
+#@ 
+#@ #   print the header
+#@     echo "************************************************"
+#@     echo "*          Scan Chain Power Report             *"
+#@     echo "************************************************\n"
+#@     
+#@     echo [format "%10s %10s %10s %10s %10s  %s"          "Total" "Dynamic" "Leakage" "Switching" "Internal" "Scan_Chain_Cell"]
+#@     echo "------------------------------------------------------------------------------------------------"
+#@ 
+#@ #   print the body
+#@     foreach_in_collection scan_cell $scan_chain_cells {
+#@       set name      [get_attribute $scan_cell full_name -quiet]
+#@       set total     [get_attribute $scan_cell pp_total_power -quiet]
+#@       set dynamic   [get_attribute $scan_cell pp_dynamic_power -quiet]
+#@       set leakage   [get_attribute $scan_cell pp_leakage_power -quiet]
+#@       set switching [get_attribute $scan_cell pp_switching_power -quiet]
+#@       set internal  [get_attribute $scan_cell pp_internal_power -quiet]
+#@ 
+#@       if { $total == "" } {
+#@ 	  set total     0.
+#@ 	  set dynamic   0.
+#@ 	  set leakage   0.
+#@ 	  set switching 0.
+#@ 	  set internal  0.
+#@       }	  
+#@ 
+#@       echo [format "%10.3e %10.3e %10.3e %10.3e %10.3e  %s"             $total $dynamic $leakage $switching $internal $name]
+#@ 
+#@       set t_total     [expr $t_total + $total]
+#@       set t_dynamic   [expr $t_dynamic + $dynamic]
+#@       set t_leakage   [expr $t_leakage + $leakage]
+#@       set t_switching [expr $t_switching + $switching]
+#@       set t_internal  [expr $t_internal + $internal]
+#@     }
+#@ 
+#@ #   print the total
+#@     echo "------------------------------------------------------------------------------------------------"
+#@     echo [format "%10.3e %10.3e %10.3e %10.3e %10.3e  Total_Scan_Chain" 	      $t_total $t_dynamic $t_leakage $t_switching $t_internal]
+#@     
+#@     echo "\nTotal Number of Scan Chain Cells : [sizeof_collection $scan_chain_cells]\n"
+#@     return 1
+#@   }
+#@ }
+#@ 
+#@ define_proc_attributes report_scan_chain_power -info "Report power for scan chain" -define_args {{scan_enable_pins "a list of scan enable pins" scan_enable_pins string required}}
+#@ define_proc_attributes get_scan_chain_cells -info "get cells for scan chain" -define_args {{scan_enable_pins "a list of scan enable pins" scan_enable_pins string required}}
+#@ define_user_attribute -type boolean -classes cell __is_scan_chain_cell__ -quiet
+#@ # -- End source /home/cad/synopsys/PP-2004.06-SP1/admin/setup/.synopsys_pp.setup
+
+gui_start
+#@ #################################################################################
+#@ #
+#@ # File       : qtcl_spy.tcl
+#@ #
+#@ # Author     : Guenther Heinz
+#@ #              (c) Synopsys, Inc.
+#@ #
+#@ # source /vobs/gui/Ekki/qtcom/qtcl/qtcl_spy.tcl
+#@ #
+#@ #################################################################################
+#@ 
+#@ package provide snpsQtcl 1.0
+#@ 
+#@ 
+#@ namespace eval QtclSpy {
+#@   # name of top window
+#@   set TOPWINDOW "SpyDialog"
+#@   set OPTIONSDLG "Spy0ptions"
+#@   variable SpyDialog ""
+#@   variable infoView
+#@   variable eventView 0
+#@   variable widgetCombo
+#@   variable classCombo
+#@   variable sortInfo
+#@   variable optionsDlg
+#@   variable spyWidget
+#@   variable checkHideWidget
+#@   variable checkDockWidget
+#@   variable bDockSpy 0
+#@   variable bHideSpy 0
+#@   variable eventFilter ""
+#@   variable countFilter 0
+#@     
+#@   array set backup {
+#@     bIsDocked       0
+#@     checkHideWidget ""
+#@     checkDockWidget ""
+#@   }
+#@   
+#@   set SPY_MODAL_DIALOG_BEGIN ""
+#@   set SPY_MODAL_DIALOG_END   ""
+#@   
+#@   array set propSettings {
+#@         label           "Properties"
+#@         nameShow        "showProperties"
+#@         widgetShow      ""
+#@         valueShow       1
+#@         nameInherited   "findPropsInherited"
+#@         widgetInherited ""
+#@         valueInherited  1
+#@         nameFilter      "propertyFilter"
+#@         widgetFilter    ""
+#@         valueFilter     "*"
+#@   }
+#@ 
+#@   array set signalSettings {
+#@         label           "Signals"
+#@         nameShow        "showSignals"
+#@         widgetShow      ""
+#@         valueShow       1
+#@         nameInherited   "findSignalsInherited"
+#@         widgetInherited ""
+#@         valueInherited  1
+#@         nameFilter      "signalFilter"
+#@         widgetFilter    ""
+#@         valueFilter     "*"
+#@   }
+#@ 
+#@   array set slotSettings {
+#@         label           "Slots"
+#@         nameShow        "showSlots"
+#@         widgetShow      ""
+#@         valueShow       1
+#@         nameInherited   "findSlotsInherited"
+#@         widgetInherited ""
+#@         valueInherited  1
+#@         nameFilter      "slotFilter"
+#@         widgetFilter    ""
+#@         valueFilter     "*"
+#@   }
+#@ 
+#@   array set childrenSettings {
+#@         label           "Children"
+#@         nameShow        "showChildren"
+#@         widgetShow      ""
+#@         valueShow       1
+#@         nameInherited   "baseClass"
+#@         widgetInherited ""
+#@         valueInherited  "QWidget"
+#@         nameFilter      "childrenFilter"
+#@         widgetFilter    ""
+#@         valueFilter     "*"
+#@   }
+#@ 
+#@   array set eventSettings {
+#@         label           "Events"
+#@         nameShow        "showEvent"
+#@         widgetShow      ""
+#@         valueShow       1
+#@         nameInherited   "eventName"
+#@         widgetInherited ""
+#@         valueInherited  ""
+#@         nameFilter      "eventFilter"
+#@         widgetFilter    ""
+#@         valueFilter     "*"
+#@   }
+#@ 
+#@   array set eventList {
+#@     "Timer"                0
+#@     "MouseButtonPress"     0
+#@     "MouseButtonRelease"   0
+#@     "MouseButtonDblClick"  0
+#@     "MouseMove" 0
+#@     "KeyPress" 0
+#@     "KeyRelease"         0
+#@     "FocusIn"         0
+#@     "FocusOut"         0
+#@     "Enter"         0
+#@     "Leave"         0
+#@     "Paint"         0
+#@     "Move"         0
+#@     "Resize"         0
+#@     "Create"         0
+#@     "Destroy"         0
+#@     "Show"         0
+#@     "Hide"         0
+#@     "Close"         0
+#@     "QuitReparent"         0
+#@     "ShowMinimized"         0
+#@     "ShowNormal"         0
+#@     "WindowActivate"         0
+#@     "WindowDeactivate"         0
+#@     "ShowToParent"         0
+#@     "HideToParent"         0
+#@     "ShowMaximized"         0
+#@     "ShowFullScreen"         0
+#@     "Accel"         0
+#@     "Wheel"         0
+#@     "AccelAvailable"         0
+#@     "CaptionChange"         0
+#@     "IconChange"         0
+#@     "ParentFontChange"         0
+#@     "ApplicationFontChange"         0
+#@     "ParentPaletteChange"         0
+#@     "ApplicationPaletteChange"         0
+#@     "PaletteChange"         0
+#@     "Clipboard"         0
+#@     "Speech"         0
+#@     "SockAct"         0
+#@     "AccelOverride"         0
+#@     "DeferredDelete"         0
+#@     "DragEnter"         0
+#@     "DragMove"         0
+#@     "DragLeave"         0
+#@     "Drop"         0
+#@     "DragResponse"         0
+#@     "ChildInserted"         0
+#@     "ChildRemoved"         0
+#@     "LayoutHint"         0
+#@     "ShowWindowRequest"         0
+#@     "ActivateControl"         0
+#@     "DeactivateControl"         0
+#@     "ContextMenu"         0
+#@     "IMStart"         0
+#@     "IMCompose"         0
+#@     "IMEnd"         0
+#@     "Accessibility"         0
+#@     "Tablet"         0
+#@   }
+#@ 
+#@ 
+#@   set variable optionSettings
+#@   lappend optionSettings [array get propSettings]
+#@ 
+#@   #------------------------------------------------------------------------------
+#@   # event filter
+#@   #------------------------------------------------------------------------------
+#@   proc filter_events { object event eventName eventInfo } {
+#@     qtcl_set_list_items -name $::QtclSpy::eventView -insert -values [list $eventName $event [date] $eventInfo ]
+#@   }
+#@   
+#@   #------------------------------------------------------------------------------
+#@   # add one property/signal/slot information for listview
+#@   #------------------------------------------------------------------------------
+#@   proc add_property_info { widget property value index } {
+#@     qtcl_set_list_items -name $::QtclSpy::infoView -insert -index $index -values [list $property $value]
+#@   }
+#@ 
+#@ 
+#@   #------------------------------------------------------------------------------
+#@   # add property/signal/slot information for listview
+#@   #------------------------------------------------------------------------------
+#@   proc add_tabledata { widget datalist dataindex index match hlevel} {
+#@ 
+#@     incr hlevel
+#@     set new_index $index
+#@     lappend new_index {-1}
+#@ 
+#@     set dataset [lindex $datalist $dataindex]
+#@     foreach d $dataset {
+#@       set label [lindex $d 1]
+#@       set value [lindex $d 2]
+#@ 
+#@       # apply filter
+#@       if { $match == "" || [string match -nocase $match $label]} {
+#@          add_property_info $widget "$label" "$value" $new_index
+#@       }
+#@     }
+#@ 
+#@     set nextLevels [lindex $datalist 7]
+#@     set pos 0
+#@ 
+#@     foreach nextHierarchy $nextLevels {
+#@       set new_index $index
+#@       lappend new_index  $pos
+#@       add_tabledata $widget "$nextHierarchy" $dataindex $new_index $match $hlevel
+#@       incr pos
+#@     }
+#@     set hlevel [expr $hlevel -1]
+#@   }
+#@ 
+#@ 
+#@   #------------------------------------------------------------------------------
+#@   # clear output window
+#@   #------------------------------------------------------------------------------
+#@   proc clear_output { } {
+#@     qtcl_set_list_items -name $::QtclSpy::eventView -clear
+#@   }
+#@   
+#@ 
+#@   #------------------------------------------------------------------------------
+#@   # update property/signal/slot information for listview
+#@   #------------------------------------------------------------------------------
+#@   proc update_tabledata { widget } {
+#@     echo_trace "#### in update_tabledata: widget=$widget"
+#@     qtcl_set_list_items -name $::QtclSpy::infoView -clear
+#@     qtcl_set_list_items -name $::QtclSpy::infoView -sortcol {-1}
+#@     if { $widget != "" } {
+#@       set exist [qtcl_get_data -name $widget -exist]
+#@       qtcl_set_list_items -name $::QtclSpy::infoView -insert -index {-1} -values " {Existence} $exist"
+#@       qtcl_set_list_items -name $::QtclSpy::infoView -insert -index {-1} -values " {Hierarchical Name} $widget"
+#@       qtcl_set_list_items -name $::QtclSpy::infoView -insert -index {-1} -values " {Unaliased Hierarchical Name} \"[qtcl_get_data -name $widget -fullunaliasedname]\""
+#@       if { $exist } {
+#@         set value [qtcl_get_data -name $widget -class]
+#@         qtcl_set_list_items -name $::QtclSpy::infoView -insert -index {-1} -values " {Class Name} $value"
+#@ 
+#@         set col 4
+#@ 
+#@         # get data on properties        
+#@         if { $::QtclSpy::propSettings(valueShow) } {
+#@           if { $::QtclSpy::propSettings(valueInherited) } {
+#@             set datalist [qtcl_get_data -name $widget -properties -inherited]
+#@           } else {
+#@             set datalist [qtcl_get_data -name $widget -properties]
+#@           }
+#@           set proplist [lindex $datalist 3]
+#@           set i 0
+#@           foreach prop $proplist {
+#@             set propname [lindex $prop 1]
+#@             set isWritable [qtcl_get_property -name $widget -property $propname -writable]
+#@             set isEnum [qtcl_get_property -name $widget -property $propname -enumtype]
+#@             set isSet [qtcl_get_property -name $widget -property $propname -settype]
+#@             set isExtra [qtcl_get_property -name $widget -property $propname -extra]
+#@             if { !$isWritable } {
+#@               set propname "${propname}(RO)"
+#@             }
+#@             if { $isEnum } {
+#@               set propname "${propname}(ENUM)"
+#@             }
+#@             if { $isSet } {
+#@               set propname "${propname}(SET)"
+#@             }
+#@             if { $isExtra } {
+#@               set propname "${propname}(EX)"
+#@             }
+#@             set newprop  [lreplace $prop 1 1 $propname] 
+#@             set proplist [lreplace $proplist $i $i $newprop] 
+#@             incr i
+#@           }
+#@           set datalist [lreplace $datalist 3 3 $proplist] 
+#@ 
+#@           add_property_info $widget "Properties" "" {-1}
+#@           add_tabledata $widget $datalist 3 "$col -1" $::QtclSpy::propSettings(valueFilter) 0
+#@           incr col
+#@         }
+#@       
+#@         # get data on signals
+#@         if { $::QtclSpy::signalSettings(valueShow) } {
+#@           if { $::QtclSpy::signalSettings(valueInherited) } {
+#@             set datalist [qtcl_get_data -name $widget -signals -inherited]
+#@           } else {
+#@             set datalist [qtcl_get_data -name $widget -signals]
+#@           }
+#@           add_property_info $widget "Signals" "" {-1}
+#@           add_tabledata $widget $datalist 4 "$col -1"  $::QtclSpy::signalSettings(valueFilter) 0 
+#@           incr col
+#@         }
+#@ 
+#@         # get data on slots      
+#@         if { $::QtclSpy::slotSettings(valueShow) } {
+#@           if { $::QtclSpy::slotSettings(valueInherited) } {
+#@             set datalist [qtcl_get_data -name $widget -slots -inherited]
+#@           } else {
+#@             set datalist [qtcl_get_data -name $widget -slots]
+#@           }
+#@           add_property_info $widget "Slots" "" {-1}
+#@           add_tabledata $widget $datalist 5  "$col -1"  $::QtclSpy::slotSettings(valueFilter) 0
+#@           incr col
+#@         }
+#@ 
+#@         # get data on children
+#@         if { $::QtclSpy::childrenSettings(valueShow) } {
+#@           set baseclass $::QtclSpy::childrenSettings(valueInherited)
+#@           if { $::QtclSpy::childrenSettings(nameInherited) == "baseClass" } {
+#@             set datalist [qtcl_get_data -name $widget -children -baseclass $baseclass -inherited -recursive]
+#@           } else {
+#@             set datalist [qtcl_get_data -name $widget -children -baseclass $baseclass -recursive]
+#@           }
+#@           add_property_info $widget "Children" "" {-1}
+#@           add_tabledata $widget $datalist 6  "$col"  $::QtclSpy::childrenSettings(valueFilter) 0
+#@           incr col
+#@         }
+#@       }
+#@       
+#@       # deinstall existing event filter
+#@       if { $QtclSpy::eventFilter != "" } {
+#@         qtcl_destroy -name $QtclSpy::eventFilter
+#@         set QtclSpy::eventFilter ""
+#@         qtcl_operate -name dummy -sleep 10
+#@       }
+#@       # clean event list
+#@       qtcl_activate_slot -receiver $QtclSpy::eventView -slot "clear()"
+#@       
+#@       
+#@       if { $::QtclSpy::eventSettings(valueShow) } {
+#@         # install new event filter
+#@         set QtclSpy::eventFilter [qtcl_create -name "EventHandler$QtclSpy::countFilter" -parent $::QtclSpy::SpyDialog -qclass "QtclEventFilter"]
+#@         qtcl_set_property -name $QtclSpy::eventFilter -property "tclCmd" -value "QtclSpy::filter_events %object %event %eventName {%eventInfo}"
+#@         incr QtclSpy::countFilter
+#@       
+#@         foreach w [lsort [array names QtclSpy::eventList]] {
+#@           if { $QtclSpy::eventList($w) } {
+#@             echo "install filter for $w"
+#@             qtcl_activate_slot -receiver $QtclSpy::eventFilter -slot "catchEventOfType(const QString&)" -values "$w"
+#@           }
+#@         }
+#@         qtcl_install_eventfilter -name $widget -filter $QtclSpy::eventFilter
+#@       } 
+#@     }
+#@ 
+#@     toggle_sort [qtcl_get_property -name $::QtclSpy::sortInfo -property "checked"]
+#@   }
+#@ 
+#@ 
+#@   #------------------------------------------------------------------------------
+#@   # toggle sort flag
+#@   #------------------------------------------------------------------------------
+#@   proc toggle_sort { value } {
+#@     echo_trace "#### in toggle_sort: value=value"
+#@     if { $value } {
+#@       set sortCol 0
+#@     } else {
+#@       set sortCol {-1}
+#@     }
+#@     qtcl_set_list_items -name $::QtclSpy::infoView -sortcol $sortCol
+#@   }
+#@ 
+#@ 
+#@   #------------------------------------------------------------------------------
+#@   # return in combobox pressed
+#@   #------------------------------------------------------------------------------
+#@   proc return_in_combo { sender } {
+#@     echo_trace "#### in return_in_combo: sender=$sender"
+#@     set widget [qtcl_get_property -name $sender -property "text"]
+#@     update_tabledata $widget
+#@   }
+#@ 
+#@ 
+#@   #------------------------------------------------------------------------------
+#@   # show new widget
+#@   #------------------------------------------------------------------------------
+#@   proc spy_widget { widget } {
+#@     echo_trace "#### in spy_widget: widget=$widget"
+#@     update_touch $widget
+#@     update_tabledata $widget
+#@     return ""
+#@   }
+#@ 
+#@ 
+#@   #------------------------------------------------------------------------------
+#@   # update touched widget
+#@   #------------------------------------------------------------------------------
+#@   proc update_touch { widget } {
+#@     echo_trace "#### in update_touch: widget=$widget"
+#@     qtcl_set_property -name $::QtclSpy::widgetCombo -property "currentText" -value "$widget"
+#@     return ""
+#@   }
+#@ 
+#@   #------------------------------------------------------------------------------
+#@   # callback when spy gets removed
+#@   #------------------------------------------------------------------------------
+#@   proc remove_spy_window { } {
+#@     set SPY_MODAL_DIALOG_BEGIN ""
+#@     set SPY_MODAL_DIALOG_END   ""
+#@   }
+#@ 
+#@   #------------------------------------------------------------------------------
+#@   #  handle OK button from Options Dialog
+#@   #------------------------------------------------------------------------------
+#@   proc options_ok { sender ok } {
+#@     set row 0
+#@     
+#@     if { $ok } {
+#@     foreach s { ::QtclSpy::propSettings ::QtclSpy::signalSettings ::QtclSpy::slotSettings ::QtclSpy::childrenSettings ::QtclSpy::eventSettings} {
+#@       upvar 0 $s tabledata
+#@       
+#@       set tabledata(valueShow)      [qtcl_get_property -name $tabledata(widgetShow)      -property "checked"]
+#@       if { $tabledata(nameInherited) == "baseClass" } {
+#@         set tabledata(valueInherited) [qtcl_get_property -name $tabledata(widgetInherited) -property "currentText"]
+#@       } elseif { $tabledata(nameInherited) == "eventName" } {
+#@         set wlist [ qtcl_get_list_items -name $tabledata(widgetInherited) ]
+#@         foreach w $wlist {
+#@           regsub -all ".*qt_viewport|cb_" $w "" eventName
+#@           set eventName [string range $eventName 1 end]
+#@           set QtclSpy::eventList($eventName) [qtcl_get_property -name $w -property "checked"]
+#@         }
+#@       } else {
+#@         set tabledata(valueInherited) [qtcl_get_property -name $tabledata(widgetInherited) -property "checked"]
+#@       }
+#@       set tabledata(valueFilter)    [qtcl_get_property -name $tabledata(widgetFilter)    -property "text"]
+#@     }
+#@ 
+#@     if { $::QtclSpy::eventSettings(valueShow) } {
+#@       qtcl_activate_slot -receiver $::QtclSpy::eventView -slot "show()"
+#@     } else {
+#@       qtcl_activate_slot -receiver $::QtclSpy::eventView -slot "hide()"
+#@     }
+#@   
+#@     
+#@     qtcl_activate_slot -receiver $::QtclSpy::optionsDlg -slot "accept()"
+#@     
+#@     set widget [qtcl_get_property -name $::QtclSpy::widgetCombo -property "currentText"]
+#@     update_tabledata $widget
+#@     } else {
+#@       qtcl_activate_slot -receiver $::QtclSpy::optionsDlg -slot "reject()"
+#@     }
+#@     # reset previous cursor
+#@     qtcl_get_property -name APPLICATION -property overrideCursorStack
+#@   }
+#@ 
+#@   proc width_of_rect { rect } {
+#@     echo_trace "#### width_of_rect: rect=$rect"
+#@     return [expr [lindex $rect 2] - [lindex $rect 0] ]
+#@   }
+#@ 
+#@   #------------------------------------------------------------------------------
+#@   #  show options dialog
+#@   #------------------------------------------------------------------------------
+#@   proc show_options_dlg { parent } {
+#@ 
+#@     set wflags [expr $Qt::WType_Modal | $Qt::WDestructiveClose]
+#@     set ::QtclSpy::optionsDlg [qtcl_create -name "$::QtclSpy::OPTIONSDLG" -qclass "QDialog" -parent $parent -wflags $wflags]
+#@ 
+#@ #    qtcl_set_property -name $::QtclSpy::SpyDialog -property "size" -value {450 400}
+#@     qtcl_set_property -name $::QtclSpy::optionsDlg -property "caption" -value "Qtcl Widget Spy - Display Options"
+#@ 
+#@     set vbox [ qtcl_create -name vbox -parent $::QtclSpy::optionsDlg -qclass "QVBox"]
+#@ 
+#@     set table [ qtcl_create -name table -parent $vbox -qclass "QTable"]
+#@     set t1 "Show"
+#@     set t2 "Inherited/Derived\ from"
+#@     set t3 "Name\ Filter"
+#@     set horHeader [qtcl_get_table_cells -name "$table" -hheader]
+#@     lappend values \"$t1\" \"$t2\" \"$t3\"
+#@     qtcl_set_table_cells -name "$table" -column 0 -row {-1} -value "$values"
+#@     set x 12
+#@     set w1 [expr [width_of_rect [qtcl_get_data -name $horHeader -textbox $t1]] + $x]
+#@     set w2 [expr [width_of_rect [qtcl_get_data -name $horHeader -textbox $t2]] + $x]
+#@     set w3 [expr [width_of_rect [qtcl_get_data -name $horHeader -textbox $t3]] + $x]
+#@   #    qtcl_activate_slot -receiver $table -slot "setColumnStretchable(int,int)" -values {1 1}
+#@     qtcl_activate_slot -receiver $table -slot "setColumnWidth(int,int)" -values "0 $w1"
+#@     qtcl_activate_slot -receiver $table -slot "setColumnWidth(int,int)" -values "1 $w2"
+#@     qtcl_activate_slot -receiver $table -slot "setColumnWidth(int,int)" -values "2 $w3"
+#@ 
+#@     set row 0
+#@     
+#@     foreach s { ::QtclSpy::propSettings ::QtclSpy::signalSettings ::QtclSpy::slotSettings ::QtclSpy::childrenSettings ::QtclSpy::eventSettings} {
+#@       upvar 0 $s tabledata
+#@       set col 0
+#@ 
+#@       qtcl_set_table_cells -name "$table" -column {-1} -row $row -value $tabledata(label)
+#@ 
+#@       if { $tabledata(nameShow) != "" } {
+#@         set tt "Show/Hide $tabledata(label)"
+#@         set widget [ qtcl_create -name $tabledata(nameShow) -parent $table -qclass "QCheckBox" -tooltip $tt]
+#@         qtcl_set_table_cells -name "$table" -column $col -row $row -widget $widget
+#@         set tabledata(widgetShow) [qtcl_get_data -name "$table|*|$tabledata(nameShow)" -fullname]
+#@         qtcl_set_property -name $tabledata(widgetShow) -property "checked" -value $tabledata(valueShow)
+#@       }
+#@       incr col
+#@       
+#@       if { $tabledata(nameInherited) != "" } {
+#@         if { $tabledata(nameInherited) == "baseClass" } {
+#@           set tt "Show only children derived from specified baseclass"
+#@           set widget [ qtcl_create -name $tabledata(nameInherited) -qclass "QComboBox" -tooltip $tt]
+#@           qtcl_set_property -name $widget -property "editable" -value "1"
+#@           qtcl_set_list_items -name $widget -insert -index {-1} -values " \"QWidget\" \"QObject\" "
+#@           qtcl_set_property -name $widget -property "currentText" -value $tabledata(valueInherited)
+#@           qtcl_set_table_cells -name "$table" -column $col -row $row -widget $widget
+#@           set tabledata(widgetInherited) [qtcl_get_data -name "$table|*|$tabledata(nameInherited)" -fullname]
+#@         } elseif { $tabledata(nameInherited) == "eventName" } {
+#@           set tt "Show only events marked in list of events"
+#@           set widget [ qtcl_create -name $tabledata(nameInherited) -qclass "QComboBox" -tooltip $tt]
+#@           qtcl_set_property -name $widget -properties "{editable 1} {currentText \"(open combo)\"} "
+#@           set wlist ""
+#@           
+#@           foreach w [lsort [array names QtclSpy::eventList]] {
+#@             set cb [qtcl_create -name cb_$w -qclass "QCheckBox"]
+#@             qtcl_set_property -name $cb -properties "{ maximumHeight 20 } \"text $w\" \"checked $QtclSpy::eventList($w)\" "
+#@             lappend wlist $cb
+#@           } 
+#@           set listbox [qtcl_get_data -name "$widget|*|in-combo" -fullname]
+#@ #          set w qtcl_set_property -name $widget -property "width"
+#@           set w 200
+#@           qtcl_set_property -name $listbox -property "minimumWidth" -value $w
+#@           
+#@           qtcl_set_list_items -name $widget -insert -index {0} -objects "$wlist"
+#@ ##          qtcl_set_list_items -name $widget -insert -index {0} -values "$wlist"
+#@           qtcl_set_table_cells -name "$table" -column $col -row $row -widget $widget
+#@           set tabledata(widgetInherited) [qtcl_get_data -name "$table|*|$tabledata(nameInherited)" -fullname]
+#@ 
+#@         } else {
+#@           set tt "Show only own or also inherited derived information for $tabledata(label)"
+#@           set widget [ qtcl_create -name $tabledata(nameInherited) -parent $table -qclass "QCheckBox" -tooltip $tt]
+#@           qtcl_set_table_cells -name "$table" -column $col -row $row -widget $widget
+#@           set tabledata(widgetInherited) [qtcl_get_data -name "$table|*|$tabledata(nameInherited)" -fullname]
+#@           qtcl_set_property -name $tabledata(widgetInherited) -property "checked" -value $tabledata(valueInherited)
+#@         }
+#@       }
+#@       incr col
+#@           
+#@       if { $tabledata(nameFilter) != "" } {
+#@         set tt "Name filter for information on $tabledata(label)"
+#@         set widget [ qtcl_create -name $tabledata(nameFilter) -parent $table -qclass "QLineEdit" -tooltip $tt]
+#@         qtcl_set_table_cells -name "$table" -column $col -row $row -widget $widget
+#@         set tabledata(widgetFilter) [qtcl_get_data -name "$table|*|$tabledata(nameFilter)" -fullname]
+#@         qtcl_set_property -name $tabledata(widgetFilter) -property "text" -value $tabledata(valueFilter)
+#@       }
+#@       incr col
+#@       incr row
+#@     }
+#@ 
+#@     qtcl_set_property -name $table -property "selectionMode" -value "NoSelection"
+#@     set verHeader [qtcl_get_table_cells -name "$table" -vheader]
+#@     set horHeader [qtcl_get_table_cells -name "$table" -hheader]
+#@     
+#@     set hbox2 [ qtcl_create -name hbox2 -parent $vbox -qclass "QHBox"]
+#@     qtcl_set_property -name $hbox2 -property "sizePolicy" -value { Expanding Fixed FALSE}
+#@ 
+#@     set vbox2 [ qtcl_create -name vbox2 -parent $hbox2 -qclass "QFrame"]
+#@     qtcl_set_property -name $vbox2 -property "sizePolicy" -value { Expanding Fixed FALSE}
+#@ 
+#@     set tt "apply options and close dialog"
+#@     set okBtn [ qtcl_create -name okBtn -parent $hbox2 -qclass "QPushButton" -tooltip $tt]
+#@     qtcl_set_property -name $okBtn -property "text" -value "OK"
+#@     set tt "close dialog without applying changes"
+#@     set cancelBtn [ qtcl_create -name cancelBtn -parent $hbox2 -qclass "QPushButton" -tooltip $tt]
+#@     qtcl_set_property -name $cancelBtn -property "text" -value "Cancel"
+#@ #    qtcl_set_property -name $closeBtn -property "sizePolicy" -value { Fixed Fixed FALSE}
+#@ #    qtcl_set_property -name $closeBtn -property "autoDefault" -value "0"
+#@ 
+#@     qtcl_connect -sender $okBtn -signal "clicked()" -cmd "::QtclSpy::options_ok %sender 1"
+#@     qtcl_connect -sender $cancelBtn -signal "clicked()" -cmd "::QtclSpy::options_ok %sender 0"
+#@ #   qtcl_connect -sender $cancelBtn -signal "clicked()" -receiver $::QtclSpy::optionsDlg -slot "reject()"
+#@ 
+#@ 
+#@     qtcl_set_property -name APPLICATION -property overrideCursorStack -value ArrowCursor
+#@     set ok [qtcl_operate -show -name $::QtclSpy::optionsDlg]
+#@   }
+#@ 
+#@   #------------------------------------------------------------------------------
+#@   #  handle start/end of spy operation
+#@   #------------------------------------------------------------------------------
+#@   proc show_spy { widget show } {
+#@     echo_trace "#### in show_spy: widget=$widget show=$show"
+#@     set checked  [qtcl_get_property -name [qtcl_get_data -name "$::QtclSpy::SpyDialog|*|checkShowSpy" -fullname] -property "checked"]
+#@   
+#@     if { $show } {
+#@       qtcl_set_property -name $widget -property "cursor" -value { ArrowCursor }
+#@       qtcl_operate -show -name $::QtclSpy::spyWidget
+#@       set w [qtcl_get_property -name $::QtclSpy::widgetCombo -property "currentText"]
+#@       qtcl_set_list_items -name $::QtclSpy::widgetCombo -insert -index {0} -values " \"$w\" "
+#@       update_tabledata "$w"
+#@       qtcl_set_property -name $::QtclSpy::infoView -property "enabled" -value 1
+#@     } else {
+#@       set xbm_file [file join $::synopsys_root auxx gui common images toolbars spy_cursor.xbm]
+#@       qtcl_set_property -name $widget -property "cursor" -value $xbm_file
+#@       if { $checked } {
+#@         qtcl_operate -hide -name $::QtclSpy::spyWidget
+#@       } else {
+#@        qtcl_set_property -name $::QtclSpy::infoView -property "enabled" -value 0
+#@       }
+#@     }
+#@     return ""
+#@   }
+#@ 
+#@   proc get_data_list { datalist dataindex indata } {
+#@     foreach data $datalist {
+#@       set children [lindex $data 7]
+#@       set dataset [lindex $data $dataindex]
+#@ 
+#@       foreach d $dataset {        
+#@           lappend indata [lindex $d 1]
+#@       }
+#@       set indata [get_data_list $children $dataindex $indata]
+#@     }
+#@     return $indata
+#@   }
+#@ 
+#@   proc end_modal_dialog { dlg_status } {
+#@     echo_trace "#### end_modal_dialog" 
+#@     if { [qtcl_get_data -name "$::QtclSpy::SpyDialog" -exist]} {
+#@       if { $::QtclSpy::backup(bIsDocked) } {
+#@         set ::QtclSpy::checkHideWidget $::QtclSpy::backup(checkHideWidget)
+#@         set ::QtclSpy::checkDockWidget $::QtclSpy::backup(checkDockWidget)
+#@         qtcl_set_property -name $::QtclSpy::checkHideWidget -property "checked" -value $::QtclSpy::bHideSpy
+#@         set ::QtclSpy::spyWidget "$::QtclSpy::SpyDialog"       
+#@         set ::QtclSpy::backup(bIsDocked) 0
+#@         qtcl_operate -name "$::QtclSpy::SpyDialog" -show
+#@       }
+#@     }
+#@     return $dlg_status
+#@   }
+#@   
+#@   
+#@   proc begin_modal_dialog { dialog } {
+#@     echo_trace "#### begin_modal_dialog: dialog=$dialog" 
+#@     if { [qtcl_get_data -name "$::QtclSpy::SpyDialog" -exist] } {
+#@     set leafName [lindex [split $dialog |] end]
+#@     if { $::QtclSpy::OPTIONSDLG != $leafName } {
+#@     
+#@     #  find a child of specified class type
+#@     set bDock  [qtcl_get_property -name "$::QtclSpy::checkDockWidget" -property "checked"]
+#@     if { $bDock } {
+#@ 
+#@       #uniquify dialog name
+#@       set v [qtcl_create -name VisitorRename -parent $dialog -qclass QtclTreeVisitorTcl]
+#@       qtcl_set_property -name $v -property uniquifyUnnamed -value true
+#@       qtcl_traverse_object_tree1 -name $dialog -visitor $v
+#@ 
+#@       set baseclass "QLayout"
+#@       set infolist [list [qtcl_get_data -name $dialog -children -baseclass $baseclass ]]
+#@       set  widgets [get_data_list $infolist 6 ""]
+#@ 
+#@       set widget [lindex $widgets 0]
+#@       set widget [qtcl_get_data -name "$dialog|$widget" -fullname]
+#@       set ok 0
+#@       while { $ok == 0 } {
+#@        if { [qtcl_get_data -name "$widget" -exist] } {
+#@          if { [ qtcl_get_data -name $widget -derived_from $baseclass ]  } {
+#@            set ok 1
+#@          } else {
+#@            qtcl_set_property -name $widget -property "name" -value "xxxx"
+#@          }
+#@        } else {
+#@          echo "NOT FOUND!"
+#@          set widgets ""
+#@          set ok 1
+#@        }
+#@       }
+#@       if { [llength $widgets] == 0 } {
+#@         set infolist [list [qtcl_get_data -name $dialog -children -baseclass "QHBox" -inherited -recursive]]
+#@         set  widgets [get_data_list $infolist 6 ""]
+#@         if { [llength $widgets] > 0 } {
+#@           set widget [lindex $widgets 0]
+#@           set widget [qtcl_get_data -name "$dialog|*|$widget" -fullname]
+#@         }
+#@       }
+#@ 
+#@       if { [llength $widgets] > 0 } {
+#@         set ::QtclSpy::backup(bIsDocked) 1
+#@         set ::QtclSpy::backup(checkHideWidget) $::QtclSpy::checkHideWidget
+#@         set ::QtclSpy::backup(checkDockWidget) $::QtclSpy::checkDockWidget
+#@         
+#@ #       set widget [lindex $widgets 0]
+#@ #       set widget [qtcl_get_data -name "$dialog|*|$widget" -fullname]
+#@         set vbox [create_spy_widget $widget]
+#@         qtcl_operate -name "$::QtclSpy::checkDockWidget" -hide
+#@         set ::QtclSpy::spyWidget $vbox       
+#@         qtcl_operate -name "$::QtclSpy::SpyDialog" -hide
+#@         qtcl_set_property -name $vbox -property "frameShape" -value "Panel"
+#@         qtcl_set_property -name $vbox -property "frameShadow" -value "Sunken"
+#@         qtcl_set_property -name $vbox -property "margin" -value "4"
+#@         qtcl_set_property -name $vbox -property "paletteBackgroundColor" -value "#C2D2CB"
+#@       }
+#@       qtcl_destroy -name $v
+#@     }
+#@     }
+#@     }
+#@   }
+#@ 
+#@   #------------------------------------------------------------------------------
+#@   #  create/show spy window
+#@   #------------------------------------------------------------------------------
+#@   proc show_spy_window { name } {
+#@     set ::QtclSpy::SpyDialog [qtcl_create -name $name -qclass "QDialog"]
+#@     set ::QtclSpy::spyWidget "$::QtclSpy::SpyDialog"       
+#@     qtcl_set_property -name $::QtclSpy::SpyDialog -property "size" -value {450 400}
+#@     qtcl_set_property -name $::QtclSpy::SpyDialog -property "caption" -value "Qtcl Widget Spy"
+#@     set vbox [::QtclSpy::create_spy_widget $::QtclSpy::SpyDialog]
+#@     
+#@     set hbox4 [ qtcl_create -name hbox4 -parent $vbox -qclass "QHBox"]
+#@ 
+#@     set vbox4 [ qtcl_create -name vbox4 -parent $hbox4 -qclass "QVBox"]
+#@     set tt "Click this button to close window"
+#@     set closeBtn [ qtcl_create -name closeBtn -parent $hbox4 -qclass "QPushButton" -tooltip $tt]
+#@     qtcl_set_property -name $closeBtn -property "sizePolicy" -value { Fixed Fixed FALSE}
+#@     qtcl_set_property -name $closeBtn -property "autoDefault" -value "0"
+#@     qtcl_set_property -name $closeBtn -property "text" -value "&Close"
+#@     qtcl_set_property -name $closeBtn -property "autoDefault" -value "0"
+#@     qtcl_set_property -name $closeBtn -property "sizePolicy" -value { Fixed Fixed FALSE}
+#@     qtcl_set_property -name $closeBtn -property "minimumWidth" -value "80"
+#@     qtcl_connect -sender $closeBtn -signal "clicked()" -receiver $::QtclSpy::SpyDialog -slot "close()"
+#@ 
+#@     qtcl_operate -show -name $::QtclSpy::SpyDialog
+#@   }
+#@   
+#@   
+#@   proc create_spy_widget { parent } {
+#@     set vbox [ qtcl_create -name spy_vbox -parent $parent -qclass "QVBox"]
+#@     set group1 [ qtcl_create -name group1 -parent $vbox -qclass "QGroupBox"]
+#@     qtcl_set_property -name $group1 -property columns -value 1
+#@     qtcl_set_property -name $group1 -property orientation -value Vertical
+#@     qtcl_set_property -name $group1 -property "sizePolicy" -value { Expanding Fixed FALSE}
+#@ 
+#@     qtcl_set_property -name $group1 -property "title" -value "Qt widget Finder Tool"
+#@     set hbox1 [ qtcl_create -name hbox1 -parent $group1 -qclass "QHBox"]
+#@ 
+#@     set text "Drag the Finder Tool over the window to analyze,\nthen release the mouse button."
+#@     set spy   [ qtcl_create -name spy   -parent $hbox1 -qclass "QtclSpy" -tooltip $text]
+#@     qtcl_set_property -name $spy -property "frameShape" -value "Panel"
+#@     qtcl_set_property -name $spy -property "frameShadow" -value "Sunken"
+#@     qtcl_set_property -name $spy -property "sizePolicy" -value { Fixed Fixed FALSE}
+#@     qtcl_set_property -name $spy -property "alignment" -value "AlignCenter"
+#@ 
+#@     set vbox2 [ qtcl_create -name vbox2  -parent $hbox1 -qclass "QVBox"]
+#@     set frame [ qtcl_create -name frame -parent $vbox2 -qclass "QLabel"]
+#@     qtcl_set_property -name $frame -property "frameShape" -value "Panel"
+#@     qtcl_set_property -name $frame -property "frameShadow" -value "Sunken"
+#@     qtcl_set_property -name $frame -property "text" -value "$text"
+#@     qtcl_set_property -name $frame -property "sizePolicy" -value { Expanding Fixed FALSE}
+#@ 
+#@     set hbox5 [ qtcl_create -name hbox5 -parent $vbox2 -qclass "QHBox"]
+#@ 
+#@     set tt "Set check to hide spy window while dragging the finder tool" 
+#@     set check [ qtcl_create -name checkShowSpy -parent $hbox5 -qclass "QCheckBox" -tooltip $tt]
+#@     qtcl_set_property -name $check -property "text" -value "&Hide SPY"
+#@     qtcl_set_property -name $check -property "checked" -value $::QtclSpy::bHideSpy
+#@     set ::QtclSpy::checkHideWidget $check
+#@     qtcl_connect -sender $check -signal "toggled(bool)" -cmd "set \"::QtclSpy::bHideSpy\" %1"
+#@ 
+#@     set tt "Set check to dock widget spy into modal doalog" 
+#@     set check [ qtcl_create -name checkDock -parent $hbox5 -qclass "QCheckBox" -tooltip $tt]
+#@     qtcl_set_property -name $check -property "text" -value "&Dock SPY into modal dialog"
+#@     qtcl_set_property -name $check -property "checked" -value $::QtclSpy::bDockSpy
+#@     qtcl_connect -sender $check -signal "toggled(bool)" -cmd "set \"::QtclSpy::bDockSpy\" %1"
+#@     set ::QtclSpy::checkDockWidget $check
+#@ 
+#@     set group2 [ qtcl_create -name group2 -parent $vbox -qclass "QGroupBox"]
+#@     qtcl_set_property -name $group2 -property columns -value 1
+#@     qtcl_set_property -name $group2 -property orientation -value Vertical
+#@     qtcl_set_property -name $group2 -property "title" -value "Selected Qt Widget"
+#@ 
+#@     set vbox3 [ qtcl_create -name vbox3 -parent $group2 -qclass "QVBox"]
+#@ 
+#@     set tt "List of recent selected widgets" 
+#@     set ::QtclSpy::widgetCombo [ qtcl_create -name nameCombo -parent $vbox3 -qclass "QComboBox" -tooltip $tt]
+#@     qtcl_set_property -name $::QtclSpy::widgetCombo -property "editable" -value "1"
+#@     qtcl_set_property -name $::QtclSpy::widgetCombo -property "currentText" -value ""
+#@ 
+#@ 
+#@     set tt "List of various sets of information on selected widget." 
+#@ 
+#@     set infoSplitter [ qtcl_create -name infoView -parent $vbox3 -qclass "QSplitter"]
+#@     qtcl_set_property -name $infoSplitter -property "orientation" -value "Vertical"
+#@ 
+#@     set ::QtclSpy::infoView [ qtcl_create -name infoView -parent $infoSplitter -qclass "QListView" -tooltip $tt]
+#@     qtcl_set_property -name $::QtclSpy::infoView -property "resizeMode" -value  "LastColumn"
+#@     qtcl_set_property -name $::QtclSpy::infoView -property "rootIsDecorated" -value  "1"
+#@     qtcl_set_list_items      -name $::QtclSpy::infoView -sortcol {-1} -insert -columns { {Information} {Value} }
+#@     qtcl_set_property -name $::QtclSpy::infoView -property "resizeMode" -value  "LastColumn"
+#@     qtcl_set_property -name $::QtclSpy::infoView -property "showSortIndicator" -value  "1"
+#@ 
+#@     set hbox3 [ qtcl_create -name hbox3 -parent $vbox3 -qclass "QHBox"]
+#@     qtcl_set_property -name $hbox3 -property "sizePolicy" -value { Expanding Fixed FALSE}
+#@ 
+#@     set tt "Set check to sort information.\nClick on column header to selet sort column or change sort direction." 
+#@     set ::QtclSpy::sortInfo [ qtcl_create -name sortInfo -parent $hbox3 -qclass "QCheckBox" -tooltip $tt]
+#@     qtcl_set_property -name $::QtclSpy::sortInfo -property "text" -value "&Sort displayed object information     "
+#@ 
+#@     set spacer [ qtcl_create -name "spacer1" -parent $hbox3 -qclass "QFrame"]
+#@ 
+#@     set clearBtn [ qtcl_create -name clearBtn -parent $hbox3 -qclass "QPushButton"]
+#@     qtcl_set_property -name $clearBtn -property text -value "Clear &Output"
+#@     qtcl_set_property -name $clearBtn -property "sizePolicy" -value { Fixed Fixed FALSE}
+#@ 
+#@     set optionsBtn [ qtcl_create -name optionsBtn -parent $hbox3 -qclass "QPushButton"]
+#@     qtcl_set_property -name $optionsBtn -property text -value "&Display Options..."
+#@     qtcl_set_property -name $optionsBtn -property "sizePolicy" -value { Fixed Fixed FALSE}
+#@     qtcl_set_property -name $optionsBtn -property "autoDefault" -value "0"
+#@ 
+#@     set tt "Catched events of selected widget." 
+#@     set ::QtclSpy::eventView [ qtcl_create -name eventView -parent $infoSplitter -qclass "QListView" -tooltip $tt]
+#@     qtcl_set_list_items -name $::QtclSpy::eventView -sortcol {-1} -insert -columns { {Name} {Id} {Date} {Information}}
+#@     qtcl_set_property -name $::QtclSpy::eventView -property "resizeMode" -value  "LastColumn"
+#@     qtcl_set_property -name $::QtclSpy::eventView -property "allColumnsShowFocus" -value  "1"
+#@ 
+#@     if { !$::QtclSpy::eventSettings(valueShow) } {
+#@       qtcl_activate_slot -receiver $::QtclSpy::eventView -slot "hide()"
+#@     }    
+#@ 
+#@ #    set label [ qtcl_create -name classLabel -parent $hbox3 -qclass "QLabel"]
+#@ #    qtcl_set_property -name $label -property "text" -value "  &Base class of children: "
+#@ #    qtcl_set_property -name $label -property "alignment" -value "AlignRight|AlignVCenter"
+#@ #    
+#@ #    set tt "Base class for scanned children" 
+#@ #    set ::QtclSpy::classCombo [ qtcl_create -name classCombo -parent $hbox3 -qclass "QComboBox" -buddy $label -tooltip $tt]
+#@ #    qtcl_set_property -name $::QtclSpy::classCombo -property "editable" -value "1"
+#@ #    qtcl_set_list_items -name $::QtclSpy::classCombo -insert -index {-1} -values " \"QWidget\" \"QObject\" "
+#@ #    qtcl_set_property -name $::QtclSpy::classCombo -property "currentItem" -value "0"
+#@ 
+#@     set edit [qtcl_get_data -name "$::QtclSpy::widgetCombo|*|combo edit" -fullname]
+#@     qtcl_connect -sender $edit -signal "returnPressed()" -cmd "QtclSpy::return_in_combo %sender"
+#@     qtcl_connect -sender $spy -signal "widgetTouched(const QString&)" -cmd "QtclSpy::update_touch %1"
+#@     qtcl_connect -sender $spy -signal "startFind()" -cmd "QtclSpy::show_spy %sender 0"
+#@     qtcl_connect -sender $spy -signal "endFind()" -cmd "QtclSpy::show_spy %sender 1"
+#@     qtcl_connect -sender $::QtclSpy::widgetCombo -signal "activated(const QString&)" -cmd "QtclSpy::update_tabledata %1"
+#@     qtcl_connect -sender $::QtclSpy::sortInfo -signal "toggled(bool)" -cmd "QtclSpy::toggle_sort %1"
+#@     qtcl_connect -sender $optionsBtn -signal "clicked()" -cmd "QtclSpy::show_options_dlg $::QtclSpy::SpyDialog"
+#@     qtcl_connect -sender $clearBtn -signal "clicked()" -cmd "QtclSpy::clear_output"
+#@     qtcl_connect -sender $::QtclSpy::SpyDialog -signal "destroyed()" -cmd "::QtclSpy::remove_spy_window"
+#@ 
+#@     set QtclSpy::SPY_MODAL_DIALOG_BEGIN "QtclSpy::begin_modal_dialog"
+#@     set QtclSpy::SPY_MODAL_DIALOG_END "QtclSpy::end_modal_dialog"
+#@ 
+#@     return $vbox
+#@   }
+#@ }
+#@ 
+#@ 
+#@ #------------------------------------------------------------------------------
+#@ #  define main tcl proecusre to show spy window
+#@ #------------------------------------------------------------------------------
+#@ proc qtcl_spy { { parent TOPWINDOW }} {
+#@   if { [qtcl_get_data -name  "|$parent" -exist] } {
+#@     qtcl_destroy -name "|$parent"
+#@   }
+#@   QtclSpy::show_spy_window $parent
+#@ }
+#@ define_proc_attributes qtcl_spy -hidden
+#@ # -- End source /home/cad/synopsys/PP-2004.06-SP1/auxx/gui/common/qtcl/qtcl_spy.tcl
+
+#@ #########################################################################
+#@ # helpful Qt constants and tcl procedures
+#@ # 
+#@ # Synopsys Inc.
+#@ #
+#@ #########################################################################
+#@ 
+#@ # debugger_eval { source /vobs/snps/synopsys/auxx/gui/common/qtcl/.synopsys_qtcl.tcl }
+#@ 
+#@ package provide snpsQtcl 1.0
+#@ 
+#@ 
+#@ 
+#@ #========================= begin of namespace Qt ========================
+#@ namespace eval Qtcl {
+#@   # default 'Required' visualizer
+#@   variable RequiredMarker ">>"
+#@ 
+#@   # separator symbol for hierarchical widget name
+#@   variable HNameSeparator "|"
+#@ 
+#@   # search path for pixmap files (e.g., *.bmp)
+#@   variable PixmapSearchPath "./"
+#@ 
+#@   # search path for ui files from Qt Designer (e.g., *.ui)
+#@   variable UIFileSearchPath "./"
+#@ 
+#@   # Variable that can be set to suppress all dialogs
+#@   variable suppressDialogs ""
+#@ 
+#@   namespace eval ButtonState {
+#@ 	variable NoButton         0x0000
+#@ 	variable LeftButton	  0x0001
+#@ 	variable RightButton	  0x0002
+#@ 	variable MidButton	  0x0004
+#@ 	variable MouseButtonMask  0x00ff
+#@ 	variable ShiftButton	  0x0100
+#@ 	variable ControlButton    0x0200
+#@ 	variable AltButton	  0x0400
+#@ 	variable MetaButton	  0x0800
+#@ 	variable KeyButtonMask	  0x0fff
+#@ 	variable Keypad		  0x4000
+#@   }
+#@ 
+#@   ########################   p r o c e d u r e s   #########################
+#@ 
+#@   # convert key code
+#@   proc keycode { ctrl key } {
+#@     binary scan key c ascii
+#@     return [expr $ascii + $ctrl]
+#@   }
+#@ 
+#@   #========================= begin of namespace helper ======================
+#@   namespace eval helper {
+#@     proc pretty_dump_properties { INDENT prop_list } {
+#@       global dumpstr
+#@       foreach prop $prop_list {
+#@         append dumpstr "$INDENT  \<[lindex $prop 0]\> [lindex $prop 1] [lindex $prop 2]\n"
+#@       }
+#@     }
+#@ 
+#@     proc pretty_dump_children { INDENT children_list } {
+#@       global dumpstr
+#@       foreach child $children_list {
+#@         append dumpstr "$INDENT  \<[lindex $child 0]\> [lindex $child 1]\n"
+#@       }
+#@     }
+#@ 
+#@     proc pretty_dump_signals { INDENT signal_list } {
+#@       global dumpstr
+#@       foreach signal $signal_list {
+#@         append dumpstr "$INDENT  \<[lindex $signal 0]\> [lindex $signal 1]\n"
+#@       }
+#@     }
+#@ 
+#@     proc pretty_dump_slots { INDENT slot_list } {
+#@       global dumpstr
+#@       foreach slot $slot_list {
+#@         append dumpstr "$INDENT  \<[lindex $slot 0]\> [lindex $slot 1]\n"
+#@       }
+#@     }
+#@ 
+#@     proc pretty_dump_object { INDENT object_list } {
+#@       global dumpstr
+#@       foreach obj $object_list {
+#@         append dumpstr "$INDENT\<[lindex $obj 0]\> [lindex $obj 1]::[lindex $obj 2]\n"
+#@         set children [lindex $obj 6]
+#@         pretty_dump_children $INDENT $children
+#@         set properties [lindex $obj 3]
+#@         pretty_dump_properties $INDENT $properties
+#@         set signals [lindex $obj 4]
+#@         pretty_dump_signals $INDENT $signals
+#@         set slots [lindex $obj 5]
+#@         pretty_dump_slots $INDENT $slots
+#@         set old_indent $INDENT
+#@         set INDENT "$INDENT-+"
+#@         set nextlevel [lindex $obj 7]
+#@         pretty_dump_object $INDENT $nextlevel
+#@         set INDENT $old_indent
+#@       }
+#@     }
+#@   }
+#@   #========================= end of namespace helper ======================
+#@ 
+#@   # Proc to format the output of qtcl_get_widget data.
+#@   # An example of its usage is:
+#@   # Qtcl::pretty_dump_print [qtcl_get_widget_data  -recursive   #                         -name [gui_window_hier_name -window Layout.1]]
+#@   # This command prints the hierarchy of the Layout.1 window (if it exists)
+#@   proc pretty_dump_print { dump } {
+#@       global dumpstr
+#@     echo "#### DUMP OBJECT TREE ####"
+#@     set INDENT "+"
+#@     set dumpstr ""
+#@     set object_list [list $dump]
+#@     helper::pretty_dump_object $INDENT $object_list
+#@     echo $dumpstr
+#@   }
+#@ 
+#@ }
+#@ #========================= begin of namespace Qtcl ======================
+#@ 
+#@ #========================= begin of namespace Qt ========================
+#@ namespace eval Qt {
+#@ 
+#@   variable SHIFT  0x00200000
+#@   variable CTRL   0x00400000
+#@   variable ALT    0x00800000
+#@ 
+#@   # widget flags
+#@   variable WType_TopLevel      0x00000001
+#@   variable WType_Dialog        0x00000002
+#@   variable WType_Popup         0x00000004
+#@   variable WType_Desktop       0x00000008
+#@   variable WType_Mask          0x0000000f
+#@   variable WStyle_Customize    0x00000010
+#@   variable WStyle_NormalBorder 0x00000020
+#@   variable WStyle_DialogBorder 0x00000040
+#@   variable WStyle_NoBorder     0x00002000
+#@   variable WStyle_Title        0x00000080
+#@   variable WStyle_SysMenu      0x00000100
+#@   variable WStyle_Minimize     0x00000200
+#@   variable WStyle_Maximize     0x00000400
+#@   variable WStyle_MinMax       [expr $WStyle_Minimize | $WStyle_Maximize]
+#@   variable WStyle_Tool         0x00000800
+#@   variable WStyle_StaysOnTop   0x00001000
+#@   variable WStyle_ContextHelp  0x00004000
+#@   variable WStyle_Reserved     0x00008000
+#@   variable WStyle_Mask         0x0000fff0
+#@   variable WDestructiveClose   0x00010000
+#@   variable WPaintDesktop       0x00020000
+#@   variable WPaintUnclipped     0x00040000
+#@   variable WPaintClever        0x00080000
+#@   variable WResizeNoErase      0x00100000
+#@   variable WMouseNoMask        0x00200000
+#@   variable WStaticContents     0x00400000
+#@   variable WRepaintNoErase     0x00800000
+#@   variable WX11BypassWM        0x01000000
+#@   variable WWinOwnDC           0x00000000
+#@   variable WGroupLeader        0x02000000
+#@   variable WShowModal          0x04000000
+#@   variable WNoMousePropagation 0x08000000
+#@   variable WSubWindow          0x10000000
+#@   variable WNorthWestGravity   $WStaticContents
+#@   variable WType_Modal         [expr $WType_Dialog | $WShowModal ]
+#@   variable WStyle_Dialog       $WType_Dialog
+#@   variable WStyle_NoBorderEx   $WStyle_NoBorder
+#@ 
+#@   # alignment flags
+#@   variable AlignAuto           0x0000 
+#@   variable AlignLeft	       0x0001
+#@   variable AlignRight	       0x0002
+#@   variable AlignHCenter	       0x0004
+#@   variable AlignJustify	       0x0008
+#@   variable AlignHorizontal_Mask	   [expr $Qt::AlignLeft | $Qt::AlignRight | $Qt::AlignHCenter | $Qt::AlignJustify ]
+#@   variable AlignTop	       0x0010
+#@   variable AlignBottom	       0x0020
+#@   variable AlignVCenter	       0x0040
+#@   variable AlignVertical_Mask  [expr $Qt::AlignTop | $Qt::AlignBottom | $Qt::AlignVCenter ]
+#@   variable vAlignCenter	       [expr $Qt::AlignVCenter | $Qt::AlignHCenter ]
+#@ }
+#@ 
+#@ 
+#@ #========================= end of namespace Qt =========================
+#@ 
+#@ 
+#@ #======================== begin alias for current qtcl functions============
+#@ 
+#@ 
+#@ alias qtcl_activate_widget_slot    qtcl_activate_slot
+#@ alias qtcl_add_widget_property     qtcl_add_property
+#@ alias qtcl_check_widget            qtcl_check
+#@ alias qtcl_connect_widgets         qtcl_connect
+#@ alias qtcl_create_widget           qtcl_create
+#@ alias qtcl_destroy_widget          qtcl_destroy
+#@ alias qtcl_disconnect_widgets      qtcl_disconnect
+#@ alias qtcl_get_widget_data         qtcl_get_data
+#@ alias qtcl_get_widget_property     qtcl_get_property
+#@ alias qtcl_operate_widget          qtcl_operate
+#@ alias qtcl_remove_widget_property  qtcl_remove_property
+#@ alias qtcl_set_widget_property     qtcl_set_property
+#@ 
+#@ #======================== end alias for current qtcl functions==============
+#@ 
+#@ 
+#@ # Namespace holding variables containing the hierarchical names
+#@ # of dialogs
+#@ namespace eval QtclWidgets {
+#@ }
+#@ 
+#@ 
+#@ namespace eval QtclInternal {
+#@ }
+#@ 
+#@ proc QtclInternal::suppressMessageBox { } {
+#@     return $::Qtcl::suppressDialogs
+#@ }
+#@ define_proc_attributes QtclInternal::suppressMessageBox -hidden
+#@ 
+#@ proc QtclInternal::suppressModelessDialog { } {
+#@     return $::Qtcl::suppressDialogs
+#@ }
+#@ define_proc_attributes QtclInternal::suppressModelessDialog -hidden
+#@ 
+#@ proc QtclInternal::suppressModalDialog { } {
+#@     return $::Qtcl::suppressDialogs
+#@ }
+#@ define_proc_attributes QtclInternal::suppressModalDialog -hidden
+#@ 
+#@ proc QtclInternal::showValidationDialog { args } {
+#@      parse_proc_arguments -args $args options
+#@ 
+#@     set title [qtcl_get_property -name $options(-dialog) -property caption]
+#@     
+#@     Qtcl::messageBox -title "Dialog '$title' Invalid" -icon Warning -text "The validation of dialog '$title' has yielded [llength $options(-errors)] errors.\nNo action will take place."
+#@ }
+#@ define_proc_attributes QtclInternal::showValidationDialog -hidden
+#@ define_proc_attributes QtclInternal::showValidationDialog     -define_args {
+#@         {-errors "List of found errors" AList string required}
+#@         {-dialog "Validated dialog" AName string required}
+#@     }
+#@ 
+#@ # Execute the validate command of the dialog and the standard
+#@ # validation for dialogs.
+#@ # Any %dialog in the command is substituted by the hierarchical
+#@ # name of the dialog and any %contents is substituted by
+#@ # the hierarchical name of the contents of the dialog.
+#@ # If the command returns the empty list {}, no error has
+#@ # occured. If the result of the command is not the empty string,
+#@ # it should be a list of list.
+#@ # Each element of the list describes one error in the dialog.
+#@ # Each error is described by a list that can be read by
+#@ # array get.
+#@ proc QtclInternal::validateDialog { dialog contents } {
+#@     if { ![qtcl_get_property -name $dialog -property validateCommand -exist] } {
+#@         # Later we will call a default error checking function
+#@         return {}
+#@     }
+#@     set cmd [qtcl_get_property -name $dialog -property validateCommand]
+#@     regsub -all "%dialog" $cmd $dialog cmd
+#@     regsub -all "%contents" $cmd $contents cmd
+#@ 
+#@     if { [catch { eval $cmd } r] } {
+#@         # Any special error handling here?
+#@     }
+#@ 
+#@     if { $r != {} } {
+#@         QtclInternal::showValidationDialog -errors $r -dialog $dialog
+#@     }
+#@     return $r
+#@ }
+#@ define_proc_attributes QtclInternal::validateDialog -hidden
+#@ 
+#@ # Execute the OK command of a cialog
+#@ proc QtclInternal::executeOkCmd { OKCmd dialog contents {action close}} {
+#@ 
+#@     set r [::QtclInternal::validateDialog $dialog $contents]
+#@     if { $r != {} } {
+#@         # An error occurred. Do not continue
+#@         return $r
+#@     }
+#@ 
+#@     regsub -all "%dialog" $OKCmd $dialog OKCmd
+#@     regsub -all "%contents" $OKCmd $contents OKCmd
+#@ 
+#@     # Hide the dialog before starting processing
+#@     qtcl_activate_slot -receiver "$dialog" -slot "hide()"
+#@ 
+#@     # Make sure that wait cursor is shown while command is executed
+#@     qtcl_set_property -name APPLICATION -property overrideCursorStack -value { WaitCursor }
+#@     if { [catch { eval $OKCmd } r] } {
+#@         set r "stay"
+#@         # Do we want more error processing here????
+#@     }
+#@     qtcl_get_property -name APPLICATION -property overrideCursorStack
+#@ 
+#@     if { $r != "stay" } {
+#@         qtcl_activate_slot -receiver "$dialog" -slot "accept()"
+#@         if { [string compare $action "close"] == 0 } {
+#@             qtcl_activate_slot -receiver "$dialog" -slot "close()"
+#@         } else {
+#@             if { [string compare $action "destroy"] == 0 } {
+#@                 qtcl_destroy -name $dialog
+#@             } else {
+#@                 if { [string compare $action "hide"] == 0 } {
+#@                     qtcl_activate_slot -receiver "$dialog" -slot "hide()"
+#@                 }
+#@             }
+#@         }
+#@     } else {
+#@         qtcl_activate_slot -receiver "$dialog" -slot "show()"
+#@     }
+#@     return $r
+#@ }
+#@ define_proc_attributes QtclInternal::executeOkCmd -hidden
+#@ 
+#@ 
+#@ 
+#@ proc QtclInternal::executeApplyCmd { OKCmd dialog contents } {
+#@     set r [::QtclInternal::validateDialog $dialog $contents]
+#@     if { $r != {} } {
+#@         # An error occurred. Do not continue
+#@         return $r
+#@     }
+#@ 
+#@     regsub -all "%dialog" $OKCmd $dialog OKCmd
+#@     regsub -all "%contents" $OKCmd $contents OKCmd
+#@ 
+#@     qtcl_set_property -name APPLICATION -property overrideCursorStack -value { WaitCursor }
+#@     if { [catch { eval $OKCmd } r] } {
+#@         # Do we want any error processing here????
+#@     }
+#@     qtcl_get_property -name APPLICATION -property overrideCursorStack
+#@ 
+#@     return $r
+#@ }
+#@ define_proc_attributes QtclInternal::executeApplyCmd -hidden
+#@ 
+#@ proc QtclInternal::GenericTextLabelPseudoCreator { text parent dialog } {
+#@     set box [qtcl_create -name Text -qclass QLabel -parent $parent]
+#@     qtcl_set_property -name $box -property text -value $text
+#@ 
+#@     return $box
+#@ }
+#@ define_proc_attributes QtclInternal::GenericTextLabelPseudoCreator -hidden
+#@ 
+#@ # Variable used to store result of message box
+#@ set QtclInternal::messageBoxResultVar 0
+#@ 
+#@ 
+#@ #========================= begin of Qtcl library ========================
+#@ 
+#@ 
+#@ # Execute Tcl command $cmd in the stack frame of the caller.
+#@ # Make sure that the normal cursor is shown and not the wait cursor.
+#@ # This proc should be used to to invoke a modal dialog that is not
+#@ # invoked by Qtcl::modalDialog.
+#@ # As an example of the usage you can look at Qtcl::modalDialog in this file
+#@ proc Qtcl::executeWithStandardCursor { cmd { cursor ArrowCursor } } {
+#@      set current_cursor [qtcl_get_property -name APPLICATION -property overrideCursorStack]
+#@      qtcl_set_property -name APPLICATION -property overrideCursorStack -value $cursor
+#@      set r [catch { uplevel 1 "eval $cmd" } errmsg]
+#@      qtcl_set_property -name APPLICATION -property overrideCursor -value $current_cursor
+#@      if { $r } {
+#@          error $errmsg $::errorInfo
+#@      }
+#@ }
+#@ # Create widget that expands to all directions preventing
+#@ # other widgets from growing
+#@ set QtclInternal::ExpanderCounter 0
+#@ proc Qtcl::createExpander { parent } {
+#@     set expander [qtcl_create -name "Expander${::QtclInternal::ExpanderCounter}" -qclass QWidget -parent $parent]
+#@     incr ::QtclInternal::ExpanderCounter
+#@     qtcl_set_property -name $expander -property sizePolicy -value { Expanding Expanding FALSE }
+#@ 
+#@     return $expander
+#@ }
+#@ 
+#@ proc Qtcl::createHExpander { parent { w {-1} }} {
+#@     set expander [qtcl_create -name "Expander${::QtclInternal::ExpanderCounter}" -qclass QWidget -parent $parent]
+#@     incr ::QtclInternal::ExpanderCounter
+#@     if { $w < 0 } {
+#@       qtcl_set_property -name $expander -property sizePolicy -value { Expanding Fixed FALSE }
+#@     } else {
+#@       qtcl_set_property -name $expander -property minimumWidth -value $w
+#@       qtcl_set_property -name $expander -property sizePolicy -value { Fixed Fixed FALSE }
+#@     }
+#@ 
+#@     return $expander
+#@ }
+#@ 
+#@ proc Qtcl::createVExpander { parent { h {-1} }} {
+#@     set expander [qtcl_create -name "Expander${::QtclInternal::ExpanderCounter}" -qclass QWidget -parent $parent]
+#@     incr ::QtclInternal::ExpanderCounter
+#@     if { $h < 0 } {
+#@       qtcl_set_property -name $expander -property sizePolicy -value { Fixed Expanding FALSE }
+#@     } else {
+#@       qtcl_set_property -name $expander -property minimumHeight -value $h
+#@       qtcl_set_property -name $expander -property sizePolicy -value { Fixed Fixed FALSE }
+#@     }
+#@     return $expander
+#@ }
+#@ 
+#@ 
+#@ # Make sure that this namespace exists, because it is used by procs
+#@ # in this file
+#@ namespace eval ::DialogWidgets {
+#@ }
+#@ 
+#@ # General proc to create a dialog.
+#@ # This proc does NOT show the dialog but returns it.
+#@ proc Qtcl::createDialog { args } {
+#@ Misc::traceIn Qtcl::createDialog $args
+#@ 
+#@     # default is on
+#@     set options(-sizeGrip) 1
+#@ 
+#@     parse_proc_arguments -args $args options
+#@ 
+#@     if { ![info exists options(-name)] } {
+#@         set options(-name) $options(-title)
+#@     }
+#@ 
+#@     set wflags $options(-wflags)
+#@ 
+#@     if { [info exists options(-minimize_button)] && $options(-minimize_button) } {
+#@       set wflags [expr $wflags | $Qt::WStyle_Customize | $Qt::WStyle_Minimize]
+#@     }
+#@ 
+#@     if { [info exists options(-maximize_button)] && $options(-maximize_button) } {
+#@       set wflags [expr $wflags | $Qt::WStyle_Customize | $Qt::WStyle_Maximize]
+#@     }
+#@ 
+#@     # Create the dialog itself
+#@     set cmd {set dialog [qtcl_create -qclass QtclDialog -name $options(-name) -wflags $wflags}
+#@     if { [info exists options(-parent)] } {
+#@         set cmd [concat $cmd {-parent $options(-parent)}]
+#@     }
+#@     set cmd [concat $cmd {]}]
+#@     eval $cmd
+#@     qtcl_set_property -name $dialog -property caption -value $options(-title)
+#@     qtcl_connect -sender $dialog -signal "destroyed()" -cmd "unset DialogWidgets::$options(-name)"
+#@     if { [info exists options(-dialogProperties)] } {
+#@         qtcl_set_property -name $dialog -properties $options(-dialogProperties)
+#@     }
+#@ 
+#@     # Create a box conatining creator vbox and the buttons
+#@     set vbox [qtcl_create -qclass QVBox -name VBox -parent $dialog]
+#@     qtcl_set_property -name $vbox -property margin -value 3
+#@ 
+#@     # Create a creator vbox containing the real contents
+#@     set creatorBox [qtcl_create -qclass QVBox -name creatorBox -parent $vbox]
+#@ 
+#@     # Now add the buttons (OK, Cancel, etc) to the dialog
+#@     set buttonBox [qtcl_create -qclass QHBox -name ButtonBox -parent $vbox]
+#@     qtcl_set_property -name $buttonBox -property sizePolicy -value {Expanding Fixed FALSE}
+#@     set dummy [::Qtcl::createHExpander $buttonBox]
+#@     set numOfButtons 0
+#@ 
+#@     # Potentially additional buttons
+#@     if { [info exists options(-insert_buttons_cmd)] } {
+#@         # We do not know how many buttons were added, but we
+#@         # assume, that 1 was added
+#@         incr numOfButtons 1
+#@         eval $options(-insert_buttons_cmd) $buttonBox
+#@     }
+#@ 
+#@     # OK button
+#@     incr numOfButtons
+#@     set OK [qtcl_create -qclass QPushButton -name OKButton -parent $buttonBox]
+#@     qtcl_set_property -name $OK -property text -value "OK"
+#@     qtcl_set_property -name $OK -property default -value 1
+#@ 
+#@     # Cancel button
+#@     if { [info exists options(-cancelButton)] && $options(-cancelButton) } {
+#@         incr numOfButtons
+#@         set cancel [qtcl_create -qclass QPushButton -name CancelButton -parent $buttonBox]
+#@         qtcl_set_property -name $cancel -property text -value "Cancel"
+#@         qtcl_connect -sender "$cancel" -signal "clicked()" -receiver $dialog -slot "close()"
+#@     }
+#@ 
+#@     # Apply button
+#@     if { [info exists options(-applyButton)] && $options(-applyButton) } {
+#@         incr numOfButtons
+#@         set apply [qtcl_create -qclass QPushButton -name ApplyButton -parent $buttonBox]
+#@         qtcl_set_property -name $apply -property text -value "&Apply"
+#@     }
+#@ 
+#@     # If only 1 button is present, place it in the middle
+#@     if { $numOfButtons == 1 } {
+#@         set dummy [::Qtcl::createHExpander $buttonBox]
+#@     } else {
+#@        set dummy [::Qtcl::createHExpander $buttonBox]
+#@        qtcl_set_property -name $dummy -property maximumWidth -value 4
+#@     }
+#@ 
+#@     if { [info exists options(-validateCmd)] } {
+#@             qtcl_add_property -name $dialog -property validateCommand -type QString -value $options(-validateCmd)
+#@     }
+#@ 
+#@     set dummy [::Qtcl::createExpander $vbox]
+#@     qtcl_set_property -name $dummy -properties { {frameShape NoFrame} {frameShadow Plain} {minimumHeight 0} { lineWidth 0 } }
+#@ 
+#@     if { ![info exists options(-verticalStretch)] || $options(-verticalStretch) == 0 } {
+#@         qtcl_set_property -name $dummy -property sizePolicy -value { Expanding Expanding FALSE }
+#@     } else {
+#@         qtcl_set_property -name $dummy -property sizePolicy -value { Expanding Fixed FALSE }
+#@     }
+#@     qtcl_set_property -name $dialog -property sizeGripEnabled -value  $options(-sizeGrip)
+#@ 
+#@     # Store dialog in variable to make it more accessable
+#@     global DialogWidgets::$options(-name)
+#@     set DialogWidgets::$options(-name) $dialog
+#@ 
+#@     # Add the real contents of the dialog
+#@     if { [info exists options(-creator_args)] } {
+#@         set contents [eval $options(-creator) {$creatorBox} {$dialog} $options(-creator_args)]
+#@     } else {
+#@         set contents [eval $options(-creator) {$creatorBox} {$dialog}]
+#@     }
+#@ 
+#@     # Connect buttons of dialog
+#@     if { ![info exists options(-OKCmd)] } {
+#@         set options(-OKCmd) ""
+#@     }
+#@     qtcl_connect -sender "$OK" -signal "clicked()" -cmd "QtclInternal::executeOkCmd \"$options(-OKCmd)\" \"$dialog\" \"$contents\""
+#@     if { [info exists apply] } {
+#@         qtcl_connect -sender $apply -signal "clicked()" -cmd "QtclInternal::executeApplyCmd \"$options(-OKCmd)\" \"$dialog\" \"$contents\""
+#@     }
+#@ 
+#@     if { [info exists options(-modifierCmd)] } {
+#@         regsub -all "%dialog" $options(-modifierCmd) $dialog cmd
+#@         regsub -all "%contents" $cmd $contents cmd
+#@         eval $cmd
+#@     }
+#@     return $dialog
+#@ }
+#@ define_proc_attributes ::Qtcl::createDialog     -define_args {
+#@         {-creator "Creator of dialog contents" ACmd string required}
+#@         {-creator_args "Arguments provided to creator" AList list optional}
+#@         {-title "Dialog title" ATitle string required}
+#@         {-wflags "Window flags for Dialog" ANumber int required}
+#@         {-name "Dialog name" AName string optional}
+#@         {-OKCmd "OK command" ACmd string optional}
+#@         {-insert_buttons_cmd "Command inserting buttons" ACmd string optional}
+#@         {-cancelButton "Add cancel button" ABool int optional}
+#@         {-applyButton "Add apply button" ABool int optional}
+#@         {-sizeGrip "Control size grip visibility - default is on" ABool int optional}
+#@         {-infotip "Infotip help for Dialog" ATip string optional}
+#@         {-parent "Parent of dialogs" AString string optional}
+#@         {-validateCmd "Command to validate dialog" ACmd string optional}
+#@         {-dialogProperties "List of properties to set on dialog" APropertyList list optional}
+#@         {-modifierCmd "Command used to modify created dialog after generation" ACmd string optional}
+#@         {-verticalStretch "Make sure that contents of dialog is strectched on vertical resizing of dialog" ABool int optional}
+#@         {-minimize_button "Control availabitily of dialogs' minimize button"  ABool int optional}
+#@         {-maximize_button "Control availabitily of dialogs' maximize button"  ABool int optional}
+#@     }
+#@ 
+#@ # Create a message box
+#@ proc Qtcl::messageBox { args } {
+#@     parse_proc_arguments -args $args options
+#@ 
+#@     if { ![info exists options(-name)] } {
+#@         set options(-name) $options(-title)
+#@     }
+#@     if { ![info exists options(-wflags)]} {
+#@         set options(-wflags) [expr $Qt::WType_Modal | $Qt::WDestructiveClose]
+#@     }
+#@     if { ![info exists options(-buttons)] } {
+#@         set options(-buttons) {{OK}}
+#@     }
+#@     if { [llength $options(-buttons)] > 3 } {
+#@         error "Too many elements in the -button argument"
+#@     }
+#@     set buttons {}
+#@     set j 1
+#@     foreach i $options(-buttons) {
+#@         set button $j
+#@         incr j
+#@         if { [info exists options(-defaultButton)] && [string compare $options(-defaultButton) $i] == 0 } {
+#@             set button [expr $button | 256]
+#@         }
+#@         if { [info exists options(-escapeButton)] && [string compare $options(-escapeButton) $i] == 0 } {
+#@             set button [expr $button | 512]
+#@         }
+#@         lappend buttons $button
+#@     }
+#@ 
+#@     set cmd {set dialog [qtcl_create -name $options(-name) -qclass QtclMessageBox -wflags $options(-wflags) -add_arg $buttons}
+#@     if { [info exists options(-parent)] } {
+#@         set cmd [concat $cmd {-parent $options(-parent)}]
+#@     }
+#@     set cmd [concat $cmd {]}]
+#@     eval $cmd
+#@ 
+#@     for { set i 0 } { $i < [llength $options(-buttons)] } { incr i } {
+#@         set button "$dialog|*|button[expr $i + 1]"
+#@         set buttonText [lindex $options(-buttons) $i]
+#@         qtcl_set_property -name $button -property text -value $buttonText
+#@         qtcl_connect -sender "$button" -signal "clicked()" -cmd "QtclInternal::executeOkCmd \"set ::QtclInternal::messageBoxResultVar $buttonText\" \"$dialog\" \"$dialog\" close"
+#@     }
+#@ 
+#@     qtcl_set_property -name $dialog -property text -value $options(-text)
+#@ 
+#@     qtcl_set_property -name $dialog -property caption -value $options(-title)
+#@ 
+#@     if { [info exists options(-icon)] } {
+#@         qtcl_set_property -name $dialog -property icon -value $options(-icon)
+#@     }
+#@ 
+#@     if { [info exists options(-iconPixmap)] } {
+#@         qtcl_set_property -name $dialog -property iconPixmap -value $options(-iconPixmap)
+#@     }
+#@ 
+#@     set r $dialog
+#@     if { ![info exists options(-dont_show)] || !$options(-dont_show) } {
+#@         if { [QtclInternal::suppressMessageBox] == "" } {
+#@             set ::QtclInternal::messageBoxResultVar {}
+#@             qtcl_set_property -name APPLICATION -property overrideCursorStack -value { ArrowCursor }
+#@             set r [qtcl_operate -name $dialog -show]
+#@             qtcl_get_property -name APPLICATION -property overrideCursorStack
+#@             set r $::QtclInternal::messageBoxResultVar
+#@             if { $r == {} } {
+#@                 if { [ qtcl_get_widget_data -name $dialog -exist] } {
+#@                   qtcl_destroy -name $dialog
+#@                 }
+#@             }
+#@         } else {
+#@             if { [ qtcl_get_widget_data -name $dialog -exist] } {
+#@               qtcl_destroy -name $dialog
+#@             }
+#@             set r [QtclInternal::suppressMessageBox]
+#@             echo "Messagebox suppressed - return value is $r"
+#@         }
+#@     }
+#@     return $r
+#@ }
+#@ define_proc_attributes ::Qtcl::messageBox     -define_args {
+#@         {-text "Text in message box" AText string required}
+#@         {-title "Dialog title" ATitle string required}
+#@         {-buttons "Button text list" AList string optional}
+#@         {-defaultButton "Button text" AName string optional}
+#@         {-escapeButton "Button text" AName string optional}
+#@         {-name "Dialog name" AName string optional}
+#@         {-icon "Icon" AnIcon string optional}
+#@         {-iconPixmap "Icon pixmap" AFile string optional}
+#@         {-dont_show "Do not show dialog" ABool int optional}
+#@         {-parent "Parent of dialogs" AString string optional}
+#@     }
+#@ 
+#@ 
+#@ # Create a modal dialog
+#@ proc Qtcl::modalDialog { args } {
+#@     parse_proc_arguments -args $args options
+#@ 
+#@     if { ![info exists options(-noCancelButton)] || !$options(-noCancelButton) } {
+#@         set options(-cancelButton) 1
+#@     }
+#@     if { [info exists options(-noCancelButton)]} {
+#@         unset options(-noCancelButton)
+#@     }
+#@     set options(-wflags) [expr $Qt::WType_Modal | $Qt::WDestructiveClose]
+#@ 
+#@     array set callOptions [array get options]
+#@     if { [info exists callOptions(-dont_show)] } {
+#@         unset callOptions(-dont_show)
+#@     }
+#@     set cmd Qtcl::createDialog
+#@     set cmd [concat Qtcl::createDialog [array get callOptions]]
+#@     set dialog [eval $cmd]
+#@ 
+#@     set r $dialog
+#@     if { ![info exists options(-dont_show)] || !$options(-dont_show) } {
+#@         if { [QtclInternal::suppressModalDialog] == "" } {
+#@             Qtcl::executeWithStandardCursor {set r [qtcl_operate -name $dialog -show]}
+#@         } else {
+#@             qtcl_destroy -name $dialog
+#@             set r [QtclInternal::suppressMessageBox]
+#@             echo "Modal dialog suppressed - return value is $r"
+#@         }
+#@     }
+#@ 
+#@     return $r
+#@ }
+#@ define_proc_attributes ::Qtcl::modalDialog     -define_args {
+#@         {-creator   "Creator of dialog contents" ACmd string required}
+#@         {-creator_args "Arguments provided to creator" AList list optional}
+#@         {-title "Dialog title" ATitle string required}
+#@         {-name "Dialog name" AName string optional}
+#@         {-OKCmd "OK command" ACmd string optional}
+#@         {-insert_buttons_cmd "Command inserting buttons" ACmd string optional}
+#@         {-noCancelButton "Do not show cancel button" ABool int optional}
+#@         {-sizeGrip "Control size grip visibility - default is on" ABool int optional}
+#@         {-infotip "Infotip help for Dialog" ATip string optional}
+#@         {-dont_show "Do not show dialog" ABool int optional}
+#@         {-parent "Parent of dialogs" AString string optional}
+#@         {-validateCmd "Command to validate dialog" ACmd string optional}
+#@         {-dialogProperties "List of properties to set on dialog" APropertyList list optional}
+#@         {-modifierCmd "Command used to modify created dialog after generation" ACmd string optional}
+#@         {-verticalStretch "Make sure that contents of dialog is strectched on vertical resizing of dialog" ABool int optional}
+#@         {-minimize_button "Control availabitily of dialogs' minimize button"  ABool int optional}
+#@         {-maximize_button "Control availabitily of dialogs' maximize button"  ABool int optional}
+#@     }
+#@ 
+#@ 
+#@ 
+#@ # Create a modeless dialog
+#@ proc Qtcl::modelessDialog { args } {
+#@     parse_proc_arguments -args $args options
+#@ 
+#@     if { ![info exists options(-name)] } {
+#@         set options(-name) $options(-title)
+#@     }
+#@     # First check if dialog alread exists. If this is the case,
+#@     # just raise it
+#@     if { [info exists ::DialogWidgets::$options(-name)] } {
+#@         # Dialog already exists
+#@         set dialog [eval Misc::identity \$DialogWidgets::$options(-name)]
+#@         if { ![info exists options(-dont_show)] || !$options(-dont_show) } {
+#@             qtcl_activate_slot -receiver $dialog -slot "raise()"
+#@         }
+#@         return $dialog
+#@     }
+#@ 
+#@     # The diaog does not exist yet, hence it must be created
+#@ 
+#@     # Gather options for createModal call in callOptions
+#@     array set callOptions [array get options]
+#@ 
+#@     if { ![info exists callOptions(-noCancelButton)] || !$callOptions(-noCancelButton) } {
+#@         set callOptions(-cancelButton) 1
+#@     }
+#@     if { [info exists callOptions(-noCancelButton)] } {
+#@         unset callOptions(-noCancelButton)
+#@     }
+#@     if { ![info exists callOptions(-noApplyButton)] || !$callOptions(-noApplyButton) } {
+#@         set callOptions(-applyButton) 1
+#@     }
+#@     if { [info exists callOptions(-noApplyButton)] } {
+#@         unset callOptions(-noApplyButton)
+#@     }
+#@ 
+#@     set callOptions(-wflags) [expr $Qt::WType_Dialog | $Qt::WDestructiveClose]
+#@ 
+#@     if { [info exists callOptions(-dont_show)] } {
+#@         unset callOptions(-dont_show)
+#@     }
+#@     set cmd Qtcl::createDialog
+#@     set cmd [concat Qtcl::createDialog [array get callOptions]]
+#@     set dialog [eval $cmd]
+#@ 
+#@     set r $dialog
+#@     if { ![info exists options(-dont_show)] || !$options(-dont_show) } {
+#@         if { [QtclInternal::suppressModelessDialog] == "" } {
+#@             set r [qtcl_operate -name $dialog -show]
+#@         } else {
+#@             qtcl_destroy -name $dialog
+#@             set r [QtclInternal::suppressMessageBox]
+#@             echo "Modeless dialog suppressed - return value is $r"
+#@         }
+#@     }
+#@ 
+#@     return $dialog
+#@ }
+#@ define_proc_attributes ::Qtcl::modelessDialog     -define_args {
+#@         {-creator   "Creator of dialog contents" ACmd string required}
+#@         {-creator_args "Arguments provided to creator" AList list optional}
+#@         {-title "Dialog title" ATitle string required}
+#@         {-name "Dialog name" AName string optional}
+#@         {-OKCmd "OK command" ACmd string optional}
+#@         {-insert_buttons_cmd "Command inserting buttons" ACmd string optional}
+#@         {-noCancelButton "Do not show cancel button" ABool int optional}
+#@         {-noApplyButton "Do not show apply button" ABool int optional}
+#@         {-sizeGrip "Control size grip visibility - default is on" ABool int optional}
+#@         {-infotip "Infotip help for Dialog" ATip string optional}
+#@         {-dont_show "Do not show dialog" ABool int optional}
+#@         {-parent "Parent of dialogs" AString string optional}
+#@         {-validateCmd "Command to validate dialog" ACmd string optional}
+#@         {-dialogProperties "List of properties to set on dialog" APropertyList list optional}
+#@         {-modifierCmd "Command used to modify created dialog after generation" ACmd string optional}
+#@         {-verticalStretch "Make sure that contents of dialog is strectched on vertical resizing of dialog" ABool int optional}
+#@         {-minimize_button "Control availabitily of dialogs' minimize button"  ABool int optional}
+#@         {-maximize_button "Control availabitily of dialogs' maximize button"  ABool int optional}
+#@     }
+#@ 
+#@ 
+#@ 
+#@ 
+#@ # Initialize an object
+#@ proc Qtcl::initObject { args } {
+#@     parse_proc_arguments -args $args options
+#@ 
+#@     # If property initTclCmd exists, use it
+#@     if { [qtcl_get_property -name $options(-name) -property intTclCmd -exist] } {
+#@         set cmd [qtcl_get_property -name $options(-name) -property intTclCmd]
+#@         regsub -all "%name" $cmd $options(-name) cmd
+#@         regsub -all "%values" $cmd $options(-values) cmd
+#@         return [eval $cmd]
+#@     }
+#@ }
+#@ define_proc_attributes ::Qtcl::initObject     -define_args {
+#@         {-name "Name of object" AName string required}
+#@         {-values "List defining value (array set must be able to intepret this)" AList string required}
+#@     }
+#@ 
+#@ # Retrieve data out of an object
+#@ # Returns a list that can be fed to array set.
+#@ proc Qtcl::getObjectData { args } {
+#@     parse_proc_arguments -args $args options
+#@ 
+#@     # If property initTclCmd exists, use it
+#@     if { [qtcl_get_property -name $options(-name) -property getObjectDataTclCmd -exist] } {
+#@         set cmd [qtcl_get_property -name $options(-name) -property getObjectDataTclCmd]
+#@         regsub -all "%name" $cmd $options(-name) cmd
+#@         return [eval $cmd]
+#@     }
+#@ }
+#@ define_proc_attributes ::Qtcl::getObjectData     -define_args {
+#@         {-name "Name of object" AName string required}
+#@     }
+#@ 
+#@ 
+#@ proc Qtcl::filter_copy_paste { sender eventInfo } {
+#@     echo_trace "#### in Qtcl::filter_copy_paste..."
+#@ 
+#@     array set eventInformation $eventInfo
+#@     set key   $eventInformation(key)
+#@     set state $eventInformation(state)
+#@     
+#@     if { $state == $Qtcl::ButtonState::ControlButton } {
+#@       
+#@       switch -exact $key {
+#@         67 {
+#@               echo "Ctrl-C"
+#@               if { [ qtcl_get_widget_property -name "$sender" -property "tclCopyCB" -exist] } {
+#@                 set tclCB [qtcl_get_widget_property -name "$sender" -property "tclCopyCB"]
+#@                 regsub -all "%sender" $tclCB  "$sender" tclCB
+#@                 echo "eval $tclCB"
+#@                 eval $tclCB
+#@               }
+#@            }
+#@         86 {
+#@               echo "Ctrl-V"
+#@            }
+#@       }
+#@     }  
+#@     return 0
+#@ }
+#@ 
+#@ 
+#@ # install handler for copy/paste operations
+#@ proc Qtcl::install_copy_paste_handler { args } {
+#@     parse_proc_arguments -args $args options
+#@ 
+#@     set w $options(-name)
+#@       if { [ qtcl_get_widget_data -name "$w" -exist] } {
+#@         set copy_cb ""
+#@         if { [info exists options(-copy_cb)] } {
+#@         set copy_cb $options(-copy_cb)
+#@         qtcl_add_widget_property -name $w -property "tclCopyCB" -type QString -value "$options(-copy_cb)"
+#@       }
+#@   
+#@       set paste_cb ""
+#@       if { [info exists options(-paste_cb)] } {
+#@         set paste_cb $options(-paste_cb)
+#@         qtcl_add_widget_property -name $w -property "tclPasteCB" -type QString -value "$options(-paste_cb)"
+#@       }
+#@ 
+#@       if { [string length $copy_cb] || [string length $paste_cb]} {
+#@         echo "**** $options(-name)" 
+#@         set eventFilter [qtcl_create_widget -name "CopyPasteFilter" -parent $options(-name) -qclass "QtclEventFilter"]
+#@         qtcl_set_widget_property -name $eventFilter -property "tclCmd" -value "::Qtcl::filter_copy_paste %object {%eventInfo}"
+#@         qtcl_activate_widget_slot -receiver $eventFilter -slot  "catchEventOfType(const QString&)" -values "KeyPress"
+#@         qtcl_install_eventfilter -name $w -filter $eventFilter
+#@       }
+#@     }
+#@ }
+#@ 
+#@ define_proc_attributes ::Qtcl::install_copy_paste_handler     -define_args {
+#@         {-name    "Name of parent widget"        AWidget string required}
+#@         {-copy_cb "tcl copy callback function"   ACallback string optional}
+#@         {-paste_cb "tcl paste callback function" ACallback string optional}
+#@     }
+#@ 
+#@ 
+#@ 
+#@ #
+#@ # Handler installed by ::Qtcl::install_drag_start_handler
+#@ #
+#@ proc ::Qtcl::start_drag { filter target eventInfo dragObjectCreator verifier} {
+#@     set button 1
+#@     set state 1
+#@     array set eventInformation $eventInfo
+#@     if { $eventInformation(type) == "MouseButtonPress" } {
+#@         if { $eventInformation(button) != $button } {
+#@             return 0
+#@         }
+#@         # Verify that this really potentially starts a drag
+#@         if { $verifier != "" } {
+#@             regsub -all "%sender" $verifier $target verifier
+#@             regsub -all "%point" $verifier $eventInformation(pos) verifier
+#@             set r [eval $verifier]
+#@             if { !$r } {
+#@                 return 0
+#@             }
+#@         }
+#@             
+#@         qtcl_set_property -name $filter -property "dragging" -value 1
+#@         return 0
+#@     }
+#@     if { ![qtcl_get_property -name $filter -property "dragging"] } {
+#@         return 0;
+#@     }
+#@     qtcl_set_property -name $filter -property "dragging" -value 0
+#@     if { $eventInformation(state) != $state } {
+#@         return 0
+#@     }
+#@     regsub -all "%sender" $dragObjectCreator $target dragObjectCreator
+#@     eval $dragObjectCreator
+#@     # Stop this event
+#@     return 1
+#@ }
+#@ 
+#@ #
+#@ # Install event filter on $options(-name) that starts a drag operation.
+#@ # Command $options(-drag_object_creator) is called to create a new
+#@ # drag object in the case that a drag initiation sequence is recognized.
+#@ # Note that you have to use the -alias option of qtcl_create, because the
+#@ # created drag object should not have a parent.
+#@ # The command must also call the appropriate slot of the drag object to
+#@ # initiate the drag (like slot dragCopy()).
+#@ # In the command $options(-drag_object_creator) a few substitutions are
+#@ # done before the command is evaluated:
+#@ # %name - Name of the event filter
+#@ # %object - Name of object that is target of drag start operation
+#@ #
+#@ set ::Qtcl::install_drag_start_handlerARGS {
+#@     {-name "Name of parent widget" AWidget string required}
+#@     {-drag_object_creator "Command to create drag object" ACmd string required}
+#@     {-drag_verifier "Command to verify that potentially a drag operation was started" ACmd string optional}
+#@ }
+#@ proc ::Qtcl::install_drag_start_handler { args } {
+#@     set options(-drag_verifier) ""
+#@     parse_proc_arguments -args $args options
+#@ 
+#@     set w $options(-name)
+#@     set f [qtcl_create -name "DragStartHandler" -parent $w -qclass "QtclEventFilter"]
+#@     qtcl_add_property -name $f -property "dragging" -type "bool" -value "false"
+#@     qtcl_activate_slot -receiver $f -slot "catchEventOfType(const QString&)" -values "MouseButtonPress"
+#@     qtcl_activate_slot -receiver $f -slot "catchEventOfType(const QString&)" -values "MouseMove"
+#@     qtcl_set_property -name $f -property "tclCmd" -value "::Qtcl::start_drag {%name} {%object} {%eventInfo} \"$options(-drag_object_creator)\" \"$options(-drag_verifier)\""
+#@     qtcl_install_eventfilter -name $w -filter $f
+#@ }
+#@ define_proc_attributes ::Qtcl::install_drag_start_handler     -define_args $::Qtcl::install_drag_start_handlerARGS
+#@ 
+#@ 
+#@ #
+#@ # Handler installed by ::Qtcl::install_drop_handler
+#@ #
+#@ proc ::Qtcl::drop { filter target eventInfo dropHandler acceptHandler dragEnterEvent } {
+#@     array set eventInformation $eventInfo
+#@     if { $eventInformation(type) == "DragEnter" } {
+#@         if { !$dragEnterEvent } {
+#@             return 1
+#@         }
+#@         eval $acceptHandler
+#@     } elseif { $eventInformation(type) == "DragMove" } {
+#@         if { $dragEnterEvent } {
+#@             return 1
+#@         }
+#@         eval $acceptHandler
+#@     } elseif { $eventInformation(type) == "Drop" } {
+#@         eval $dropHandler
+#@     }
+#@ }
+#@ 
+#@ 
+#@ #
+#@ # Install event filter on $options(-name) that accepts drops.
+#@ # Command $options(-drop_acceptor) is evaluated to determine if a drag
+#@ # should be accepted. By default every drag is accepted.
+#@ # The command accepts the drag by calling the appropriate slots on
+#@ # the event filter.
+#@ # If option -drag_enter_event is specified, $options(-drop_acceptor) is
+#@ # only called for QDragEnterEvent, otherwise it is only called for
+#@ # QDragMoveEvent.
+#@ # Command $options(-drop_handler) is called when the drag operation is
+#@ # performed. You can get the drop information from the event filter.
+#@ # In the command $options(-drop_handler) and $options(-drag_enter_event)
+#@ # a few substitutions are done before the command is evaluated:
+#@ # %name - Name of the event filter
+#@ # %object - Name of object that is target of drag start operation
+#@ #
+#@ set ::Qtcl::install_drop_handlerARGS {
+#@     {-name "Name of parent widget" AWidget string required}
+#@     {-drop_handler "Command handling the drop" ACmd string required}
+#@     {-drop_acceptor "Command to determine if a drop would be accepted" ACmd string optional}
+#@     {-drag_enter_event "Follow QDragEnterEvent instead QDragMove" "" boolean optional}
+#@ }
+#@ proc ::Qtcl::install_drop_handler { args } {
+#@     set options(-drop_acceptor) {qtcl_activate_slot -receiver {%name} -slot {acceptAction()}}
+#@     set options(-drag_enter_event) 0
+#@     parse_proc_arguments -args $args options
+#@ 
+#@     set w $options(-name)
+#@     qtcl_set_property -name $w -property "acceptDrops" -value 1
+#@     set f [qtcl_create -name "DropHandler" -parent $w -qclass "QtclDropEventFilter"]
+#@     qtcl_activate_slot -receiver $f -slot "catchEventOfType(const QString&)" -values "Drop"
+#@     qtcl_activate_slot -receiver $f -slot "catchEventOfType(const QString&)" -values "DragEnter"
+#@     qtcl_activate_slot -receiver $f -slot "catchEventOfType(const QString&)" -values "DragMove"
+#@     qtcl_set_property -name $f -property "tclCmd" -value "::Qtcl::drop {%name} {%object} {%eventInfo} \"$options(-drop_handler)\" \"$options(-drop_acceptor)\" $options(-drag_enter_event)"
+#@     qtcl_install_eventfilter -name $w -filter $f
+#@ }
+#@ define_proc_attributes ::Qtcl::install_drop_handler     -define_args $::Qtcl::install_drop_handlerARGS
+#@ 
+#@ 
+#@ #========================= end of Qtcl library ==========================
+#@ 
+#@ # -- End source /home/cad/synopsys/PP-2004.06-SP1/auxx/gui/common/qtcl/.synopsys_qtcl.tcl
+
+#@ ################################################################
+#@ # File: pp_help.tcl
+#@ #
+#@ # Primepower on-line help support.
+#@ #
+#@ ################################################################
+#@ 
+#@ if [string is space [info command snpsBrowse::show_url_netscape]] {
+#@     catch {source [file join $synopsys_root auxx gui pp snpsBrowse.tcl] }
+#@ }
+#@ 
+#@ ##############################################################################
+#@ # FILE:     snpsBrowse.tcl
+#@ ##############################################################################
+#@ 
+#@ #****h* ppgui/snpsBrowse.tcl
+#@ # DESCRIPTION
+#@ #   Define procs used to manipulate a web browser and pdf reader
+#@ #   used for the help system.  
+#@ #
+#@ # Namespace: snpsBrowse
+#@ #
+#@ # Exports:
+#@ #   snpsBrowse::show_url_netscape
+#@ #   snpsBrowse::show_pdf_file
+#@ #
+#@ #  History:
+#@ #    July 31 2003 -- Scott Murdock: Created -- copied verbatim from ../pt/snpsBrowse.tcl
+#@ #
+#@ #***
+#@ 
+#@ # SYNOPSYS CONFIDENTIAL
+#@ # Copyright (C)©2002 Synopsys Inc. All Rights Reserved. Forwarding or copying
+#@ # of this document, in any medium, in whole or in part, or disclosure of its
+#@ # contents, to other than the authorized recipient, is strictly prohibited.
+#@ 
+#@ #
+#@ # configuration parameters - namespace variables
+#@ #
+#@ namespace eval snpsBrowse {
+#@   suppress_message CMD-041
+#@   # variables to control how netscape is manipulated
+#@   variable netscape
+#@   set netscape(Path)        "netscape" 
+#@   set netscape(LaunchArgs)  ""
+#@   set netscape(ShowArgs)    ""
+#@   set netscape(DoNewWindow) 1
+#@   set netscape(NewWindow)   0 
+#@ 
+#@   # variables for controlling acrobat
+#@   variable pdfreader
+#@   set pdfreader(Path)        "acroread" 
+#@   set pdfreader(LaunchArgs)  ""
+#@   set pdfreader(NewWindow)   0 
+#@   
+#@   # controls if netscape or pdfreader is used
+#@   # to browse pdf
+#@   variable netscapeForDocBrowse
+#@   set netscapeForDocBrowse 0
+#@ 
+#@   unsuppress_message CMD-041
+#@ }
+#@ 
+#@ #########################################
+#@ 
+#@ #****f* ppgui/snpsBrowse::CleanupBrowser
+#@ # DESCRIPTION
+#@ # Proc called to close the browser we launched which is called on exit.
+#@ #***
+#@ proc snpsBrowse::CleanupBrowser { pid } {
+#@   suppress_message -force CMD-013
+#@   # send a signal to close netscape quit=3, int=2, hup=1 
+#@   catch {exec kill -1 $pid}
+#@   unsuppress_message CMD-013
+#@ }
+#@ 
+#@ #########################################
+#@ 
+#@ #****f* ppgui/snpsBrowse::netscape_is_running
+#@ # DESCRIPTION
+#@ #   Return 1 if netscape is running else 0
+#@ #   For now require that it be running locally,
+#@ #   although it should be possible to use any
+#@ #   one displaying to this DISPLAY.
+#@ #***
+#@ proc snpsBrowse::netscape_is_running { } {
+#@   # Grep returns 0 if data is returned and 1 if no data is
+#@   # returned
+#@   variable netscape
+#@   suppress_message -force CMD-013
+#@   set netscape_exec [file tail [snpsBrowse::find_executable $netscape(Path) "netscape"]] 
+#@   set notFound [catch  { exec ps | grep $netscape_exec | grep -v "grep $netscape_exec" } msg]
+#@   unsuppress_message CMD-013
+#@   if { $notFound } {
+#@     return 0
+#@   }
+#@   return 1
+#@ }
+#@ 
+#@ #########################################
+#@ 
+#@ #****f* ppgui/snpsBrowse::show_url_netscape
+#@ # DESCRIPTION
+#@ #   Display the specified url using netscape
+#@ #   Use a running netscape if there is one,
+#@ #   otherwise start one.
+#@ #***
+#@ proc snpsBrowse::show_url_netscape { url {reason "to view document"} } {
+#@   variable netscape
+#@  
+#@   if { ! [info exists netscape(Path)] } {
+#@     set netscape(Path) netscape
+#@   }
+#@   set netscape_exec [snpsBrowse::find_executable $netscape(Path) "netscape"]
+#@  
+#@   if { [snpsBrowse::netscape_is_running] } {
+#@     if { [info exists netscape(DoNewWindow)] && $netscape(DoNewWindow) && ( ! $netscape(NewWindow) ) } {
+#@       eval "exec $netscape_exec -remote OpenURL($url,new-window) $netscape(ShowArgs) &"
+#@       set netscape(NewWindow) 1
+#@       echo "Creating a new Netscape window $reason"
+#@     } else {
+#@       eval "exec $netscape_exec -remote OpenURL($url) $netscape(ShowArgs) &"
+#@       echo "Contacting Netscape $reason"
+#@     }
+#@   } else {
+#@     set pid [eval "exec $netscape_exec $url $netscape(LaunchArgs) &"]
+#@     set netscape(NewWindow) 1
+#@     echo "Launching netscape $reason" 
+#@     #
+#@     # Cleanup hook on exit doesn't exist now - later this should be
+#@     # filled in
+#@     #
+#@     #sSys::registerCleanupProc snpsBrowse::CleanupBrowser 1 $pid
+#@   }
+#@   return
+#@ }
+#@ define_proc_attributes snpsBrowse::show_url_netscape   -info "Display URL using netscape"   -define_args {
+#@        {url "URL to display" "<URL name>"}
+#@        {reason "Reason for displaying URL" "<reason>" string optional}
+#@    } 
+#@ 
+#@ #########################################################################
+#@ 
+#@ #****f* ppgui/snpsBrowse::find_executable
+#@ # DESCRIPTION
+#@ #   Uses the same algorithm as exec to find an executable, and
+#@ #   returns a fully qualified exec name.
+#@ #
+#@ #   If the string begins with / or ~ then use glob to expand it
+#@ #   and see if the file it specifies exists and is executable.
+#@ #   If not then search all of the elements of env(PATH) looking
+#@ #   for one.
+#@ # Args:
+#@ #   origName - the executable name to be searched for
+#@ #   execTypeErrorStr - if this string is set to a non-null value then
+#@ #                      if the executable is not found a message will be 
+#@ #                      printed and the proc will return an error. If it 
+#@ #                      is null then no msg is printed and the return value 
+#@ #                      is "".
+#@ #
+#@ #
+#@ #***
+#@ proc snpsBrowse::find_executable { origName {execTypeErrorStr ""} } {
+#@   global env
+#@   set fullExec ""
+#@  
+#@   #
+#@   # Right now tcl built-in errors cannot be caught under
+#@   # some circumstances. Just force them to be suppressed
+#@   # in this proc
+#@   #
+#@   suppress_message -force CMD-013
+#@  
+#@   if { [string match {/*} $origName] } {
+#@     # fully qualified path name
+#@     if { [file executable $origName] &&
+#@          ! [file isdirectory $origName] } {
+#@       set fullExec $origName
+#@     }
+#@   } elseif { [string match {./*} $origName] } {
+#@     # relative to current dir
+#@     # replace . with pwd
+#@     regsub {^\.} $origName [pwd] name
+#@     if { [file executable $name] &&
+#@          ! [file isdirectory $name] } {
+#@       set fullExec $name
+#@     }
+#@   } elseif { [string match {~*} $origName] } {
+#@     # the path name has a leading ~
+#@     set files [glob -nocomplain $origName]
+#@     if { [llength $files] == 1 &&
+#@          [file executable $files] &&
+#@          ! [file isdirectory $files] } {
+#@       set fullExec $files
+#@     }
+#@   } else {
+#@     #
+#@     # Use the PATH to try and find the executable
+#@     #
+#@     if { [info exists env(PATH)] } {
+#@       set pathDirs [split $env(PATH) ": \t\n"]
+#@       if { $pathDirs != "" } {
+#@         foreach dir $pathDirs {
+#@           # empty entries can happen if we have multiple split chars
+#@           if { $dir != "" } {
+#@             if { $dir == "." } {
+#@               set full "[pwd]/${origName}"
+#@             } else {
+#@               set full "${dir}/${origName}"
+#@             }
+#@             set files [glob -nocomplain $full]
+#@             if { [llength $files] == 1 &&
+#@                  [file executable $files] &&
+#@                  ! [file isdirectory $files] } {
+#@               set fullExec $files
+#@               break
+#@             }
+#@           }
+#@         }
+#@       }
+#@     }
+#@   }
+#@  
+#@   #
+#@   # unsuppress the error
+#@   #
+#@   unsuppress_message CMD-013
+#@  
+#@   #
+#@   # Generate an error if not found and an error str is specified
+#@   #
+#@   if { $fullExec == "" && $execTypeErrorStr != "" } {
+#@     echo "Cannot find $execTypeErrorStr executable $origName"
+#@     return -code error
+#@   }
+#@  
+#@   return $fullExec
+#@ }
+#@ 
+#@ #########################################
+#@ 
+#@ #****f* ppgui/snpsBrowse::show_pdf_file
+#@ # DESCRIPTION
+#@ #   Display the specified pdf file using pdfreader.
+#@ #
+#@ #   At this time I do not have code to control
+#@ #   a running acrobar, so this routine always
+#@ #   launches a new reader.
+#@ #***
+#@ proc snpsBrowse::show_pdf_file { pdf_file {reason "to view document"} } {
+#@   variable pdfreader
+#@   
+#@   # use full path to exec if specified 
+#@   set execs_to_try ""
+#@   set fail_name acroread
+#@   if { [info exists pdfreader(Path)] } {
+#@     lappend execs_to_try $pdfreader(Path)
+#@     set fail_name $pdfreader(Path)
+#@   }
+#@   lappend execs_to_try [file join $::synopsys_root sold]
+#@   if { [info exists pdfreader(Path)] } {
+#@     lappend execs_to_try [file tail $pdfreader(Path)]
+#@   }
+#@ 
+#@   # look for one of the possible execs
+#@   set pdfreader_exec ""
+#@   foreach f $execs_to_try {
+#@     if { ![catch {set pdfreader_exec [snpsBrowse::find_executable $f]}] } {
+#@       break
+#@     }
+#@   }
+#@ 
+#@   if { ![string compare $pdfreader_exec ""] } {
+#@     # this will fail and print a message
+#@     snpsBrowse::find_executable $fail_name "pdf reader"
+#@   }
+#@ 
+#@   set pid [eval "exec $pdfreader_exec $pdf_file $pdfreader(LaunchArgs) &"]
+#@   set pdfreader(NewWindow) 1
+#@   echo "Launching $pdfreader_exec $reason" 
+#@   #
+#@   # Cleanup hook on exit doesn't exist now - later this should be
+#@   # filled in
+#@   #
+#@   #sSys::registerCleanupProc snpsBrowse::CleanupBrowser 1 $pid
+#@   return
+#@ }
+#@ define_proc_attributes snpsBrowse::show_pdf_file   -info "Display a pdf file using acrobat"   -define_args {
+#@        {pdf_file "pdf file to display" "<pdf_file>"}
+#@        {reason "Reason for displaying the file" "<reason>" string optional}
+#@    } 
+#@ 
+#@ #########################################################################
+#@ 
+#@ #****f* ppgui/snpsBrowse::parse_url
+#@ # DESCRIPTION
+#@ #  Parse a url into its parts and return the parts 
+#@ #  in an array. Raises an error if the url is not valid.
+#@ #
+#@ #    The following fields (subscripts) are returned:
+#@ #      protocol - usually http
+#@ #      server   - host
+#@ #      port     - port on host
+#@ #      path     - filename
+#@ #      tag      - tag within the file
+#@ #
+#@ # Args:
+#@ #   URL - url
+#@ #   arrayName - name of array variable to return the values into
+#@ #
+#@ #***
+#@ proc snpsBrowse::parse_url { URL arrayName } {
+#@   upvar $arrayName vals
+#@   set vals(path) ""
+#@   if { ![regexp -nocase -- {(([^:]+):)?//([^:/]+)(:([0-9]+))?(/.*)?}          $URL x y vals(protocol) vals(server) z vals(port) vals(path)] } {
+#@      error "bogus URL: $argVals(URL)"
+#@   }
+#@   # split path to separate the tag
+#@   set urlData [split $vals(path) #]
+#@   if { [llength $urlData] == 2 } {
+#@     set vals(path) [lindex $urlData 0]
+#@     set vals(tag)  [lindex $urlData 1]
+#@   } else {
+#@     set vals(tag) ""
+#@   }
+#@ }
+#@ 
+#@ #########################################################################
+#@ 
+#@ #****f* ppgui/snpsBrowse::show_doc_file
+#@ # DESCRIPTION
+#@ #  Display the specified document via an external browser
+#@ #  If the fileName is a URL then show it via netscape,
+#@ #  if not then use netscapeForDocBrowse to control if
+#@ #  sold or netscape is used.  If the file is not 
+#@ #  a valid URL and not fully qualified then look for
+#@ #  it under the synopsys root.
+#@ #
+#@ # Args:
+#@ #   fileName - the document to be shown. If it is a URL then it will be
+#@ #              passed directly to netscape.  If not a URL and not a fully 
+#@ #              qualified file name then $::synopsys_root is prepended to it.
+#@ #
+#@ #***
+#@ proc snpsBrowse::show_doc_file { fileName showInNetscape {reason "to view document"} } {
+#@   variable netscapeForDocBrowse  
+#@  
+#@   set useNetscape $netscapeForDocBrowse 
+#@   if { $showInNetscape } {
+#@     set useNetscape 1
+#@   }
+#@   if { ! [catch {parse_url $fileName x}] } {
+#@     # full URL specified
+#@     set useNetscape 1
+#@   } else {
+#@     # if not a fully-qualified name add the
+#@     # $::synopsys_root to it.
+#@     if { ![string match {/*} $fileName] } {
+#@       set fileName [file join $::synopsys_root $fileName]
+#@     }
+#@     if { $useNetscape } {
+#@       set fileName "file:${fileName}"
+#@     }
+#@   }
+#@   
+#@   if { $useNetscape } {
+#@     show_url_netscape $fileName $reason
+#@   } else {
+#@     show_pdf_file $fileName $reason
+#@   }
+#@ }
+#@ 
+#@ namespace eval snpsBrowse {
+#@   catch {namespace export show_pdf_file show_url_netscape show_doc_file}
+#@ }
+#@ 
+#@ # -- End source /home/cad/synopsys/PP-2004.06-SP1/auxx/gui/pp/snpsBrowse.tcl
+
+#@ 
+#@ namespace eval ppguiHelp {
+#@     variable url [file join $synopsys_root doc pp help PrimePower_Help.htm]
+#@     proc show {} {
+#@ 	variable url
+#@         snpsBrowse::show_url_netscape $url
+#@     }
+#@ }
+#@ 
+#@ # -- End source /home/cad/synopsys/PP-2004.06-SP1/auxx/gui/pp/pp_help.tcl
+
+source pow.do
+#@ #--------------------------------------------
+#@ #-- Provided by Mohammad Mottaghi          --
+#@ #--                                        --
+#@ #--                           2007 	   --
+#@ #--------------------------------------------
+#@ 
+#@ #-- local variable definitions
+#@ set clk_period 6
+#@ set topname evlpMultiplier16
+#@ set prj_name byzfad16-18u
+#@ set period 24
+#@ 
+#@ #-----------------------------------------------------------------------
+#@ #---- P O W E R   E S T I M E T I O N   U S I N G   0.13 UM   T E C H .
+#@ #-----------------------------------------------------------------------
+#@ 
+#@ #-- resetting the shell memory:
+#@ remove_design -all
+#@ 
+#@ #-- script local variables
+#@ set TECH_LIB /home/cad/TSMC/18/synopsys
+#@ 
+#@ #-- library setting
+#@ set target_library "$TECH_LIB/typical.db"
+#@ set link_library "$TECH_LIB/typical.db ./source/$prj_name.v"
+#@ 
+#@ #-- read the design:
+#@ read_verilog ./source/$prj_name.v
+#@ 
+#@ 
+#@ ################################################## LP
+#@ #-- specifying the current design:
+#@ current_design $topname
+#@ 
+#@ link
+#@ 
+#@ #-- clock definition:
+#@ create_clock -p $period [find port "clk"]
+#@ 
+#@ set_load 5 [all_outputs]
+#@ set_resistance 6 [all_outputs]
+#@ #-- read the VCD file
+#@ read_vcd -strip_path aatestbench/mul  ./source/$prj_name.vcd
+#@ 
+#@ #-- power calculation:
+#@ calculate_power -waveform
+#@ 
+#@ #-- report results
+#@ report_power > ./report/pow_$prj_name.txt
+#@ 
+#@ 
+#@ # -- End source pow.do
+

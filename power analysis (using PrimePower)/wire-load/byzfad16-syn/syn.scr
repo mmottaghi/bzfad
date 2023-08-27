@@ -1,0 +1,66 @@
+###########################################################
+#            IP Security block (IPSec) of IBG             #
+#                                                         #
+#  Notes:                                                 #
+#      This file contains required scripts for compiling  #
+#      the design under the Synosys Design Compiler Env.  #
+#                                          Jan. 01, 2006  #
+#                                    Mohammad Mottaghi    #
+###########################################################
+
+# resetting the shell memory:
+remove_design -all
+
+# constants:
+set search_path "/home/mottaghi/tavan-shafagh/byzfad/wire-load/byzfad16-syn"
+
+set topname evlpMultiplier16
+set prj_name byzfad16
+set period 10
+
+## libraries:
+
+set TECH_LIB /home/cad/TSMC/13/synopsys
+set link_library "$TECH_LIB/typical.db"
+set target_library "$TECH_LIB/typical.db"
+#set physical_library "$TECH_LIB/tsmc13fsg_5lm.pdb"
+
+# list of the files to be synthesized:
+analyze -format vhdl "$search_path/sources/prim16.vhd";
+analyze -format vhdl "$search_path/sources/byzfad16_sngl.vhd";
+analyze -format vhdl "$search_path/sources/byzfad16_mult.vhd";
+
+# elaborating the design
+elaborate $topname
+current_design $topname
+uniquify
+
+# clock definition:
+create_clock -p $period [find port "clk"]
+#set_clock_skew -uncertainty 0.3 clk
+#set_clock_transition 0.3 clk
+
+#set auto_wire_load_selection true
+#set_wire_load_model -name 160KGATES
+#set_wire_load_model -name TSMC13_Conservative
+#set_driving_cell -lib_cell "NAND2XL" [all_inputs]
+set_load 2 [all_outputs]
+
+# compilation:
+compile
+
+#compile_physical -mpc
+
+# output results:
+write -format verilog -hier -out result/$prj_name.v
+write_sdf result/$prj_name.sdf
+#write_sdf -context verilog result/simple.sdf
+#write_script  -output result/constraints.dcsh
+
+# reports:
+#write_timing -output report/tim_$prj_name.result
+report_timing -nworst 50 > report/tim_$prj_name.report
+
+#write_constraints -output constraints.rpt -format sdf
+#write_script -format dctcl -output constraints.tcl
+#write_script -hierarchy -format dctcl -output constraints.tcl

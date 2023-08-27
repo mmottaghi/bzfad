@@ -1,0 +1,559 @@
+Loading db file '/home/cad/synopsys/SYN-2005.09-SP2/libraries/syn/standard.sldb'
+Loading db file '/home/cad/synopsys/SYN-2005.09-SP2/libraries/syn/gtech.db'
+Loading db file '/home/cad/TSMC/18/synopsys/typical.db'
+Reading in the Synopsys vhdl primitives.
+/home/mottaghi/tavan-shafagh/byzfad/16byzfad-syn.18u/sources/prim16.vhd:
+/home/mottaghi/tavan-shafagh/byzfad/16byzfad-syn.18u/sources/byzfad16_sngl.vhd:
+/home/mottaghi/tavan-shafagh/byzfad/16byzfad-syn.18u/sources/byzfad16_mult.vhd:
+  Loading link library 'typical'
+  Loading link library 'gtech'
+Elaborated 1 design.
+Current design is now 'evlpMultiplier16'.
+Information: Building the design 'evMS_FlipFlop'. (HDL-193)
+
+Inferred memory devices in process 'DFF_PROCESS'
+	in routine evMS_FlipFlop
+         line 13 in file
+         '/home/mottaghi/tavan-shafagh/byzfad/16byzfad-syn.18u/sources/byzfad16_sngl.vhd'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      dout_reg       | Flip-flop |   1   |  -  | -  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Information: Building the design 'evMUX2_1'. (HDL-193)
+Information: Building the design 'evlpRCAdder' instantiated from design 'evlpMultiplier16' with
+	the parameters "wdt => 16". (HDL-193)
+Information: Building the design 'evNonEncodedMux' instantiated from design 'evlpMultiplier16' with
+	the parameters "wdt => 16". (HDL-193)
+Information: Building the design 'evlpRegister' instantiated from design 'evlpMultiplier16' with
+	the parameters "wdt => 16". (HDL-193)
+Information: Building the design 'evlpMux2_1' instantiated from design 'evlpMultiplier16' with
+	the parameters "wdt => 17". (HDL-193)
+Information: Building the design 'evRingCounter_GtdClk' instantiated from design 'evlpMultiplier16' with
+	the parameters "wdt => 16, block_size => 4". (HDL-193)
+Information: Building the design 'evInpDemuxLatch' instantiated from design 'evlpMultiplier16' with
+	the parameters "wdt => 16". (HDL-193)
+Information: Building the design 'evLPFA'. (HDL-193)
+Information: Building the design 'evNMOS'. (HDL-193)
+
+Inferred THREE-STATE control devices in process 
+	in routine evNMOS line 12 in
+         file
+         '/home/mottaghi/tavan-shafagh/byzfad/16byzfad-syn.18u/sources/prim16.vhd'.
+============================================================================
+|     Three-state Device Name      |               Type               | MB |
+============================================================================
+|             drn_tri              |        Three-state Buffer        | N  |
+============================================================================
+
+Information: Building the design 'evMS_Rstbl_FlipFlop'. (HDL-193)
+
+Inferred memory devices in process 'DFF_PROCESS'
+	in routine
+         evMS_Rstbl_FlipFlop line 34 in file
+         '/home/mottaghi/tavan-shafagh/byzfad/16byzfad-syn.18u/sources/byzfad16_sngl.vhd'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      dout_reg       | Flip-flop |   1   |  -  | -  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Information: Building the design 'evClockGator_RngCntrP'. (HDL-193)
+Information: Building the design 'evClockGator_RngCntrR'. (HDL-193)
+Information: Building the design 'evMS_Prstbl_FlipFlop'. (HDL-193)
+
+Inferred memory devices in process 'DFF_PROCESS'
+	in routine
+         evMS_Prstbl_FlipFlop line 61 in file
+         '/home/mottaghi/tavan-shafagh/byzfad/16byzfad-syn.18u/sources/byzfad16_sngl.vhd'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      dout_reg       | Flip-flop |   1   |  -  | -  | N  | Y  | N  | N  | N  |
+===============================================================================
+
+Information: Building the design 'evLatch_cell'. (HDL-193)
+
+Inferred memory devices in process 'Latch_Data'
+	in routine evLatch_cell line
+         224 in file
+         '/home/mottaghi/tavan-shafagh/byzfad/16byzfad-syn.18u/sources/byzfad16_sngl.vhd'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      dout_reg       |   Latch   |   1   |  -  | -  | N  | N  | -  | -  | -  |
+===============================================================================
+
+Information: Building the design 'evCINV'. (HDL-193)
+Information: Building the design 'evPrst_Latch_cell'. (HDL-193)
+
+Inferred memory devices in process 'Latch_Data'
+	in routine evPrst_Latch_cell
+         line 307 in file
+         '/home/mottaghi/tavan-shafagh/byzfad/16byzfad-syn.18u/sources/byzfad16_sngl.vhd'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      dout_reg       |   Latch   |   1   |  -  | -  | N  | N  | -  | -  | -  |
+===============================================================================
+
+Information: Building the design 'evRst_Latch_cell'. (HDL-193)
+
+Inferred memory devices in process 'Latch_Data'
+	in routine evRst_Latch_cell
+         line 263 in file
+         '/home/mottaghi/tavan-shafagh/byzfad/16byzfad-syn.18u/sources/byzfad16_sngl.vhd'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      dout_reg       |   Latch   |   1   |  -  | -  | N  | N  | -  | -  | -  |
+===============================================================================
+
+Current design is 'evlpMultiplier16'.
+Removing uniquified design 'evMUX2_1'.
+Removing uniquified design 'evlpRegister_wdt16'.
+Removing uniquified design 'evLPFA'.
+Removing uniquified design 'evNMOS'.
+Removing uniquified design 'evMS_Rstbl_FlipFlop'.
+Removing uniquified design 'evClockGator_RngCntrR'.
+Removing uniquified design 'evLatch_cell'.
+Removing uniquified design 'evCINV'.
+Removing uniquified design 'evRst_Latch_cell'.
+  Uniquified 86 instances of design 'evMUX2_1'.
+  Uniquified 2 instances of design 'evlpRegister_wdt16'.
+  Uniquified 16 instances of design 'evLPFA'.
+  Uniquified 16 instances of design 'evNMOS'.
+  Uniquified 47 instances of design 'evMS_Rstbl_FlipFlop'.
+  Uniquified 3 instances of design 'evClockGator_RngCntrR'.
+  Uniquified 16 instances of design 'evLatch_cell'.
+  Uniquified 16 instances of design 'evCINV'.
+  Uniquified 3 instances of design 'evRst_Latch_cell'.
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library       |      Version       | Available |
+============================================================================
+| Basic DW Building Blocks                | X-2005.09-DWBB_0512 |    *     |
+| Licensed DW Building Blocks             |                    |           |
+============================================================================
+
+
+Information: There are 100 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+
+
+  Beginning Pass 1 Mapping
+  ------------------------
+  Processing 'evLatch_cell_0'
+  Processing 'evInpDemuxLatch_wdt16'
+  Processing 'evMS_Rstbl_FlipFlop_0'
+  Processing 'evMS_Prstbl_FlipFlop'
+  Processing 'evRst_Latch_cell_0'
+  Processing 'evMUX2_1_0'
+  Processing 'evClockGator_RngCntrR_0'
+  Processing 'evPrst_Latch_cell'
+  Processing 'evClockGator_RngCntrP'
+  Processing 'evRingCounter_GtdClk_wdt16_block_size4'
+  Processing 'evlpMux2_1_wdt17'
+  Processing 'evlpRegister_wdt16_0'
+  Processing 'evNMOS_0'
+  Processing 'evNonEncodedMux_wdt16'
+  Processing 'evCINV_0'
+  Processing 'evLPFA_0'
+  Processing 'evlpRCAdder_wdt16'
+  Processing 'evMS_FlipFlop'
+  Processing 'evlpMultiplier16'
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+Information: Timing loop detected. (OPT-150)
+	counter/first_gator/line_selector/U10/A0N counter/first_gator/line_selector/U10/Y counter/first_gator/prlatch/dout_reg/G counter/first_gator/prlatch/dout_reg/Q 
+Information: Timing loop detected. (OPT-150)
+	counter/gator_1/line_selector/U10/A0N counter/gator_1/line_selector/U10/Y counter/gator_1/rlatch/dout_reg/G counter/gator_1/rlatch/dout_reg/Q 
+Warning: Disabling timing arc between pins 'G' and 'Q' on cell 'counter/first_gator/prlatch/dout_reg'
+         to break a timing loop. (OPT-314)
+Warning: Disabling timing arc between pins 'G' and 'QN' on cell 'counter/first_gator/prlatch/dout_reg'
+         to break a timing loop. (OPT-314)
+Warning: Disabling timing arc between pins 'G' and 'Q' on cell 'counter/gator_1/rlatch/dout_reg'
+         to break a timing loop. (OPT-314)
+Warning: Disabling timing arc between pins 'G' and 'QN' on cell 'counter/gator_1/rlatch/dout_reg'
+         to break a timing loop. (OPT-314)
+Warning: Disabling timing arc between pins 'G' and 'Q' on cell 'counter/gator_2/rlatch/dout_reg'
+         to break a timing loop. (OPT-314)
+Warning: Disabling timing arc between pins 'G' and 'QN' on cell 'counter/gator_2/rlatch/dout_reg'
+         to break a timing loop. (OPT-314)
+Warning: Disabling timing arc between pins 'G' and 'Q' on cell 'counter/last_gator_3/rlatch/dout_reg'
+         to break a timing loop. (OPT-314)
+Warning: Disabling timing arc between pins 'G' and 'QN' on cell 'counter/last_gator_3/rlatch/dout_reg'
+         to break a timing loop. (OPT-314)
+Warning: Disabling timing arc between pins 'CK' and 'Q' on cell 'counter/ff_11/dout_reg'
+         to break a timing loop. (OPT-314)
+Warning: Disabling timing arc between pins 'CK' and 'Q' on cell 'counter/ff_7/dout_reg'
+         to break a timing loop. (OPT-314)
+Warning: Disabling timing arc between pins 'CK' and 'Q' on cell 'counter/ff_3/dout_reg'
+         to break a timing loop. (OPT-314)
+Information: Design 'evlpMultiplier16' has no optimization constraints set. (OPT-108)
+
+  Beginning Mapping Optimizations  (Medium effort)
+  -------------------------------
+  Structuring 'evCINV_14'
+  Mapping 'evCINV_14'
+  Structuring 'evCINV_13'
+  Mapping 'evCINV_13'
+  Structuring 'evCINV_12'
+  Mapping 'evCINV_12'
+  Structuring 'evCINV_11'
+  Mapping 'evCINV_11'
+  Structuring 'evCINV_10'
+  Mapping 'evCINV_10'
+  Structuring 'evCINV_9'
+  Mapping 'evCINV_9'
+  Structuring 'evCINV_8'
+  Mapping 'evCINV_8'
+  Structuring 'evCINV_7'
+  Mapping 'evCINV_7'
+  Structuring 'evCINV_6'
+  Mapping 'evCINV_6'
+  Structuring 'evCINV_5'
+  Mapping 'evCINV_5'
+  Structuring 'evCINV_4'
+  Mapping 'evCINV_4'
+  Structuring 'evCINV_3'
+  Mapping 'evCINV_3'
+  Structuring 'evCINV_2'
+  Mapping 'evCINV_2'
+  Structuring 'evCINV_1'
+  Mapping 'evCINV_1'
+  Structuring 'evCINV_0'
+  Mapping 'evCINV_0'
+  Structuring 'evClockGator_RngCntrR_1'
+  Mapping 'evClockGator_RngCntrR_1'
+  Structuring 'evClockGator_RngCntrR_0'
+  Mapping 'evClockGator_RngCntrR_0'
+  Structuring 'evNMOS_14'
+  Mapping 'evNMOS_14'
+  Structuring 'evNMOS_13'
+  Mapping 'evNMOS_13'
+  Structuring 'evNMOS_12'
+  Mapping 'evNMOS_12'
+  Structuring 'evNMOS_11'
+  Mapping 'evNMOS_11'
+  Structuring 'evNMOS_10'
+  Mapping 'evNMOS_10'
+  Structuring 'evNMOS_9'
+  Mapping 'evNMOS_9'
+  Structuring 'evNMOS_8'
+  Mapping 'evNMOS_8'
+  Structuring 'evNMOS_7'
+  Mapping 'evNMOS_7'
+  Structuring 'evNMOS_6'
+  Mapping 'evNMOS_6'
+  Structuring 'evNMOS_5'
+  Mapping 'evNMOS_5'
+  Structuring 'evNMOS_4'
+  Mapping 'evNMOS_4'
+  Structuring 'evNMOS_3'
+  Mapping 'evNMOS_3'
+  Structuring 'evNMOS_2'
+  Mapping 'evNMOS_2'
+  Structuring 'evNMOS_1'
+  Mapping 'evNMOS_1'
+  Structuring 'evNMOS_0'
+  Mapping 'evNMOS_0'
+  Structuring 'evMUX2_1_84'
+  Mapping 'evMUX2_1_84'
+  Structuring 'evMUX2_1_83'
+  Mapping 'evMUX2_1_83'
+  Structuring 'evMUX2_1_82'
+  Mapping 'evMUX2_1_82'
+  Structuring 'evMUX2_1_81'
+  Mapping 'evMUX2_1_81'
+  Structuring 'evMUX2_1_80'
+  Mapping 'evMUX2_1_80'
+  Structuring 'evMUX2_1_79'
+  Mapping 'evMUX2_1_79'
+  Structuring 'evMUX2_1_78'
+  Mapping 'evMUX2_1_78'
+  Structuring 'evMUX2_1_77'
+  Mapping 'evMUX2_1_77'
+  Structuring 'evMUX2_1_76'
+  Mapping 'evMUX2_1_76'
+  Structuring 'evMUX2_1_75'
+  Mapping 'evMUX2_1_75'
+  Structuring 'evMUX2_1_74'
+  Mapping 'evMUX2_1_74'
+  Structuring 'evMUX2_1_73'
+  Mapping 'evMUX2_1_73'
+  Structuring 'evMUX2_1_72'
+  Mapping 'evMUX2_1_72'
+  Structuring 'evMUX2_1_71'
+  Mapping 'evMUX2_1_71'
+  Structuring 'evMUX2_1_70'
+  Mapping 'evMUX2_1_70'
+  Structuring 'evMUX2_1_69'
+  Mapping 'evMUX2_1_69'
+  Structuring 'evMUX2_1_68'
+  Mapping 'evMUX2_1_68'
+  Structuring 'evMUX2_1_67'
+  Mapping 'evMUX2_1_67'
+  Structuring 'evMUX2_1_66'
+  Mapping 'evMUX2_1_66'
+  Structuring 'evMUX2_1_65'
+  Mapping 'evMUX2_1_65'
+  Structuring 'evMUX2_1_64'
+  Mapping 'evMUX2_1_64'
+  Structuring 'evMUX2_1_63'
+  Mapping 'evMUX2_1_63'
+  Structuring 'evMUX2_1_62'
+  Mapping 'evMUX2_1_62'
+  Structuring 'evMUX2_1_61'
+  Mapping 'evMUX2_1_61'
+  Structuring 'evMUX2_1_60'
+  Mapping 'evMUX2_1_60'
+  Structuring 'evMUX2_1_59'
+  Mapping 'evMUX2_1_59'
+  Structuring 'evMUX2_1_58'
+  Mapping 'evMUX2_1_58'
+  Structuring 'evMUX2_1_57'
+  Mapping 'evMUX2_1_57'
+  Structuring 'evMUX2_1_56'
+  Mapping 'evMUX2_1_56'
+  Structuring 'evMUX2_1_55'
+  Mapping 'evMUX2_1_55'
+  Structuring 'evMUX2_1_54'
+  Mapping 'evMUX2_1_54'
+  Structuring 'evMUX2_1_53'
+  Mapping 'evMUX2_1_53'
+  Structuring 'evMUX2_1_52'
+  Mapping 'evMUX2_1_52'
+  Structuring 'evMUX2_1_51'
+  Mapping 'evMUX2_1_51'
+  Structuring 'evMUX2_1_50'
+  Mapping 'evMUX2_1_50'
+  Structuring 'evMUX2_1_49'
+  Mapping 'evMUX2_1_49'
+  Structuring 'evMUX2_1_48'
+  Mapping 'evMUX2_1_48'
+  Structuring 'evMUX2_1_47'
+  Mapping 'evMUX2_1_47'
+  Structuring 'evMUX2_1_46'
+  Mapping 'evMUX2_1_46'
+  Structuring 'evMUX2_1_45'
+  Mapping 'evMUX2_1_45'
+  Structuring 'evMUX2_1_44'
+  Mapping 'evMUX2_1_44'
+  Structuring 'evMUX2_1_43'
+  Mapping 'evMUX2_1_43'
+  Structuring 'evMUX2_1_42'
+  Mapping 'evMUX2_1_42'
+  Structuring 'evMUX2_1_41'
+  Mapping 'evMUX2_1_41'
+  Structuring 'evMUX2_1_40'
+  Mapping 'evMUX2_1_40'
+  Structuring 'evMUX2_1_39'
+  Mapping 'evMUX2_1_39'
+  Structuring 'evMUX2_1_38'
+  Mapping 'evMUX2_1_38'
+  Structuring 'evMUX2_1_37'
+  Mapping 'evMUX2_1_37'
+  Structuring 'evMUX2_1_36'
+  Mapping 'evMUX2_1_36'
+  Structuring 'evMUX2_1_35'
+  Mapping 'evMUX2_1_35'
+  Structuring 'evMUX2_1_34'
+  Mapping 'evMUX2_1_34'
+  Structuring 'evMUX2_1_33'
+  Mapping 'evMUX2_1_33'
+  Structuring 'evMUX2_1_32'
+  Mapping 'evMUX2_1_32'
+  Structuring 'evMUX2_1_31'
+  Mapping 'evMUX2_1_31'
+  Structuring 'evMUX2_1_30'
+  Mapping 'evMUX2_1_30'
+  Structuring 'evMUX2_1_29'
+  Mapping 'evMUX2_1_29'
+  Structuring 'evMUX2_1_28'
+  Mapping 'evMUX2_1_28'
+  Structuring 'evMUX2_1_27'
+  Mapping 'evMUX2_1_27'
+  Structuring 'evMUX2_1_26'
+  Mapping 'evMUX2_1_26'
+  Structuring 'evMUX2_1_25'
+  Mapping 'evMUX2_1_25'
+  Structuring 'evMUX2_1_24'
+  Mapping 'evMUX2_1_24'
+  Structuring 'evMUX2_1_23'
+  Mapping 'evMUX2_1_23'
+  Structuring 'evMUX2_1_22'
+  Mapping 'evMUX2_1_22'
+  Structuring 'evMUX2_1_21'
+  Mapping 'evMUX2_1_21'
+  Structuring 'evMUX2_1_20'
+  Mapping 'evMUX2_1_20'
+  Structuring 'evMUX2_1_19'
+  Mapping 'evMUX2_1_19'
+  Structuring 'evMUX2_1_18'
+  Mapping 'evMUX2_1_18'
+  Structuring 'evMUX2_1_17'
+  Mapping 'evMUX2_1_17'
+  Structuring 'evMUX2_1_16'
+  Mapping 'evMUX2_1_16'
+  Structuring 'evMUX2_1_15'
+  Mapping 'evMUX2_1_15'
+  Structuring 'evMUX2_1_14'
+  Mapping 'evMUX2_1_14'
+  Structuring 'evMUX2_1_13'
+  Mapping 'evMUX2_1_13'
+  Structuring 'evMUX2_1_12'
+  Mapping 'evMUX2_1_12'
+  Structuring 'evMUX2_1_11'
+  Mapping 'evMUX2_1_11'
+  Structuring 'evMUX2_1_10'
+  Mapping 'evMUX2_1_10'
+  Structuring 'evMUX2_1_9'
+  Mapping 'evMUX2_1_9'
+  Structuring 'evMUX2_1_8'
+  Mapping 'evMUX2_1_8'
+  Structuring 'evMUX2_1_7'
+  Mapping 'evMUX2_1_7'
+  Structuring 'evMUX2_1_6'
+  Mapping 'evMUX2_1_6'
+  Structuring 'evMUX2_1_5'
+  Mapping 'evMUX2_1_5'
+  Structuring 'evMUX2_1_4'
+  Mapping 'evMUX2_1_4'
+  Structuring 'evMUX2_1_3'
+  Mapping 'evMUX2_1_3'
+  Structuring 'evMUX2_1_2'
+  Mapping 'evMUX2_1_2'
+  Structuring 'evMUX2_1_1'
+  Mapping 'evMUX2_1_1'
+  Structuring 'evMUX2_1_0'
+  Mapping 'evMUX2_1_0'
+  Structuring 'evCINV_15'
+  Mapping 'evCINV_15'
+  Structuring 'evClockGator_RngCntrR_2'
+  Mapping 'evClockGator_RngCntrR_2'
+  Structuring 'evClockGator_RngCntrP'
+  Mapping 'evClockGator_RngCntrP'
+  Structuring 'evNMOS_15'
+  Mapping 'evNMOS_15'
+  Structuring 'evMUX2_1_85'
+  Mapping 'evMUX2_1_85'
+  Structuring 'evlpMultiplier16'
+  Mapping 'evlpMultiplier16'
+
+   ELAPSED            WORST NEG TOTAL NEG  DESIGN                            
+    TIME      AREA      SLACK     SLACK   RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:06    9682.5      0.00       0.0      17.9                          
+    0:00:08    7603.5      0.00       0.0       8.9                          
+
+
+  Beginning Delay Optimization Phase
+  ----------------------------------
+
+   ELAPSED            WORST NEG TOTAL NEG  DESIGN                            
+    TIME      AREA      SLACK     SLACK   RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:08    7603.5      0.00       0.0       8.9                          
+
+
+  Beginning Design Rule Fixing  (max_transition)  (max_capacitance)
+  ----------------------------
+
+   ELAPSED            WORST NEG TOTAL NEG  DESIGN                            
+    TIME      AREA      SLACK     SLACK   RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:08    7603.5      0.00       0.0       8.9                          
+    0:00:08    7796.5      0.00       0.0       0.0                          
+
+
+  Beginning Area-Recovery Phase  (cleanup)
+  -----------------------------
+
+   ELAPSED            WORST NEG TOTAL NEG  DESIGN                            
+    TIME      AREA      SLACK     SLACK   RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:08    7796.5      0.00       0.0       0.0                          
+    0:00:08    7796.5      0.00       0.0       0.0                          
+    0:00:09    7789.8      0.00       0.0       0.0                          
+    0:00:09    7783.2      0.00       0.0       0.0                          
+
+  Optimization Complete
+  ---------------------
+Writing verilog file '/home/mottaghi/tavan-shafagh/byzfad/16byzfad-syn.18u/result/byzfad16-18u.v'.
+Warning: Verilog 'assign' or 'tran' statements are written out. (VO-4)
+Information: Annotated 'cell' delays are assumed to include load delay. (UID-282)
+Information: Writing timing information to file '/home/mottaghi/tavan-shafagh/byzfad/16byzfad-syn.18u/result/byzfad16-18u.sdf'. (WT-3)

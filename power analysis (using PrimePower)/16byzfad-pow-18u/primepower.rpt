@@ -1,0 +1,1373 @@
+
+                           PrimePower (TM)
+
+             Version V-2004.06 for linux -- Aug 23, 2004
+              Copyright (c) 2000-2004 by Synopsys, Inc.
+                         ALL RIGHTS RESERVED
+
+
+************************************************
+Report:               average power
+Design:               evlpMultiplier16
+Library File(s):      /home/cad/TSMC/18/synopsys/typical.db
+Simulation period[1]: 0 ns - 296801 ns
+Sampling interval:    1 ns
+Reporting threshold:  0 Watt
+Date:                 Thu Jul 26 14:18:00 2007
+************************************************
+
+operating_condition_max_name: typical Library: typical
+
+Wire Loading Model Mode: segmented
+
+Cell               Design       Wire_model  Library       Selection_type
+--------------------------------------------------------------------------------
+                   evlpMultiplier16 UMC18_Conservative typical library default
+src_sel_ff         evMS_FlipFlop UMC18_Conservative typical library default
+src_sel_mux        evMUX2_1_85  UMC18_Conservative typical library default
+adder              evlpRCAdder_wdt16 UMC18_Conservative typical library default
+adder/adder_0      evLPFA_15    UMC18_Conservative typical library default
+adder/adder_0/inv  evCINV_15    UMC18_Conservative typical library default
+adder/adder_0/mx1  evMUX2_1_67  UMC18_Conservative typical library default
+adder/adder_0/mx2  evMUX2_1_66  UMC18_Conservative typical library default
+adder/adder_0/mx3  evMUX2_1_65  UMC18_Conservative typical library default
+adder/adder_0/mx4  evMUX2_1_64  UMC18_Conservative typical library default
+adder/adder_1      evLPFA_14    UMC18_Conservative typical library default
+adder/adder_1/inv  evCINV_14    UMC18_Conservative typical library default
+adder/adder_1/mx1  evMUX2_1_63  UMC18_Conservative typical library default
+adder/adder_1/mx2  evMUX2_1_62  UMC18_Conservative typical library default
+adder/adder_1/mx3  evMUX2_1_61  UMC18_Conservative typical library default
+adder/adder_1/mx4  evMUX2_1_60  UMC18_Conservative typical library default
+adder/adder_2      evLPFA_13    UMC18_Conservative typical library default
+adder/adder_2/inv  evCINV_13    UMC18_Conservative typical library default
+adder/adder_2/mx1  evMUX2_1_59  UMC18_Conservative typical library default
+adder/adder_2/mx2  evMUX2_1_58  UMC18_Conservative typical library default
+adder/adder_2/mx3  evMUX2_1_57  UMC18_Conservative typical library default
+adder/adder_2/mx4  evMUX2_1_56  UMC18_Conservative typical library default
+adder/adder_3      evLPFA_12    UMC18_Conservative typical library default
+adder/adder_3/inv  evCINV_12    UMC18_Conservative typical library default
+adder/adder_3/mx1  evMUX2_1_55  UMC18_Conservative typical library default
+adder/adder_3/mx2  evMUX2_1_54  UMC18_Conservative typical library default
+adder/adder_3/mx3  evMUX2_1_53  UMC18_Conservative typical library default
+adder/adder_3/mx4  evMUX2_1_52  UMC18_Conservative typical library default
+adder/adder_4      evLPFA_11    UMC18_Conservative typical library default
+adder/adder_4/inv  evCINV_11    UMC18_Conservative typical library default
+adder/adder_4/mx1  evMUX2_1_51  UMC18_Conservative typical library default
+adder/adder_4/mx2  evMUX2_1_50  UMC18_Conservative typical library default
+adder/adder_4/mx3  evMUX2_1_49  UMC18_Conservative typical library default
+adder/adder_4/mx4  evMUX2_1_48  UMC18_Conservative typical library default
+adder/adder_5      evLPFA_10    UMC18_Conservative typical library default
+adder/adder_5/inv  evCINV_10    UMC18_Conservative typical library default
+adder/adder_5/mx1  evMUX2_1_47  UMC18_Conservative typical library default
+adder/adder_5/mx2  evMUX2_1_46  UMC18_Conservative typical library default
+adder/adder_5/mx3  evMUX2_1_45  UMC18_Conservative typical library default
+adder/adder_5/mx4  evMUX2_1_44  UMC18_Conservative typical library default
+adder/adder_6      evLPFA_9     UMC18_Conservative typical library default
+adder/adder_6/inv  evCINV_9     UMC18_Conservative typical library default
+adder/adder_6/mx1  evMUX2_1_43  UMC18_Conservative typical library default
+adder/adder_6/mx2  evMUX2_1_42  UMC18_Conservative typical library default
+adder/adder_6/mx3  evMUX2_1_41  UMC18_Conservative typical library default
+adder/adder_6/mx4  evMUX2_1_40  UMC18_Conservative typical library default
+adder/adder_7      evLPFA_8     UMC18_Conservative typical library default
+adder/adder_7/inv  evCINV_8     UMC18_Conservative typical library default
+adder/adder_7/mx1  evMUX2_1_39  UMC18_Conservative typical library default
+adder/adder_7/mx2  evMUX2_1_38  UMC18_Conservative typical library default
+adder/adder_7/mx3  evMUX2_1_37  UMC18_Conservative typical library default
+adder/adder_7/mx4  evMUX2_1_36  UMC18_Conservative typical library default
+adder/adder_8      evLPFA_7     UMC18_Conservative typical library default
+adder/adder_8/inv  evCINV_7     UMC18_Conservative typical library default
+adder/adder_8/mx1  evMUX2_1_35  UMC18_Conservative typical library default
+adder/adder_8/mx2  evMUX2_1_34  UMC18_Conservative typical library default
+adder/adder_8/mx3  evMUX2_1_33  UMC18_Conservative typical library default
+adder/adder_8/mx4  evMUX2_1_32  UMC18_Conservative typical library default
+adder/adder_9      evLPFA_6     UMC18_Conservative typical library default
+adder/adder_9/inv  evCINV_6     UMC18_Conservative typical library default
+adder/adder_9/mx1  evMUX2_1_31  UMC18_Conservative typical library default
+adder/adder_9/mx2  evMUX2_1_30  UMC18_Conservative typical library default
+adder/adder_9/mx3  evMUX2_1_29  UMC18_Conservative typical library default
+adder/adder_9/mx4  evMUX2_1_28  UMC18_Conservative typical library default
+adder/adder_10     evLPFA_5     UMC18_Conservative typical library default
+adder/adder_10/inv evCINV_5     UMC18_Conservative typical library default
+adder/adder_10/mx1 evMUX2_1_27  UMC18_Conservative typical library default
+adder/adder_10/mx2 evMUX2_1_26  UMC18_Conservative typical library default
+adder/adder_10/mx3 evMUX2_1_25  UMC18_Conservative typical library default
+adder/adder_10/mx4 evMUX2_1_24  UMC18_Conservative typical library default
+adder/adder_11     evLPFA_4     UMC18_Conservative typical library default
+adder/adder_11/inv evCINV_4     UMC18_Conservative typical library default
+adder/adder_11/mx1 evMUX2_1_23  UMC18_Conservative typical library default
+adder/adder_11/mx2 evMUX2_1_22  UMC18_Conservative typical library default
+adder/adder_11/mx3 evMUX2_1_21  UMC18_Conservative typical library default
+adder/adder_11/mx4 evMUX2_1_20  UMC18_Conservative typical library default
+adder/adder_12     evLPFA_3     UMC18_Conservative typical library default
+adder/adder_12/inv evCINV_3     UMC18_Conservative typical library default
+adder/adder_12/mx1 evMUX2_1_19  UMC18_Conservative typical library default
+adder/adder_12/mx2 evMUX2_1_18  UMC18_Conservative typical library default
+adder/adder_12/mx3 evMUX2_1_17  UMC18_Conservative typical library default
+adder/adder_12/mx4 evMUX2_1_16  UMC18_Conservative typical library default
+adder/adder_13     evLPFA_2     UMC18_Conservative typical library default
+adder/adder_13/inv evCINV_2     UMC18_Conservative typical library default
+adder/adder_13/mx1 evMUX2_1_15  UMC18_Conservative typical library default
+adder/adder_13/mx2 evMUX2_1_14  UMC18_Conservative typical library default
+adder/adder_13/mx3 evMUX2_1_13  UMC18_Conservative typical library default
+adder/adder_13/mx4 evMUX2_1_12  UMC18_Conservative typical library default
+adder/adder_14     evLPFA_1     UMC18_Conservative typical library default
+adder/adder_14/inv evCINV_1     UMC18_Conservative typical library default
+adder/adder_14/mx1 evMUX2_1_11  UMC18_Conservative typical library default
+adder/adder_14/mx2 evMUX2_1_10  UMC18_Conservative typical library default
+adder/adder_14/mx3 evMUX2_1_9   UMC18_Conservative typical library default
+adder/adder_14/mx4 evMUX2_1_8   UMC18_Conservative typical library default
+adder/adder_15     evLPFA_0     UMC18_Conservative typical library default
+adder/adder_15/inv evCINV_0     UMC18_Conservative typical library default
+adder/adder_15/mx1 evMUX2_1_7   UMC18_Conservative typical library default
+adder/adder_15/mx2 evMUX2_1_6   UMC18_Conservative typical library default
+adder/adder_15/mx3 evMUX2_1_5   UMC18_Conservative typical library default
+adder/adder_15/mx4 evMUX2_1_4   UMC18_Conservative typical library default
+nxt_hot_bit_mux    evNonEncodedMux_wdt16 UMC18_Conservative typical library default
+nxt_hot_bit_mux/nms_0 evNMOS_15 UMC18_Conservative typical library default
+nxt_hot_bit_mux/nms_1 evNMOS_14 UMC18_Conservative typical library default
+nxt_hot_bit_mux/nms_2 evNMOS_13 UMC18_Conservative typical library default
+nxt_hot_bit_mux/nms_3 evNMOS_12 UMC18_Conservative typical library default
+nxt_hot_bit_mux/nms_4 evNMOS_11 UMC18_Conservative typical library default
+nxt_hot_bit_mux/nms_5 evNMOS_10 UMC18_Conservative typical library default
+nxt_hot_bit_mux/nms_6 evNMOS_9  UMC18_Conservative typical library default
+nxt_hot_bit_mux/nms_7 evNMOS_8  UMC18_Conservative typical library default
+nxt_hot_bit_mux/nms_8 evNMOS_7  UMC18_Conservative typical library default
+nxt_hot_bit_mux/nms_9 evNMOS_6  UMC18_Conservative typical library default
+nxt_hot_bit_mux/nms_10 evNMOS_5 UMC18_Conservative typical library default
+nxt_hot_bit_mux/nms_11 evNMOS_4 UMC18_Conservative typical library default
+nxt_hot_bit_mux/nms_12 evNMOS_3 UMC18_Conservative typical library default
+nxt_hot_bit_mux/nms_13 evNMOS_2 UMC18_Conservative typical library default
+nxt_hot_bit_mux/nms_14 evNMOS_1 UMC18_Conservative typical library default
+nxt_hot_bit_mux/nms_15 evNMOS_0 UMC18_Conservative typical library default
+bypass_reg         evlpRegister_wdt16_1 UMC18_Conservative typical library default
+bypass_reg/ff_0    evMS_Rstbl_FlipFlop_46 UMC18_Conservative typical library default
+bypass_reg/ff_1    evMS_Rstbl_FlipFlop_45 UMC18_Conservative typical library default
+bypass_reg/ff_2    evMS_Rstbl_FlipFlop_44 UMC18_Conservative typical library default
+bypass_reg/ff_3    evMS_Rstbl_FlipFlop_43 UMC18_Conservative typical library default
+bypass_reg/ff_4    evMS_Rstbl_FlipFlop_42 UMC18_Conservative typical library default
+bypass_reg/ff_5    evMS_Rstbl_FlipFlop_41 UMC18_Conservative typical library default
+bypass_reg/ff_6    evMS_Rstbl_FlipFlop_40 UMC18_Conservative typical library default
+bypass_reg/ff_7    evMS_Rstbl_FlipFlop_39 UMC18_Conservative typical library default
+bypass_reg/ff_8    evMS_Rstbl_FlipFlop_38 UMC18_Conservative typical library default
+bypass_reg/ff_9    evMS_Rstbl_FlipFlop_37 UMC18_Conservative typical library default
+bypass_reg/ff_10   evMS_Rstbl_FlipFlop_36 UMC18_Conservative typical library default
+bypass_reg/ff_11   evMS_Rstbl_FlipFlop_35 UMC18_Conservative typical library default
+bypass_reg/ff_12   evMS_Rstbl_FlipFlop_34 UMC18_Conservative typical library default
+bypass_reg/ff_13   evMS_Rstbl_FlipFlop_33 UMC18_Conservative typical library default
+bypass_reg/ff_14   evMS_Rstbl_FlipFlop_32 UMC18_Conservative typical library default
+bypass_reg/ff_15   evMS_Rstbl_FlipFlop_31 UMC18_Conservative typical library default
+feeder_reg         evlpRegister_wdt16_0 UMC18_Conservative typical library default
+feeder_reg/ff_0    evMS_Rstbl_FlipFlop_30 UMC18_Conservative typical library default
+feeder_reg/ff_1    evMS_Rstbl_FlipFlop_29 UMC18_Conservative typical library default
+feeder_reg/ff_2    evMS_Rstbl_FlipFlop_28 UMC18_Conservative typical library default
+feeder_reg/ff_3    evMS_Rstbl_FlipFlop_27 UMC18_Conservative typical library default
+feeder_reg/ff_4    evMS_Rstbl_FlipFlop_26 UMC18_Conservative typical library default
+feeder_reg/ff_5    evMS_Rstbl_FlipFlop_25 UMC18_Conservative typical library default
+feeder_reg/ff_6    evMS_Rstbl_FlipFlop_24 UMC18_Conservative typical library default
+feeder_reg/ff_7    evMS_Rstbl_FlipFlop_23 UMC18_Conservative typical library default
+feeder_reg/ff_8    evMS_Rstbl_FlipFlop_22 UMC18_Conservative typical library default
+feeder_reg/ff_9    evMS_Rstbl_FlipFlop_21 UMC18_Conservative typical library default
+feeder_reg/ff_10   evMS_Rstbl_FlipFlop_20 UMC18_Conservative typical library default
+feeder_reg/ff_11   evMS_Rstbl_FlipFlop_19 UMC18_Conservative typical library default
+feeder_reg/ff_12   evMS_Rstbl_FlipFlop_18 UMC18_Conservative typical library default
+feeder_reg/ff_13   evMS_Rstbl_FlipFlop_17 UMC18_Conservative typical library default
+feeder_reg/ff_14   evMS_Rstbl_FlipFlop_16 UMC18_Conservative typical library default
+feeder_reg/ff_15   evMS_Rstbl_FlipFlop_15 UMC18_Conservative typical library default
+mux                evlpMux2_1_wdt17 UMC18_Conservative typical library default
+mux/mux_0          evMUX2_1_84  UMC18_Conservative typical library default
+mux/mux_1          evMUX2_1_83  UMC18_Conservative typical library default
+mux/mux_2          evMUX2_1_82  UMC18_Conservative typical library default
+mux/mux_3          evMUX2_1_81  UMC18_Conservative typical library default
+mux/mux_4          evMUX2_1_80  UMC18_Conservative typical library default
+mux/mux_5          evMUX2_1_79  UMC18_Conservative typical library default
+mux/mux_6          evMUX2_1_78  UMC18_Conservative typical library default
+mux/mux_7          evMUX2_1_77  UMC18_Conservative typical library default
+mux/mux_8          evMUX2_1_76  UMC18_Conservative typical library default
+mux/mux_9          evMUX2_1_75  UMC18_Conservative typical library default
+mux/mux_10         evMUX2_1_74  UMC18_Conservative typical library default
+mux/mux_11         evMUX2_1_73  UMC18_Conservative typical library default
+mux/mux_12         evMUX2_1_72  UMC18_Conservative typical library default
+mux/mux_13         evMUX2_1_71  UMC18_Conservative typical library default
+mux/mux_14         evMUX2_1_70  UMC18_Conservative typical library default
+mux/mux_15         evMUX2_1_69  UMC18_Conservative typical library default
+mux/mux_16         evMUX2_1_68  UMC18_Conservative typical library default
+counter            evRingCounter_GtdClk_wdt16_block_size4 UMC18_Conservative typical library default
+counter/first_gator evClockGator_RngCntrP UMC18_Conservative typical library default
+counter/first_gator/line_selector evMUX2_1_3 UMC18_Conservative typical library default
+counter/first_gator/prlatch evPrst_Latch_cell UMC18_Conservative typical library default
+counter/gator_1    evClockGator_RngCntrR_2 UMC18_Conservative typical library default
+counter/gator_1/line_selector evMUX2_1_2 UMC18_Conservative typical library default
+counter/gator_1/rlatch evRst_Latch_cell_2 UMC18_Conservative typical library default
+counter/gator_2    evClockGator_RngCntrR_1 UMC18_Conservative typical library default
+counter/gator_2/line_selector evMUX2_1_1 UMC18_Conservative typical library default
+counter/gator_2/rlatch evRst_Latch_cell_1 UMC18_Conservative typical library default
+counter/last_gator_3 evClockGator_RngCntrR_0 UMC18_Conservative typical library default
+counter/last_gator_3/line_selector evMUX2_1_0 UMC18_Conservative typical library default
+counter/last_gator_3/rlatch evRst_Latch_cell_0 UMC18_Conservative typical library default
+counter/first_ff   evMS_Prstbl_FlipFlop UMC18_Conservative typical library default
+counter/ff_1       evMS_Rstbl_FlipFlop_14 UMC18_Conservative typical library default
+counter/ff_2       evMS_Rstbl_FlipFlop_13 UMC18_Conservative typical library default
+counter/ff_3       evMS_Rstbl_FlipFlop_12 UMC18_Conservative typical library default
+counter/ff_4       evMS_Rstbl_FlipFlop_11 UMC18_Conservative typical library default
+counter/ff_5       evMS_Rstbl_FlipFlop_10 UMC18_Conservative typical library default
+counter/ff_6       evMS_Rstbl_FlipFlop_9 UMC18_Conservative typical library default
+counter/ff_7       evMS_Rstbl_FlipFlop_8 UMC18_Conservative typical library default
+counter/ff_8       evMS_Rstbl_FlipFlop_7 UMC18_Conservative typical library default
+counter/ff_9       evMS_Rstbl_FlipFlop_6 UMC18_Conservative typical library default
+counter/ff_10      evMS_Rstbl_FlipFlop_5 UMC18_Conservative typical library default
+counter/ff_11      evMS_Rstbl_FlipFlop_4 UMC18_Conservative typical library default
+counter/ff_12      evMS_Rstbl_FlipFlop_3 UMC18_Conservative typical library default
+counter/ff_13      evMS_Rstbl_FlipFlop_2 UMC18_Conservative typical library default
+counter/ff_14      evMS_Rstbl_FlipFlop_1 UMC18_Conservative typical library default
+counter/ff_15      evMS_Rstbl_FlipFlop_0 UMC18_Conservative typical library default
+low_res_latch      evInpDemuxLatch_wdt16 UMC18_Conservative typical library default
+low_res_latch/latch_0 evLatch_cell_15 UMC18_Conservative typical library default
+low_res_latch/latch_1 evLatch_cell_14 UMC18_Conservative typical library default
+low_res_latch/latch_2 evLatch_cell_13 UMC18_Conservative typical library default
+low_res_latch/latch_3 evLatch_cell_12 UMC18_Conservative typical library default
+low_res_latch/latch_4 evLatch_cell_11 UMC18_Conservative typical library default
+low_res_latch/latch_5 evLatch_cell_10 UMC18_Conservative typical library default
+low_res_latch/latch_6 evLatch_cell_9 UMC18_Conservative typical library default
+low_res_latch/latch_7 evLatch_cell_8 UMC18_Conservative typical library default
+low_res_latch/latch_8 evLatch_cell_7 UMC18_Conservative typical library default
+low_res_latch/latch_9 evLatch_cell_6 UMC18_Conservative typical library default
+low_res_latch/latch_10 evLatch_cell_5 UMC18_Conservative typical library default
+low_res_latch/latch_11 evLatch_cell_4 UMC18_Conservative typical library default
+low_res_latch/latch_12 evLatch_cell_3 UMC18_Conservative typical library default
+low_res_latch/latch_13 evLatch_cell_2 UMC18_Conservative typical library default
+low_res_latch/latch_14 evLatch_cell_1 UMC18_Conservative typical library default
+low_res_latch/latch_15 evLatch_cell_0 UMC18_Conservative typical library default
+
+Library Power-specific unit information :
+	Time Unit : 1 ns
+	Capacitance Unit : 1 pF
+	Voltage Unit : 1 V
+	Dynamic Power Unit : 0.001 W
+	Leakage Power Unit : 1e-09 W
+
+
+Definitions:
+    Total Power     = Dynamic + Leakage
+    Dynamic Power   = Switching + Internal
+    Switching Power = load capacitance charge or discharge power
+    Internal Power  = power dissipated within a cell
+    X-tran Power    = component of dynamic power-dissipated into x-transitions
+    Glitch Power    = component of dynamic power-dissipated into detectable
+                      glitches at the nets
+    Leakage Power   = reverse-biased junction leakage + subthreshold leakage
+
+
+-----------------------------------------------------------------------------
+Level         Instance_Name (Cell_Name)   #_of_States
+-----------------------------------------------------------------------------
+ Total      Dynamic    Leakage    Switching  Internal   X-tran     Glitch
+ Power      Power      Power      Power      Power      Power      Power
+ in Watt    in Watt    in Watt    in Watt    in Watt    in Watt    in Watt
+            (% of Tot) (% of Tot) (% of Dyn) (% of Dyn) (% of Dyn) (% of Dyn)
+-----------------------------------------------------------------------------
+            Peak            Peak
+            Power       Time Interval
+            in Watt         in ns
+-----------------------------------------------------------------------------
+
+----------------------------- Instances -------------------------------------
+*--------- 0  pp_root (.) 293668
+ 7.466e-04  7.466e-04  3.566e-08  7.188e-04  2.781e-05  5.339e-07  1.932e-08
+            (100.00%)  (  0.00%)  ( 96.28%)  (  3.72%)  (  0.07%)  (  0.00%)
+            1.984e-01  221985-221986 
+
+-*-------- 1  evlpMultiplier16 (evlpMultiplier16) 293668
+ 7.466e-04  7.466e-04  3.566e-08  7.188e-04  2.781e-05  5.339e-07  1.932e-08
+            (100.00%)  (  0.00%)  ( 96.28%)  (  3.72%)  (  0.07%)  (  0.00%)
+            1.984e-01  221985-221986 
+
+--*------- 2  evlpMultiplier16/mux (evlpMux2_1_wdt17) 61654
+ 6.539e-04  6.539e-04  7.189e-09  6.536e-04  2.283e-07  4.963e-07  1.538e-08
+            (100.00%)  (  0.00%)  ( 99.97%)  (  0.03%)  (  0.08%)  (  0.00%)
+            1.959e-01  221985-221986 
+
+---*------ 3  evlpMultiplier16/mux/mux_8 (evMUX2_1_76) 4285
+ 4.915e-05  4.915e-05  4.358e-10  4.915e-05  0.000e+00  2.750e-08  0.000e+00
+            (100.00%)  (  0.00%)  (100.00%)  (  0.00%)  (  0.06%)  (  0.00%)
+            1.633e-02    2985-2986   
+
+---*------ 3  evlpMultiplier16/mux/mux_7 (evMUX2_1_77) 4268
+ 4.876e-05  4.876e-05  4.358e-10  4.876e-05  0.000e+00  2.750e-08  0.000e+00
+            (100.00%)  (  0.00%)  (100.00%)  (  0.00%)  (  0.06%)  (  0.00%)
+            1.633e-02    3105-3106   
+
+---*------ 3  evlpMultiplier16/mux/mux_9 (evMUX2_1_75) 4219
+ 4.838e-05  4.838e-05  4.358e-10  4.838e-05  0.000e+00  2.750e-08  0.000e+00
+            (100.00%)  (  0.00%)  (100.00%)  (  0.00%)  (  0.06%)  (  0.00%)
+            1.633e-02    3105-3106   
+
+---*------ 3  evlpMultiplier16/mux/mux_6 (evMUX2_1_78) 4230
+ 4.816e-05  4.816e-05  4.358e-10  4.816e-05  0.000e+00  2.750e-08  0.000e+00
+            (100.00%)  (  0.00%)  (100.00%)  (  0.00%)  (  0.06%)  (  0.00%)
+            1.633e-02    3304-3305   
+
+---*------ 3  evlpMultiplier16/mux/mux_5 (evMUX2_1_79) 4184
+ 4.706e-05  4.706e-05  4.358e-10  4.706e-05  0.000e+00  2.750e-08  0.000e+00
+            (100.00%)  (  0.00%)  (100.00%)  (  0.00%)  (  0.06%)  (  0.00%)
+            1.633e-02    2985-2986   
+
+---*------ 3  evlpMultiplier16/mux/mux_10 (evMUX2_1_74) 4086
+ 4.618e-05  4.618e-05  4.358e-10  4.618e-05  0.000e+00  2.750e-08  0.000e+00
+            (100.00%)  (  0.00%)  (100.00%)  (  0.00%)  (  0.06%)  (  0.00%)
+            1.633e-02    2985-2986   
+
+---*------ 3  evlpMultiplier16/mux/mux_4 (evMUX2_1_80) 3971
+ 4.458e-05  4.458e-05  4.358e-10  4.458e-05  0.000e+00  2.750e-08  0.000e+00
+            (100.00%)  (  0.00%)  (100.00%)  (  0.00%)  (  0.06%)  (  0.00%)
+            1.633e-02     507-508    
+
+---*------ 3  evlpMultiplier16/mux/mux_3 (evMUX2_1_81) 3932
+ 4.450e-05  4.450e-05  4.358e-10  4.450e-05  0.000e+00  5.500e-08  0.000e+00
+            (100.00%)  (  0.00%)  (100.00%)  (  0.00%)  (  0.12%)  (  0.00%)
+            1.633e-02     404-405    
+
+---*------ 3  evlpMultiplier16/mux/mux_11 (evMUX2_1_73) 3924
+ 4.414e-05  4.414e-05  4.358e-10  4.414e-05  0.000e+00  2.750e-08  0.000e+00
+            (100.00%)  (  0.00%)  (100.00%)  (  0.00%)  (  0.06%)  (  0.00%)
+            1.633e-02    3105-3106   
+
+---*------ 3  evlpMultiplier16/mux/mux_2 (evMUX2_1_82) 3747
+ 4.200e-05  4.200e-05  4.358e-10  4.200e-05  0.000e+00  8.251e-08  0.000e+00
+            (100.00%)  (  0.00%)  (100.00%)  (  0.00%)  (  0.20%)  (  0.00%)
+            1.633e-02     506-507    
+
+---*------ 3  evlpMultiplier16/mux/mux_12 (evMUX2_1_72) 3713
+ 4.090e-05  4.090e-05  4.410e-10  4.090e-05  0.000e+00  2.750e-08  0.000e+00
+            (100.00%)  (  0.00%)  (100.00%)  (  0.00%)  (  0.07%)  (  0.00%)
+            1.633e-02    2985-2986   
+
+---*------ 3  evlpMultiplier16/mux/mux_13 (evMUX2_1_71) 3462
+ 3.782e-05  3.782e-05  4.410e-10  3.782e-05  0.000e+00  2.750e-08  0.000e+00
+            (100.00%)  (  0.00%)  (100.00%)  (  0.00%)  (  0.07%)  (  0.00%)
+            1.633e-02    2985-2986   
+
+---*------ 3  evlpMultiplier16/mux/mux_1 (evMUX2_1_83) 3376
+ 3.782e-05  3.782e-05  4.410e-10  3.782e-05  0.000e+00  2.750e-08  0.000e+00
+            (100.00%)  (  0.00%)  (100.00%)  (  0.00%)  (  0.07%)  (  0.00%)
+            1.633e-02     304-305    
+
+---*------ 3  evlpMultiplier16/mux/mux_14 (evMUX2_1_70) 3154
+ 3.342e-05  3.342e-05  4.410e-10  3.342e-05  0.000e+00  2.750e-08  0.000e+00
+            (100.00%)  (  0.00%)  (100.00%)  (  0.00%)  (  0.08%)  (  0.00%)
+            1.633e-02    4308-4309   
+
+---*------ 3  evlpMultiplier16/mux/mux_15 (evMUX2_1_69) 2575
+ 2.583e-05  2.582e-05  4.410e-10  2.582e-05  0.000e+00  2.750e-08  0.000e+00
+            (100.00%)  (  0.00%)  (100.00%)  (  0.00%)  (  0.11%)  (  0.00%)
+            1.633e-02    5988-5989   
+
+---*------ 3  evlpMultiplier16/mux/mux_16 (evMUX2_1_68) 1558
+ 1.359e-05  1.359e-05  4.410e-10  1.359e-05  0.000e+00  0.000e+00  0.000e+00
+            (100.00%)  (  0.00%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            1.633e-02    5985-5986   
+
+---*------ 3  evlpMultiplier16/mux/mux_0 (evMUX2_1_84) 2970
+ 1.638e-06  1.638e-06  1.854e-10  1.410e-06  2.283e-07  1.228e-09  1.538e-08
+            ( 99.99%)  (  0.01%)  ( 86.06%)  ( 13.94%)  (  0.07%)  (  0.94%)
+            8.052e-04    7203-7204   
+
+--*------- 2  evlpMultiplier16/low_res_latch (evInpDemuxLatch_wdt16) 23482
+ 5.333e-05  5.333e-05  4.731e-09  5.259e-05  7.322e-07  2.770e-08  0.000e+00
+            ( 99.99%)  (  0.01%)  ( 98.63%)  (  1.37%)  (  0.05%)  (  0.00%)
+            1.634e-02    9104-9105   
+
+---*------ 3  evlpMultiplier16/low_res_latch/latch_7 (evLatch_cell_8) 1483
+ 3.761e-06  3.761e-06  2.957e-10  3.720e-06  4.150e-08  2.190e-11  0.000e+00
+            ( 99.99%)  (  0.01%)  ( 98.90%)  (  1.10%)  (  0.00%)  (  0.00%)
+            1.624e-02    7304-7305   
+
+---*------ 3  evlpMultiplier16/low_res_latch/latch_10 (evLatch_cell_5) 1482
+ 3.711e-06  3.711e-06  2.957e-10  3.665e-06  4.598e-08  2.190e-11  0.000e+00
+            ( 99.99%)  (  0.01%)  ( 98.76%)  (  1.24%)  (  0.00%)  (  0.00%)
+            1.624e-02    4904-4905   
+
+---*------ 3  evlpMultiplier16/low_res_latch/latch_4 (evLatch_cell_11) 1478
+ 3.604e-06  3.603e-06  2.957e-10  3.556e-06  4.777e-08  2.190e-11  0.000e+00
+            ( 99.99%)  (  0.01%)  ( 98.67%)  (  1.33%)  (  0.00%)  (  0.00%)
+            1.624e-02    6704-6705   
+
+---*------ 3  evlpMultiplier16/low_res_latch/latch_13 (evLatch_cell_2) 1472
+ 3.438e-06  3.437e-06  2.957e-10  3.391e-06  4.585e-08  2.190e-11  0.000e+00
+            ( 99.99%)  (  0.01%)  ( 98.67%)  (  1.33%)  (  0.00%)  (  0.00%)
+            1.624e-02    5505-5506   
+
+---*------ 3  evlpMultiplier16/low_res_latch/latch_3 (evLatch_cell_12) 1472
+ 3.433e-06  3.433e-06  2.957e-10  3.391e-06  4.150e-08  2.190e-11  0.000e+00
+            ( 99.99%)  (  0.01%)  ( 98.79%)  (  1.21%)  (  0.00%)  (  0.00%)
+            1.624e-02    3504-3505   
+
+---*------ 3  evlpMultiplier16/low_res_latch/latch_8 (evLatch_cell_7) 1469
+ 3.385e-06  3.385e-06  2.957e-10  3.337e-06  4.777e-08  2.190e-11  0.000e+00
+            ( 99.99%)  (  0.01%)  ( 98.59%)  (  1.41%)  (  0.00%)  (  0.00%)
+            1.624e-02    4505-4506   
+
+---*------ 3  evlpMultiplier16/low_res_latch/latch_2 (evLatch_cell_13) 1469
+ 3.383e-06  3.383e-06  2.957e-10  3.337e-06  4.598e-08  2.190e-11  0.000e+00
+            ( 99.99%)  (  0.01%)  ( 98.64%)  (  1.36%)  (  0.00%)  (  0.00%)
+            1.624e-02    3305-3306   
+
+---*------ 3  evlpMultiplier16/low_res_latch/latch_14 (evLatch_cell_1) 1469
+ 3.383e-06  3.383e-06  2.957e-10  3.337e-06  4.575e-08  2.190e-11  0.000e+00
+            ( 99.99%)  (  0.01%)  ( 98.65%)  (  1.35%)  (  0.00%)  (  0.00%)
+            1.624e-02    5707-5708   
+
+---*------ 3  evlpMultiplier16/low_res_latch/latch_9 (evLatch_cell_6) 1467
+ 3.328e-06  3.328e-06  2.957e-10  3.282e-06  4.585e-08  2.190e-11  0.000e+00
+            ( 99.99%)  (  0.01%)  ( 98.62%)  (  1.38%)  (  0.00%)  (  0.00%)
+            1.624e-02    4707-4708   
+
+---*------ 3  evlpMultiplier16/low_res_latch/latch_12 (evLatch_cell_3) 1466
+ 3.275e-06  3.275e-06  2.957e-10  3.227e-06  4.777e-08  2.190e-11  0.000e+00
+            ( 99.99%)  (  0.01%)  ( 98.54%)  (  1.46%)  (  0.00%)  (  0.00%)
+            1.624e-02    5304-5305   
+
+---*------ 3  evlpMultiplier16/low_res_latch/latch_1 (evLatch_cell_14) 1465
+ 3.273e-06  3.273e-06  2.957e-10  3.227e-06  4.585e-08  2.190e-11  0.000e+00
+            ( 99.99%)  (  0.01%)  ( 98.60%)  (  1.40%)  (  0.00%)  (  0.00%)
+            1.624e-02    9104-9105   
+
+---*------ 3  evlpMultiplier16/low_res_latch/latch_6 (evLatch_cell_9) 1465
+ 3.219e-06  3.219e-06  2.957e-10  3.173e-06  4.598e-08  2.190e-11  0.000e+00
+            ( 99.99%)  (  0.01%)  ( 98.57%)  (  1.43%)  (  0.00%)  (  0.00%)
+            1.624e-02    4104-4105   
+
+---*------ 3  evlpMultiplier16/low_res_latch/latch_5 (evLatch_cell_10) 1464
+ 3.219e-06  3.219e-06  2.957e-10  3.173e-06  4.585e-08  2.190e-11  0.000e+00
+            ( 99.99%)  (  0.01%)  ( 98.58%)  (  1.42%)  (  0.00%)  (  0.00%)
+            1.624e-02     905-906    
+
+---*------ 3  evlpMultiplier16/low_res_latch/latch_0 (evLatch_cell_15) 1462
+ 3.193e-06  3.193e-06  2.957e-10  3.145e-06  4.747e-08  2.737e-08  0.000e+00
+            ( 99.99%)  (  0.01%)  ( 98.51%)  (  1.49%)  (  0.86%)  (  0.00%)
+            1.624e-02   20984-20985  
+
+---*------ 3  evlpMultiplier16/low_res_latch/latch_11 (evLatch_cell_4) 1461
+ 3.160e-06  3.159e-06  2.957e-10  3.118e-06  4.150e-08  2.190e-11  0.000e+00
+            ( 99.99%)  (  0.01%)  ( 98.69%)  (  1.31%)  (  0.00%)  (  0.00%)
+            1.624e-02    5104-5105   
+
+---*------ 3  evlpMultiplier16/low_res_latch/latch_15 (evLatch_cell_0) 1438
+ 2.566e-06  2.566e-06  2.957e-10  2.516e-06  4.978e-08  2.190e-11  0.000e+00
+            ( 99.99%)  (  0.01%)  ( 98.06%)  (  1.94%)  (  0.00%)  (  0.00%)
+            1.624e-02    5904-5905   
+
+--*------- 2  evlpMultiplier16/bypass_reg (evlpRegister_wdt16_1) 72299
+ 1.421e-05  1.421e-05  3.338e-09  1.033e-06  1.318e-05  4.844e-09  3.935e-09
+            ( 99.98%)  (  0.02%)  (  7.27%)  ( 92.73%)  (  0.03%)  (  0.03%)
+            1.707e-03   47304-47305  
+
+---*------ 3  evlpMultiplier16/bypass_reg/ff_7 (evMS_Rstbl_FlipFlop_39) 4870
+ 9.853e-07  9.850e-07  2.086e-10  7.077e-08  9.143e-07  2.826e-10  3.016e-10
+            ( 99.98%)  (  0.02%)  (  7.18%)  ( 92.82%)  (  0.03%)  (  0.03%)
+            1.394e-04    4504-4505   
+
+---*------ 3  evlpMultiplier16/bypass_reg/ff_6 (evMS_Rstbl_FlipFlop_40) 4847
+ 9.807e-07  9.805e-07  2.086e-10  6.957e-08  9.109e-07  2.826e-10  0.000e+00
+            ( 99.98%)  (  0.02%)  (  7.10%)  ( 92.90%)  (  0.03%)  (  0.00%)
+            1.394e-04    5504-5505   
+
+---*------ 3  evlpMultiplier16/bypass_reg/ff_5 (evMS_Rstbl_FlipFlop_41) 4827
+ 9.731e-07  9.729e-07  2.086e-10  6.981e-08  9.031e-07  2.826e-10  4.329e-10
+            ( 99.98%)  (  0.02%)  (  7.18%)  ( 92.82%)  (  0.03%)  (  0.04%)
+            1.394e-04    4104-4105   
+
+---*------ 3  evlpMultiplier16/bypass_reg/ff_8 (evMS_Rstbl_FlipFlop_38) 4819
+ 9.722e-07  9.720e-07  2.086e-10  6.813e-08  9.039e-07  2.826e-10  3.016e-10
+            ( 99.98%)  (  0.02%)  (  7.01%)  ( 92.99%)  (  0.03%)  (  0.03%)
+            1.394e-04    7504-7505   
+
+---*------ 3  evlpMultiplier16/bypass_reg/ff_4 (evMS_Rstbl_FlipFlop_42) 4741
+ 9.523e-07  9.521e-07  2.086e-10  6.429e-08  8.878e-07  2.826e-10  1.704e-10
+            ( 99.98%)  (  0.02%)  (  6.75%)  ( 93.25%)  (  0.03%)  (  0.02%)
+            1.394e-04    6704-6705   
+
+---*------ 3  evlpMultiplier16/bypass_reg/ff_9 (evMS_Rstbl_FlipFlop_37) 4742
+ 9.498e-07  9.496e-07  2.086e-10  6.837e-08  8.812e-07  2.826e-10  4.329e-10
+            ( 99.98%)  (  0.02%)  (  7.20%)  ( 92.80%)  (  0.03%)  (  0.05%)
+            1.394e-04    4504-4505   
+
+---*------ 3  evlpMultiplier16/bypass_reg/ff_2 (evMS_Rstbl_FlipFlop_44) 4679
+ 9.334e-07  9.332e-07  2.086e-10  6.813e-08  8.650e-07  5.652e-10  1.312e-10
+            ( 99.98%)  (  0.02%)  (  7.30%)  ( 92.70%)  (  0.06%)  (  0.01%)
+            1.394e-04    4504-4505   
+
+---*------ 3  evlpMultiplier16/bypass_reg/ff_3 (evMS_Rstbl_FlipFlop_43) 4674
+ 9.320e-07  9.318e-07  2.086e-10  6.717e-08  8.646e-07  2.826e-10  3.937e-10
+            ( 99.98%)  (  0.02%)  (  7.21%)  ( 92.79%)  (  0.03%)  (  0.04%)
+            1.394e-04    4104-4105   
+
+---*------ 3  evlpMultiplier16/bypass_reg/ff_10 (evMS_Rstbl_FlipFlop_36) 4668
+ 9.303e-07  9.300e-07  2.086e-10  6.837e-08  8.617e-07  2.826e-10  3.914e-11
+            ( 99.98%)  (  0.02%)  (  7.35%)  ( 92.65%)  (  0.03%)  (  0.00%)
+            1.394e-04    5504-5505   
+
+---*------ 3  evlpMultiplier16/bypass_reg/ff_1 (evMS_Rstbl_FlipFlop_45) 4575
+ 8.998e-07  8.996e-07  2.086e-10  6.294e-08  8.366e-07  6.048e-10  4.329e-10
+            ( 99.98%)  (  0.02%)  (  7.00%)  ( 93.00%)  (  0.07%)  (  0.05%)
+            1.394e-04    4104-4105   
+
+---*------ 3  evlpMultiplier16/bypass_reg/ff_11 (evMS_Rstbl_FlipFlop_35) 4563
+ 8.985e-07  8.983e-07  2.086e-10  7.005e-08  8.282e-07  2.826e-10  4.329e-10
+            ( 99.98%)  (  0.02%)  (  7.80%)  ( 92.20%)  (  0.03%)  (  0.05%)
+            1.394e-04   17504-17505  
+
+---*------ 3  evlpMultiplier16/bypass_reg/ff_0 (evMS_Rstbl_FlipFlop_46) 4431
+ 8.686e-07  8.684e-07  2.086e-10  7.311e-08  7.953e-07  2.826e-10  7.828e-11
+            ( 99.98%)  (  0.02%)  (  8.42%)  ( 91.58%)  (  0.03%)  (  0.01%)
+            1.394e-04     304-305    
+
+---*------ 3  evlpMultiplier16/bypass_reg/ff_12 (evMS_Rstbl_FlipFlop_34) 4426
+ 8.591e-07  8.589e-07  2.086e-10  6.340e-08  7.955e-07  2.826e-10  1.312e-10
+            ( 99.98%)  (  0.02%)  (  7.38%)  ( 92.62%)  (  0.03%)  (  0.02%)
+            1.394e-04    7504-7505   
+
+---*------ 3  evlpMultiplier16/bypass_reg/ff_13 (evMS_Rstbl_FlipFlop_33) 4240
+ 8.083e-07  8.081e-07  2.086e-10  6.044e-08  7.477e-07  2.826e-10  0.000e+00
+            ( 99.97%)  (  0.03%)  (  7.48%)  ( 92.52%)  (  0.03%)  (  0.00%)
+            1.394e-04   29504-29505  
+
+---*------ 3  evlpMultiplier16/bypass_reg/ff_14 (evMS_Rstbl_FlipFlop_32) 3908
+ 7.173e-07  7.171e-07  2.086e-10  5.408e-08  6.630e-07  2.826e-10  2.625e-10
+            ( 99.97%)  (  0.03%)  (  7.54%)  ( 92.46%)  (  0.04%)  (  0.04%)
+            1.394e-04  164984-164985 
+
+---*------ 3  evlpMultiplier16/bypass_reg/ff_15 (evMS_Rstbl_FlipFlop_31) 3289
+ 5.533e-07  5.531e-07  2.086e-10  3.431e-08  5.188e-07  0.000e+00  3.937e-10
+            ( 99.96%)  (  0.04%)  (  6.20%)  ( 93.80%)  (  0.00%)  (  0.07%)
+            1.394e-04   11984-11985  
+
+--*------- 2  evlpMultiplier16/feeder_reg (evlpRegister_wdt16_0) 55835
+ 1.294e-05  1.294e-05  3.338e-09  1.497e-06  1.144e-05  4.844e-09  0.000e+00
+            ( 99.97%)  (  0.03%)  ( 11.57%)  ( 88.43%)  (  0.04%)  (  0.00%)
+            2.524e-03  177102-177103 
+
+---*------ 3  evlpMultiplier16/feeder_reg/ff_7 (evMS_Rstbl_FlipFlop_23) 3860
+ 9.202e-07  9.200e-07  2.086e-10  1.117e-07  8.082e-07  2.826e-10  0.000e+00
+            ( 99.98%)  (  0.02%)  ( 12.15%)  ( 87.85%)  (  0.03%)  (  0.00%)
+            1.942e-04    4302-4303   
+
+---*------ 3  evlpMultiplier16/feeder_reg/ff_6 (evMS_Rstbl_FlipFlop_24) 3845
+ 9.159e-07  9.157e-07  2.086e-10  1.112e-07  8.045e-07  2.826e-10  0.000e+00
+            ( 99.98%)  (  0.02%)  ( 12.14%)  ( 87.86%)  (  0.03%)  (  0.00%)
+            1.942e-04    4702-4703   
+
+---*------ 3  evlpMultiplier16/feeder_reg/ff_5 (evMS_Rstbl_FlipFlop_25) 3825
+ 9.100e-07  9.098e-07  2.086e-10  1.117e-07  7.981e-07  2.826e-10  0.000e+00
+            ( 99.98%)  (  0.02%)  ( 12.28%)  ( 87.72%)  (  0.03%)  (  0.00%)
+            1.942e-04    4902-4903   
+
+---*------ 3  evlpMultiplier16/feeder_reg/ff_8 (evMS_Rstbl_FlipFlop_22) 3814
+ 9.051e-07  9.049e-07  2.086e-10  1.068e-07  7.981e-07  2.826e-10  0.000e+00
+            ( 99.98%)  (  0.02%)  ( 11.80%)  ( 88.20%)  (  0.03%)  (  0.00%)
+            1.942e-04    4702-4703   
+
+---*------ 3  evlpMultiplier16/feeder_reg/ff_4 (evMS_Rstbl_FlipFlop_26) 3770
+ 8.934e-07  8.932e-07  2.086e-10  1.079e-07  7.853e-07  2.826e-10  0.000e+00
+            ( 99.98%)  (  0.02%)  ( 12.08%)  ( 87.92%)  (  0.03%)  (  0.00%)
+            1.942e-04    4302-4303   
+
+---*------ 3  evlpMultiplier16/feeder_reg/ff_9 (evMS_Rstbl_FlipFlop_21) 3726
+ 8.795e-07  8.793e-07  2.086e-10  1.045e-07  7.747e-07  2.826e-10  0.000e+00
+            ( 99.98%)  (  0.02%)  ( 11.89%)  ( 88.11%)  (  0.03%)  (  0.00%)
+            1.942e-04    4302-4303   
+
+---*------ 3  evlpMultiplier16/feeder_reg/ff_3 (evMS_Rstbl_FlipFlop_27) 3690
+ 8.718e-07  8.716e-07  2.086e-10  1.106e-07  7.610e-07  2.826e-10  0.000e+00
+            ( 99.98%)  (  0.02%)  ( 12.69%)  ( 87.31%)  (  0.03%)  (  0.00%)
+            1.942e-04    4702-4703   
+
+---*------ 3  evlpMultiplier16/feeder_reg/ff_2 (evMS_Rstbl_FlipFlop_28) 3684
+ 8.692e-07  8.690e-07  2.086e-10  1.095e-07  7.595e-07  5.652e-10  0.000e+00
+            ( 99.98%)  (  0.02%)  ( 12.60%)  ( 87.40%)  (  0.07%)  (  0.00%)
+            1.942e-04     502-503    
+
+---*------ 3  evlpMultiplier16/feeder_reg/ff_10 (evMS_Rstbl_FlipFlop_20) 3623
+ 8.479e-07  8.477e-07  2.086e-10  9.680e-08  7.509e-07  2.826e-10  0.000e+00
+            ( 99.98%)  (  0.02%)  ( 11.42%)  ( 88.58%)  (  0.03%)  (  0.00%)
+            1.942e-04    4702-4703   
+
+---*------ 3  evlpMultiplier16/feeder_reg/ff_1 (evMS_Rstbl_FlipFlop_29) 3597
+ 8.447e-07  8.445e-07  2.086e-10  1.106e-07  7.339e-07  6.048e-10  0.000e+00
+            ( 99.98%)  (  0.02%)  ( 13.10%)  ( 86.90%)  (  0.07%)  (  0.00%)
+            1.942e-04    4302-4303   
+
+---*------ 3  evlpMultiplier16/feeder_reg/ff_11 (evMS_Rstbl_FlipFlop_19) 3482
+ 8.053e-07  8.051e-07  2.086e-10  9.016e-08  7.150e-07  2.826e-10  0.000e+00
+            ( 99.97%)  (  0.03%)  ( 11.20%)  ( 88.80%)  (  0.04%)  (  0.00%)
+            1.942e-04    4302-4303   
+
+---*------ 3  evlpMultiplier16/feeder_reg/ff_0 (evMS_Rstbl_FlipFlop_30) 3443
+ 8.013e-07  8.011e-07  2.086e-10  1.101e-07  6.911e-07  2.826e-10  0.000e+00
+            ( 99.97%)  (  0.03%)  ( 13.74%)  ( 86.26%)  (  0.04%)  (  0.00%)
+            1.942e-04    4702-4703   
+
+---*------ 3  evlpMultiplier16/feeder_reg/ff_12 (evMS_Rstbl_FlipFlop_18) 3322
+ 7.554e-07  7.552e-07  2.086e-10  7.689e-08  6.783e-07  2.826e-10  0.000e+00
+            ( 99.97%)  (  0.03%)  ( 10.18%)  ( 89.82%)  (  0.04%)  (  0.00%)
+            1.942e-04    4302-4303   
+
+---*------ 3  evlpMultiplier16/feeder_reg/ff_13 (evMS_Rstbl_FlipFlop_17) 3105
+ 6.885e-07  6.883e-07  2.086e-10  6.140e-08  6.269e-07  2.826e-10  0.000e+00
+            ( 99.97%)  (  0.03%)  (  8.92%)  ( 91.08%)  (  0.04%)  (  0.00%)
+            1.942e-04    4702-4703   
+
+---*------ 3  evlpMultiplier16/feeder_reg/ff_14 (evMS_Rstbl_FlipFlop_16) 2793
+ 5.963e-07  5.961e-07  2.086e-10  5.089e-08  5.452e-07  2.826e-10  0.000e+00
+            ( 99.97%)  (  0.03%)  (  8.54%)  ( 91.46%)  (  0.05%)  (  0.00%)
+            1.942e-04    6102-6103   
+
+---*------ 3  evlpMultiplier16/feeder_reg/ff_15 (evMS_Rstbl_FlipFlop_15) 2256
+ 4.360e-07  4.358e-07  2.086e-10  2.600e-08  4.098e-07  0.000e+00  0.000e+00
+            ( 99.95%)  (  0.05%)  (  5.97%)  ( 94.03%)  (  0.00%)  (  0.00%)
+            1.942e-04    6902-6903   
+
+--*------- 2  evlpMultiplier16/counter (evRingCounter_GtdClk_wdt16_block_size4) 24511
+ 2.249e-06  2.243e-06  5.375e-09  1.031e-06  1.212e-06  0.000e+00  0.000e+00
+            ( 99.76%)  (  0.24%)  ( 45.98%)  ( 54.02%)  (  0.00%)  (  0.00%)
+            8.024e-04      51-52     
+
+---*------ 3  evlpMultiplier16/counter/ff_11 (evMS_Rstbl_FlipFlop_4) 593
+ 2.309e-07  2.304e-07  4.732e-10  8.442e-08  1.460e-07  0.000e+00  0.000e+00
+            ( 99.80%)  (  0.20%)  ( 36.64%)  ( 63.36%)  (  0.00%)  (  0.00%)
+            3.567e-04    2102-2103   
+
+---*------ 3  evlpMultiplier16/counter/ff_7 (evMS_Rstbl_FlipFlop_8) 593
+ 2.309e-07  2.304e-07  4.732e-10  8.442e-08  1.460e-07  0.000e+00  0.000e+00
+            ( 99.80%)  (  0.20%)  ( 36.64%)  ( 63.36%)  (  0.00%)  (  0.00%)
+            3.567e-04    1302-1303   
+
+---*------ 3  evlpMultiplier16/counter/ff_3 (evMS_Rstbl_FlipFlop_12) 593
+ 2.309e-07  2.304e-07  4.732e-10  8.442e-08  1.460e-07  0.000e+00  0.000e+00
+            ( 99.80%)  (  0.20%)  ( 36.64%)  ( 63.36%)  (  0.00%)  (  0.00%)
+            3.567e-04     502-503    
+
+---*------ 3  evlpMultiplier16/counter/first_ff (evMS_Prstbl_FlipFlop) 590
+ 1.844e-07  1.842e-07  2.083e-10  8.283e-08  1.014e-07  0.000e+00  0.000e+00
+            ( 99.89%)  (  0.11%)  ( 44.96%)  ( 55.04%)  (  0.00%)  (  0.00%)
+            3.744e-04    2982-2983   
+
+---*------ 3  evlpMultiplier16/counter/ff_15 (evMS_Rstbl_FlipFlop_0) 590
+ 1.445e-07  1.442e-07  2.086e-10  8.285e-08  6.139e-08  0.000e+00  0.000e+00
+            ( 99.86%)  (  0.14%)  ( 57.44%)  ( 42.56%)  (  0.00%)  (  0.00%)
+            2.929e-04    2902-2903   
+
+---*------ 3  evlpMultiplier16/counter/ff_1 (evMS_Rstbl_FlipFlop_14) 592
+ 1.184e-07  1.182e-07  2.086e-10  5.125e-08  6.691e-08  0.000e+00  0.000e+00
+            ( 99.82%)  (  0.18%)  ( 43.37%)  ( 56.63%)  (  0.00%)  (  0.00%)
+            2.438e-04    3102-3103   
+
+---*------ 3  evlpMultiplier16/counter/ff_12 (evMS_Rstbl_FlipFlop_3) 593
+ 1.095e-07  1.093e-07  2.086e-10  6.643e-08  4.283e-08  0.000e+00  0.000e+00
+            ( 99.81%)  (  0.19%)  ( 60.80%)  ( 39.20%)  (  0.00%)  (  0.00%)
+            2.389e-04    2302-2303   
+
+---*------ 3  evlpMultiplier16/counter/ff_8 (evMS_Rstbl_FlipFlop_7) 593
+ 1.095e-07  1.093e-07  2.086e-10  6.643e-08  4.283e-08  0.000e+00  0.000e+00
+            ( 99.81%)  (  0.19%)  ( 60.80%)  ( 39.20%)  (  0.00%)  (  0.00%)
+            2.389e-04    1502-1503   
+
+---*------ 3  evlpMultiplier16/counter/ff_4 (evMS_Rstbl_FlipFlop_11) 593
+ 1.095e-07  1.093e-07  2.086e-10  6.643e-08  4.283e-08  0.000e+00  0.000e+00
+            ( 99.81%)  (  0.19%)  ( 60.80%)  ( 39.20%)  (  0.00%)  (  0.00%)
+            2.389e-04     702-703    
+
+---*------ 3  evlpMultiplier16/counter/ff_13 (evMS_Rstbl_FlipFlop_2) 593
+ 1.005e-07  1.003e-07  2.086e-10  5.125e-08  4.907e-08  0.000e+00  0.000e+00
+            ( 99.79%)  (  0.21%)  ( 51.09%)  ( 48.91%)  (  0.00%)  (  0.00%)
+            1.967e-04    2502-2503   
+
+---*------ 3  evlpMultiplier16/counter/ff_9 (evMS_Rstbl_FlipFlop_6) 593
+ 1.005e-07  1.003e-07  2.086e-10  5.125e-08  4.907e-08  0.000e+00  0.000e+00
+            ( 99.79%)  (  0.21%)  ( 51.09%)  ( 48.91%)  (  0.00%)  (  0.00%)
+            1.967e-04    1702-1703   
+
+---*------ 3  evlpMultiplier16/counter/ff_5 (evMS_Rstbl_FlipFlop_10) 593
+ 1.005e-07  1.003e-07  2.086e-10  5.125e-08  4.907e-08  0.000e+00  0.000e+00
+            ( 99.79%)  (  0.21%)  ( 51.09%)  ( 48.91%)  (  0.00%)  (  0.00%)
+            1.967e-04     902-903    
+
+---*------ 3  evlpMultiplier16/counter/ff_10 (evMS_Rstbl_FlipFlop_5) 593
+ 9.949e-08  9.928e-08  2.086e-10  5.231e-08  4.697e-08  0.000e+00  0.000e+00
+            ( 99.79%)  (  0.21%)  ( 52.69%)  ( 47.31%)  (  0.00%)  (  0.00%)
+            1.988e-04    1902-1903   
+
+---*------ 3  evlpMultiplier16/counter/ff_6 (evMS_Rstbl_FlipFlop_9) 593
+ 9.949e-08  9.928e-08  2.086e-10  5.231e-08  4.697e-08  0.000e+00  0.000e+00
+            ( 99.79%)  (  0.21%)  ( 52.69%)  ( 47.31%)  (  0.00%)  (  0.00%)
+            1.988e-04    1102-1103   
+
+---*------ 3  evlpMultiplier16/counter/ff_2 (evMS_Rstbl_FlipFlop_13) 593
+ 9.949e-08  9.928e-08  2.086e-10  5.231e-08  4.697e-08  0.000e+00  0.000e+00
+            ( 99.79%)  (  0.21%)  ( 52.69%)  ( 47.31%)  (  0.00%)  (  0.00%)
+            1.988e-04     302-303    
+
+---*------ 3  evlpMultiplier16/counter/ff_14 (evMS_Rstbl_FlipFlop_1) 592
+ 9.843e-08  9.822e-08  2.086e-10  5.125e-08  4.697e-08  0.000e+00  0.000e+00
+            ( 99.79%)  (  0.21%)  ( 52.18%)  ( 47.82%)  (  0.00%)  (  0.00%)
+            1.956e-04    2702-2703   
+
+---*------ 3  evlpMultiplier16/counter/first_gator (evClockGator_RngCntrP) 3755
+ 3.953e-08  3.921e-08  3.175e-10  0.000e+00  3.921e-08  0.000e+00  0.000e+00
+            ( 99.20%)  (  0.80%)  (  0.00%)  (100.00%)  (  0.00%)  (  0.00%)
+            5.142e-05      51-52     
+
+----*----- 4  evlpMultiplier16/counter/first_gator/prlatch (evPrst_Latch_cell) 393
+ 3.935e-08  3.921e-08  1.348e-10  0.000e+00  3.921e-08  0.000e+00  0.000e+00
+            ( 99.66%)  (  0.34%)  (  0.00%)  (100.00%)  (  0.00%)  (  0.00%)
+            5.142e-05      51-52     
+
+----*----- 4  evlpMultiplier16/counter/first_gator/line_selector (evMUX2_1_3) 394
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+---*------ 3  evlpMultiplier16/counter/gator_1 (evClockGator_RngCntrR_2) 3759
+ 1.413e-08  1.382e-08  3.089e-10  0.000e+00  1.382e-08  0.000e+00  0.000e+00
+            ( 97.81%)  (  2.19%)  (  0.00%)  (100.00%)  (  0.00%)  (  0.00%)
+            1.581e-05     702-703    
+
+----*----- 4  evlpMultiplier16/counter/gator_1/rlatch (evRst_Latch_cell_2) 395
+ 1.395e-08  1.382e-08  1.262e-10  0.000e+00  1.382e-08  0.000e+00  0.000e+00
+            ( 99.10%)  (  0.90%)  (  0.00%)  (100.00%)  (  0.00%)  (  0.00%)
+            1.581e-05     702-703    
+
+----*----- 4  evlpMultiplier16/counter/gator_1/line_selector (evMUX2_1_2) 396
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+---*------ 3  evlpMultiplier16/counter/gator_2 (evClockGator_RngCntrR_1) 3759
+ 1.413e-08  1.382e-08  3.089e-10  0.000e+00  1.382e-08  0.000e+00  0.000e+00
+            ( 97.81%)  (  2.19%)  (  0.00%)  (100.00%)  (  0.00%)  (  0.00%)
+            1.581e-05    1502-1503   
+
+----*----- 4  evlpMultiplier16/counter/gator_2/rlatch (evRst_Latch_cell_1) 395
+ 1.395e-08  1.382e-08  1.262e-10  0.000e+00  1.382e-08  0.000e+00  0.000e+00
+            ( 99.10%)  (  0.90%)  (  0.00%)  (100.00%)  (  0.00%)  (  0.00%)
+            1.581e-05    1502-1503   
+
+----*----- 4  evlpMultiplier16/counter/gator_2/line_selector (evMUX2_1_1) 396
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+---*------ 3  evlpMultiplier16/counter/last_gator_3 (evClockGator_RngCntrR_0) 3758
+ 1.413e-08  1.382e-08  3.089e-10  0.000e+00  1.382e-08  0.000e+00  0.000e+00
+            ( 97.81%)  (  2.19%)  (  0.00%)  (100.00%)  (  0.00%)  (  0.00%)
+            1.581e-05    2302-2303   
+
+----*----- 4  evlpMultiplier16/counter/last_gator_3/rlatch (evRst_Latch_cell_0) 395
+ 1.395e-08  1.382e-08  1.262e-10  0.000e+00  1.382e-08  0.000e+00  0.000e+00
+            ( 99.10%)  (  0.90%)  (  0.00%)  (100.00%)  (  0.00%)  (  0.00%)
+            1.581e-05    2302-2303   
+
+----*----- 4  evlpMultiplier16/counter/last_gator_3/line_selector (evMUX2_1_0) 395
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+--*------- 2  evlpMultiplier16/adder (evlpRCAdder_wdt16) 33179
+ 2.029e-06  2.019e-06  1.071e-08  1.988e-06  3.075e-08  0.000e+00  0.000e+00
+            ( 99.47%)  (  0.53%)  ( 98.48%)  (  1.52%)  (  0.00%)  (  0.00%)
+            8.192e-04  131904-131905 
+
+---*------ 3  evlpMultiplier16/adder/adder_8 (evLPFA_7) 2458
+ 1.585e-07  1.579e-07  6.692e-10  1.579e-07  0.000e+00  0.000e+00  0.000e+00
+            ( 99.58%)  (  0.42%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            8.322e-05    2982-2983   
+
+----*----- 4  evlpMultiplier16/adder/adder_8/mx3 (evMUX2_1_33) 1126
+ 1.580e-07  1.579e-07  1.651e-10  1.579e-07  0.000e+00  0.000e+00  0.000e+00
+            ( 99.90%)  (  0.10%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            8.322e-05    2982-2983   
+
+----*----- 4  evlpMultiplier16/adder/adder_8/mx2 (evMUX2_1_34) 444
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_8/mx1 (evMUX2_1_35) 444
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_8/mx4 (evMUX2_1_32) 386
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_8/inv (evCINV_7) 58
+ 8.800e-12  0.000e+00  8.800e-12  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            8.800e-12       0-1      
+
+---*------ 3  evlpMultiplier16/adder/adder_7 (evLPFA_8) 2458
+ 1.549e-07  1.542e-07  6.692e-10  1.542e-07  0.000e+00  0.000e+00  0.000e+00
+            ( 99.57%)  (  0.43%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            8.322e-05    4304-4305   
+
+----*----- 4  evlpMultiplier16/adder/adder_7/mx3 (evMUX2_1_37) 1099
+ 1.544e-07  1.542e-07  1.651e-10  1.542e-07  0.000e+00  0.000e+00  0.000e+00
+            ( 99.89%)  (  0.11%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            8.322e-05    4304-4305   
+
+----*----- 4  evlpMultiplier16/adder/adder_7/mx2 (evMUX2_1_38) 453
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_7/mx1 (evMUX2_1_39) 453
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_7/mx4 (evMUX2_1_36) 404
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_7/inv (evCINV_8) 49
+ 8.800e-12  0.000e+00  8.800e-12  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            8.800e-12       0-1      
+
+---*------ 3  evlpMultiplier16/adder/adder_6 (evLPFA_9) 2452
+ 1.540e-07  1.534e-07  6.692e-10  1.534e-07  0.000e+00  0.000e+00  0.000e+00
+            ( 99.57%)  (  0.43%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            8.322e-05    4305-4306   
+
+----*----- 4  evlpMultiplier16/adder/adder_6/mx3 (evMUX2_1_41) 1093
+ 1.535e-07  1.534e-07  1.651e-10  1.534e-07  0.000e+00  0.000e+00  0.000e+00
+            ( 99.89%)  (  0.11%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            8.322e-05    4305-4306   
+
+----*----- 4  evlpMultiplier16/adder/adder_6/mx2 (evMUX2_1_42) 453
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_6/mx1 (evMUX2_1_43) 453
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_6/mx4 (evMUX2_1_40) 402
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_6/inv (evCINV_9) 51
+ 8.800e-12  0.000e+00  8.800e-12  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            8.800e-12       0-1      
+
+---*------ 3  evlpMultiplier16/adder/adder_9 (evLPFA_6) 2400
+ 1.529e-07  1.522e-07  6.692e-10  1.522e-07  0.000e+00  0.000e+00  0.000e+00
+            ( 99.56%)  (  0.44%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            8.322e-05    4304-4305   
+
+----*----- 4  evlpMultiplier16/adder/adder_9/mx3 (evMUX2_1_29) 1086
+ 1.524e-07  1.522e-07  1.651e-10  1.522e-07  0.000e+00  0.000e+00  0.000e+00
+            ( 99.89%)  (  0.11%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            8.322e-05    4304-4305   
+
+----*----- 4  evlpMultiplier16/adder/adder_9/mx2 (evMUX2_1_30) 438
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_9/mx1 (evMUX2_1_31) 438
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_9/mx4 (evMUX2_1_28) 377
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_9/inv (evCINV_6) 61
+ 8.800e-12  0.000e+00  8.800e-12  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            8.800e-12       0-1      
+
+---*------ 3  evlpMultiplier16/adder/adder_5 (evLPFA_10) 2477
+ 1.529e-07  1.522e-07  6.692e-10  1.522e-07  0.000e+00  0.000e+00  0.000e+00
+            ( 99.56%)  (  0.44%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            8.322e-05    2982-2983   
+
+----*----- 4  evlpMultiplier16/adder/adder_5/mx3 (evMUX2_1_45) 1085
+ 1.524e-07  1.522e-07  1.651e-10  1.522e-07  0.000e+00  0.000e+00  0.000e+00
+            ( 99.89%)  (  0.11%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            8.322e-05    2982-2983   
+
+----*----- 4  evlpMultiplier16/adder/adder_5/mx2 (evMUX2_1_46) 464
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_5/mx1 (evMUX2_1_47) 464
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_5/mx4 (evMUX2_1_44) 404
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_5/inv (evCINV_10) 60
+ 8.800e-12  0.000e+00  8.800e-12  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            8.800e-12       0-1      
+
+---*------ 3  evlpMultiplier16/adder/adder_10 (evLPFA_5) 2243
+ 1.453e-07  1.447e-07  6.692e-10  1.447e-07  0.000e+00  0.000e+00  0.000e+00
+            ( 99.54%)  (  0.46%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            8.322e-05    2982-2983   
+
+----*----- 4  evlpMultiplier16/adder/adder_10/mx3 (evMUX2_1_25) 1031
+ 1.448e-07  1.447e-07  1.651e-10  1.447e-07  0.000e+00  0.000e+00  0.000e+00
+            ( 99.89%)  (  0.11%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            8.322e-05    2982-2983   
+
+----*----- 4  evlpMultiplier16/adder/adder_10/mx2 (evMUX2_1_26) 404
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_10/mx1 (evMUX2_1_27) 404
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_10/mx4 (evMUX2_1_24) 349
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_10/inv (evCINV_5) 55
+ 8.800e-12  0.000e+00  8.800e-12  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            8.800e-12       0-1      
+
+---*------ 3  evlpMultiplier16/adder/adder_4 (evLPFA_11) 2331
+ 1.420e-07  1.413e-07  6.692e-10  1.413e-07  0.000e+00  0.000e+00  0.000e+00
+            ( 99.53%)  (  0.47%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            8.322e-05     505-506    
+
+----*----- 4  evlpMultiplier16/adder/adder_4/mx3 (evMUX2_1_49) 1008
+ 1.415e-07  1.413e-07  1.651e-10  1.413e-07  0.000e+00  0.000e+00  0.000e+00
+            ( 99.88%)  (  0.12%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            8.322e-05     505-506    
+
+----*----- 4  evlpMultiplier16/adder/adder_4/mx2 (evMUX2_1_50) 441
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_4/mx1 (evMUX2_1_51) 441
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_4/mx4 (evMUX2_1_48) 389
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_4/inv (evCINV_11) 52
+ 8.800e-12  0.000e+00  8.800e-12  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            8.800e-12       0-1      
+
+---*------ 3  evlpMultiplier16/adder/adder_15 (evLPFA_0) 1243
+ 1.340e-07  1.333e-07  6.692e-10  1.026e-07  3.075e-08  0.000e+00  0.000e+00
+            ( 99.50%)  (  0.50%)  ( 76.93%)  ( 23.07%)  (  0.00%)  (  0.00%)
+            1.136e-04   11982-11983  
+
+----*----- 4  evlpMultiplier16/adder/adder_15/mx3 (evMUX2_1_5) 528
+ 6.888e-08  6.872e-08  1.651e-10  6.872e-08  0.000e+00  0.000e+00  0.000e+00
+            ( 99.76%)  (  0.24%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            7.725e-05    5982-5983   
+
+----*----- 4  evlpMultiplier16/adder/adder_15/mx4 (evMUX2_1_4) 352
+ 6.476e-08  6.459e-08  1.651e-10  3.384e-08  3.075e-08  0.000e+00  0.000e+00
+            ( 99.75%)  (  0.25%)  ( 52.39%)  ( 47.61%)  (  0.00%)  (  0.00%)
+            1.136e-04   11982-11983  
+
+----*----- 4  evlpMultiplier16/adder/adder_15/mx2 (evMUX2_1_6) 152
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_15/mx1 (evMUX2_1_7) 152
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_15/inv (evCINV_0) 59
+ 8.800e-12  0.000e+00  8.800e-12  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            8.800e-12       0-1      
+
+---*------ 3  evlpMultiplier16/adder/adder_3 (evLPFA_12) 2296
+ 1.336e-07  1.329e-07  6.692e-10  1.329e-07  0.000e+00  0.000e+00  0.000e+00
+            ( 99.50%)  (  0.50%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            8.322e-05     505-506    
+
+----*----- 4  evlpMultiplier16/adder/adder_3/mx3 (evMUX2_1_53) 949
+ 1.331e-07  1.329e-07  1.651e-10  1.329e-07  0.000e+00  0.000e+00  0.000e+00
+            ( 99.88%)  (  0.12%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            8.322e-05     505-506    
+
+----*----- 4  evlpMultiplier16/adder/adder_3/mx2 (evMUX2_1_54) 449
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_3/mx1 (evMUX2_1_55) 449
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_3/mx4 (evMUX2_1_52) 399
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_3/inv (evCINV_12) 50
+ 8.800e-12  0.000e+00  8.800e-12  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            8.800e-12       0-1      
+
+---*------ 3  evlpMultiplier16/adder/adder_11 (evLPFA_4) 2047
+ 1.313e-07  1.307e-07  6.692e-10  1.307e-07  0.000e+00  0.000e+00  0.000e+00
+            ( 99.49%)  (  0.51%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            8.322e-05    4304-4305   
+
+----*----- 4  evlpMultiplier16/adder/adder_11/mx3 (evMUX2_1_21) 931
+ 1.308e-07  1.307e-07  1.651e-10  1.307e-07  0.000e+00  0.000e+00  0.000e+00
+            ( 99.87%)  (  0.13%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            8.322e-05    4304-4305   
+
+----*----- 4  evlpMultiplier16/adder/adder_11/mx2 (evMUX2_1_22) 372
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_11/mx1 (evMUX2_1_23) 372
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_11/mx4 (evMUX2_1_20) 326
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_11/inv (evCINV_4) 46
+ 8.800e-12  0.000e+00  8.800e-12  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            8.800e-12       0-1      
+
+---*------ 3  evlpMultiplier16/adder/adder_2 (evLPFA_13) 2194
+ 1.195e-07  1.189e-07  6.692e-10  1.189e-07  0.000e+00  0.000e+00  0.000e+00
+            ( 99.44%)  (  0.56%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            8.322e-05     504-505    
+
+----*----- 4  evlpMultiplier16/adder/adder_2/mx3 (evMUX2_1_57) 847
+ 1.190e-07  1.189e-07  1.651e-10  1.189e-07  0.000e+00  0.000e+00  0.000e+00
+            ( 99.86%)  (  0.14%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            8.322e-05     504-505    
+
+----*----- 4  evlpMultiplier16/adder/adder_2/mx2 (evMUX2_1_58) 449
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_2/mx1 (evMUX2_1_59) 449
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_2/mx4 (evMUX2_1_56) 396
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_2/inv (evCINV_13) 53
+ 8.800e-12  0.000e+00  8.800e-12  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            8.800e-12       0-1      
+
+---*------ 3  evlpMultiplier16/adder/adder_12 (evLPFA_3) 1860
+ 1.131e-07  1.124e-07  6.692e-10  1.124e-07  0.000e+00  0.000e+00  0.000e+00
+            ( 99.41%)  (  0.59%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            7.726e-05    2982-2983   
+
+----*----- 4  evlpMultiplier16/adder/adder_12/mx3 (evMUX2_1_17) 864
+ 1.126e-07  1.124e-07  1.651e-10  1.124e-07  0.000e+00  0.000e+00  0.000e+00
+            ( 99.85%)  (  0.15%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            7.725e-05    2982-2983   
+
+----*----- 4  evlpMultiplier16/adder/adder_12/mx2 (evMUX2_1_18) 332
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_12/mx1 (evMUX2_1_19) 332
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_12/mx4 (evMUX2_1_16) 277
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_12/inv (evCINV_3) 55
+ 8.800e-12  0.000e+00  8.800e-12  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            8.800e-12       0-1      
+
+---*------ 3  evlpMultiplier16/adder/adder_13 (evLPFA_2) 1577
+ 9.828e-08  9.761e-08  6.692e-10  9.761e-08  0.000e+00  0.000e+00  0.000e+00
+            ( 99.32%)  (  0.68%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            7.726e-05    2982-2983   
+
+----*----- 4  evlpMultiplier16/adder/adder_13/mx3 (evMUX2_1_13) 749
+ 9.777e-08  9.761e-08  1.651e-10  9.761e-08  0.000e+00  0.000e+00  0.000e+00
+            ( 99.83%)  (  0.17%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            7.725e-05    2982-2983   
+
+----*----- 4  evlpMultiplier16/adder/adder_13/mx2 (evMUX2_1_14) 276
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_13/mx1 (evMUX2_1_15) 276
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_13/mx4 (evMUX2_1_12) 221
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_13/inv (evCINV_2) 55
+ 8.800e-12  0.000e+00  8.800e-12  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            8.800e-12       0-1      
+
+---*------ 3  evlpMultiplier16/adder/adder_14 (evLPFA_1) 1349
+ 8.657e-08  8.590e-08  6.692e-10  8.590e-08  0.000e+00  0.000e+00  0.000e+00
+            ( 99.23%)  (  0.77%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            7.726e-05    4306-4307   
+
+----*----- 4  evlpMultiplier16/adder/adder_14/mx3 (evMUX2_1_9) 659
+ 8.606e-08  8.590e-08  1.651e-10  8.590e-08  0.000e+00  0.000e+00  0.000e+00
+            ( 99.81%)  (  0.19%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            7.725e-05    4306-4307   
+
+----*----- 4  evlpMultiplier16/adder/adder_14/mx2 (evMUX2_1_10) 230
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_14/mx1 (evMUX2_1_11) 230
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_14/mx4 (evMUX2_1_8) 184
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_14/inv (evCINV_1) 46
+ 8.800e-12  0.000e+00  8.800e-12  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            8.800e-12       0-1      
+
+---*------ 3  evlpMultiplier16/adder/adder_1 (evLPFA_14) 1982
+ 8.422e-08  8.355e-08  6.692e-10  8.355e-08  0.000e+00  0.000e+00  0.000e+00
+            ( 99.21%)  (  0.79%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            7.726e-05    4304-4305   
+
+----*----- 4  evlpMultiplier16/adder/adder_1/mx3 (evMUX2_1_61) 641
+ 8.372e-08  8.355e-08  1.651e-10  8.355e-08  0.000e+00  0.000e+00  0.000e+00
+            ( 99.80%)  (  0.20%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            7.725e-05    4304-4305   
+
+----*----- 4  evlpMultiplier16/adder/adder_1/mx2 (evMUX2_1_62) 447
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_1/mx1 (evMUX2_1_63) 447
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_1/mx4 (evMUX2_1_60) 400
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_1/inv (evCINV_14) 47
+ 8.800e-12  0.000e+00  8.800e-12  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            8.800e-12       0-1      
+
+---*------ 3  evlpMultiplier16/adder/adder_0 (evLPFA_15) 1812
+ 6.811e-08  6.744e-08  6.692e-10  6.744e-08  0.000e+00  0.000e+00  0.000e+00
+            ( 99.02%)  (  0.98%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            8.817e-05    4704-4705   
+
+----*----- 4  evlpMultiplier16/adder/adder_0/mx3 (evMUX2_1_65) 453
+ 6.760e-08  6.744e-08  1.651e-10  6.744e-08  0.000e+00  0.000e+00  0.000e+00
+            ( 99.76%)  (  0.24%)  (100.00%)  (  0.00%)  (  0.00%)  (  0.00%)
+            8.817e-05    4704-4705   
+
+----*----- 4  evlpMultiplier16/adder/adder_0/mx2 (evMUX2_1_66) 453
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_0/mx1 (evMUX2_1_67) 453
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_0/mx4 (evMUX2_1_64) 398
+ 1.651e-10  0.000e+00  1.651e-10  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            1.651e-10       0-1      
+
+----*----- 4  evlpMultiplier16/adder/adder_0/inv (evCINV_15) 55
+ 8.800e-12  0.000e+00  8.800e-12  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            8.800e-12       0-1      
+
+--*------- 2  evlpMultiplier16/src_sel_mux (evMUX2_1_85) 1805
+ 1.364e-06  1.363e-06  1.854e-10  1.234e-06  1.290e-07  2.599e-10  0.000e+00
+            ( 99.99%)  (  0.01%)  ( 90.54%)  (  9.46%)  (  0.02%)  (  0.00%)
+            9.857e-04   12103-12104  
+
+--*------- 2  evlpMultiplier16/nxt_hot_bit_mux (evNonEncodedMux_wdt16) 4687
+ 1.178e-06  1.178e-06  5.216e-10  1.099e-06  7.851e-08  0.000e+00  0.000e+00
+            ( 99.96%)  (  0.04%)  ( 93.33%)  (  6.67%)  (  0.00%)  (  0.00%)
+            8.454e-04     303-304    
+
+---*------ 3  evlpMultiplier16/nxt_hot_bit_mux/nms_0 (evNMOS_15) 1045
+ 1.178e-06  1.178e-06  3.260e-11  1.099e-06  7.851e-08  0.000e+00  0.000e+00
+            (100.00%)  (  0.00%)  ( 93.33%)  (  6.67%)  (  0.00%)  (  0.00%)
+            8.454e-04     303-304    
+
+---*------ 3  evlpMultiplier16/nxt_hot_bit_mux/nms_15 (evNMOS_0) 196
+ 3.260e-11  0.000e+00  3.260e-11  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            3.260e-11       0-1      
+
+---*------ 3  evlpMultiplier16/nxt_hot_bit_mux/nms_9 (evNMOS_6) 246
+ 3.260e-11  0.000e+00  3.260e-11  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            3.260e-11       0-1      
+
+---*------ 3  evlpMultiplier16/nxt_hot_bit_mux/nms_6 (evNMOS_9) 248
+ 3.260e-11  0.000e+00  3.260e-11  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            3.260e-11       0-1      
+
+---*------ 3  evlpMultiplier16/nxt_hot_bit_mux/nms_3 (evNMOS_12) 243
+ 3.260e-11  0.000e+00  3.260e-11  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            3.260e-11       0-1      
+
+---*------ 3  evlpMultiplier16/nxt_hot_bit_mux/nms_12 (evNMOS_3) 247
+ 3.260e-11  0.000e+00  3.260e-11  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            3.260e-11       0-1      
+
+---*------ 3  evlpMultiplier16/nxt_hot_bit_mux/nms_8 (evNMOS_7) 249
+ 3.260e-11  0.000e+00  3.260e-11  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            3.260e-11       0-1      
+
+---*------ 3  evlpMultiplier16/nxt_hot_bit_mux/nms_5 (evNMOS_10) 243
+ 3.260e-11  0.000e+00  3.260e-11  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            3.260e-11       0-1      
+
+---*------ 3  evlpMultiplier16/nxt_hot_bit_mux/nms_2 (evNMOS_13) 246
+ 3.260e-11  0.000e+00  3.260e-11  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            3.260e-11       0-1      
+
+---*------ 3  evlpMultiplier16/nxt_hot_bit_mux/nms_1 (evNMOS_14) 244
+ 3.260e-11  0.000e+00  3.260e-11  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            3.260e-11       0-1      
+
+---*------ 3  evlpMultiplier16/nxt_hot_bit_mux/nms_7 (evNMOS_8) 243
+ 3.260e-11  0.000e+00  3.260e-11  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            3.260e-11       0-1      
+
+---*------ 3  evlpMultiplier16/nxt_hot_bit_mux/nms_14 (evNMOS_1) 247
+ 3.260e-11  0.000e+00  3.260e-11  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            3.260e-11       0-1      
+
+---*------ 3  evlpMultiplier16/nxt_hot_bit_mux/nms_11 (evNMOS_4) 242
+ 3.260e-11  0.000e+00  3.260e-11  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            3.260e-11       0-1      
+
+---*------ 3  evlpMultiplier16/nxt_hot_bit_mux/nms_13 (evNMOS_2) 250
+ 3.260e-11  0.000e+00  3.260e-11  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            3.260e-11       0-1      
+
+---*------ 3  evlpMultiplier16/nxt_hot_bit_mux/nms_4 (evNMOS_11) 249
+ 3.260e-11  0.000e+00  3.260e-11  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            3.260e-11       0-1      
+
+---*------ 3  evlpMultiplier16/nxt_hot_bit_mux/nms_10 (evNMOS_5) 249
+ 3.260e-11  0.000e+00  3.260e-11  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+            (  0.00%)  (100.00%)
+            3.260e-11       0-1      
+
+--*------- 2  evlpMultiplier16/src_sel_ff (evMS_FlipFlop) 4518
+ 6.005e-07  6.003e-07  1.489e-10  6.786e-08  5.325e-07  0.000e+00  0.000e+00
+            ( 99.98%)  (  0.02%)  ( 11.30%)  ( 88.70%)  (  0.00%)  (  0.00%)
+            9.233e-05     401-402    
+-------------------------- End of Instances ---------------------------------
+
+
+---------------------------- End of report ----------------------------------
+The following are primepower Run Data Record for GUI:
+
+GUI_version: V-2004.06
+GUI_report: power
+GUI_current_design: evlpMultiplier16
+GUI_activity: /home/mottaghi/tavan-shafagh/byzfad/16byzfad-pow-18u/source/byzfad16-18u.vcd
+GUI_instance_count: 457
+GUI_lib: /home/cad/TSMC/18/synopsys/typical.db
+GUI_input_ramp: 0
+GUI_hier_sep: /
+GUI_insts: evlpMultiplier16
+GUI_time: 0 296801
+GUI_delta_time: 10
+GUI_waveform: 1
+GUI_threshold: 0
+
+time: 1185443282 Thu Jul 26 14:18:02 2007
